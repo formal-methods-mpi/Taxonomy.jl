@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = Taxonomie
+CurrentModule = Taxonomy
 ```
 
-# Taxonomie
+# Taxonomy
 
-Documentation for [Taxonomie](https://github.com/StructuralEquationModels/Taxonomie.jl).
+Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonomy.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [Taxonomie]
+Modules = [Taxonomy]
 ```

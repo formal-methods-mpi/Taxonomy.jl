@@ -1,10 +1,10 @@
-using Taxonomie
+using Taxonomy
 using Test
 using Documenter
 
-@testset "Taxonomie.jl" begin
-    DocMeta.setdocmeta!(Taxonomie, :DocTestSetup, :(using Taxonomie); recursive=true)
-    doctest(Taxonomie)
+@testset "Taxonomy.jl" begin
+    DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
+    doctest(Taxonomy)
     
     include("metadata/doi.jl")
 end

@@ -1,4 +1,4 @@
-module Taxonomie
+module Taxonomy
     include("abstracttypes.jl")
     export DOI, UsualDOI, UnusualDOI
     include("metadata/doi.jl")

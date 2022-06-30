@@ -1,16 +1,16 @@
-using Taxonomie
+using Taxonomy
 using Documenter
 
-DocMeta.setdocmeta!(Taxonomie, :DocTestSetup, :(using Taxonomie); recursive=true)
+DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
 
 makedocs(;
-    modules=[Taxonomie],
+    modules=[Taxonomy],
     authors="Aaron Peikert, Maximilian S. Ernst, Clifford Bode, Nicklas Hafiz",
-    repo="https://github.com/StructuralEquationModels/Taxonomie.jl/blob/{commit}{path}#{line}",
-    sitename="Taxonomie.jl",
+    repo="https://github.com/StructuralEquationModels/Taxonomy.jl/blob/{commit}{path}#{line}",
+    sitename="Taxonomy.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://StructuralEquationModels.github.io/Taxonomie.jl",
+        canonical="https://StructuralEquationModels.github.io/Taxonomy.jl",
         edit_link="devel",
         assets=String[],
     ),
@@ -21,6 +21,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/StructuralEquationModels/Taxonomie.jl",
+    repo="github.com/StructuralEquationModels/Taxonomy.jl",
     devbranch="devel",
 )
