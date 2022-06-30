@@ -4,7 +4,7 @@ CurrentModule = Taxonomie
 
 # Taxonomie
 
-Documentation for [Taxonomie](https://github.com/aaronpeikert/Taxonomie.jl).
+Documentation for [Taxonomie](https://github.com/StructuralEquationModels/Taxonomie.jl).
 
 ```@index
 ```
