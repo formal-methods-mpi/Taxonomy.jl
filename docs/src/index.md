@@ -17,5 +17,6 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 DOI
 UsualDOI
 UnusualDOI
+NoDOI
 valid_doi
 ```
