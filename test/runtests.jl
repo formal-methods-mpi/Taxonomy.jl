@@ -3,8 +3,10 @@ using Test
 using Documenter
 
 @testset "Taxonomy.jl" begin
-    DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
-    doctest(Taxonomy)
+    if VERSION ≥ v"1.7"
+        DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
+        doctest(Taxonomy)
+    end
     
     include("metadata/doi.jl")
 end
