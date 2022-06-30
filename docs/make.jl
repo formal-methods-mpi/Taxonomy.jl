@@ -22,5 +22,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/StructuralEquationModels/Taxonomy.jl",
-    devbranch="devel",
+    devbranch="main",
 )
