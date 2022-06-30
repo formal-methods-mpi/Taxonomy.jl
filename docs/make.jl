@@ -17,9 +17,10 @@ makedocs(;
     pages=[
         "Home" => "index.md",
     ],
+    doctest = false
 )
 
 deploydocs(;
-    repo="github.com/aaronpeikert/Taxonomie.jl",
+    repo="github.com/StructuralEquationModels/Taxonomie.jl",
     devbranch="devel",
 )
