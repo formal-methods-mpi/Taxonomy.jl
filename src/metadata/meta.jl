@@ -3,11 +3,9 @@
 A representation of the most important metadata.
 
 ```jldoctest
-min = Meta("Peikert, Aaron", 2022, "Journal of Statistical Software")
-typeof(min)
+julia> min = MetaData("Peikert, Aaron", 2022, "Journal of Statistical Software");
 
-# output
-
+julia> typeof(min)
 MinimalMeta
 ```
 """
@@ -21,11 +19,9 @@ end
 A representation of Metadata when we can not even capture the most important metadata.
 
 ```jldoctest
-incomplete = Meta(missing, 2022, "Journal of Statistical Software")
-typeof(incomplete)
+julia> incomplete = MetaData(missing, 2022, "Journal of Statistical Software");
 
-# output
-
+julia> typeof(incomplete)
 IncompleteMeta
 ```
 """
@@ -39,11 +35,9 @@ end
 The metadata we can gather from [doi.org](https://www.doi.org).
 
 ```jldoctest
-doi = Meta(DOI("10.1126/SCIENCE.169.3946.635"))
-typeof(doi)
+julia> doi = MetaData(DOI("10.1126/SCIENCE.169.3946.635"));
 
-# output
-
+julia> typeof(doi)
 ExtensiveMeta
 ```
 """
@@ -64,7 +58,8 @@ end
 Extract the year.
 
 ```jldoctest
-julia> doi = Meta(DOI("10.1126/SCIENCE.169.3946.635"));
+julia> doi = MetaData(DOI("10.1126/SCIENCE.169.3946.635"));
+
 julia> year(doi)
 1970
 ```
@@ -108,7 +103,8 @@ end
 Extract the author.
 
 ```jldoctest
-julia> doi = Meta(DOI("10.1126/SCIENCE.169.3946.635"));
+julia> doi = MetaData(DOI("10.1126/SCIENCE.169.3946.635"));
+
 julia> author(doi)
 "Frank, Henry S."
 ```
@@ -127,9 +123,10 @@ end
 Extract the journal.
 
 ```jldoctest
-julia> doi = Meta(DOI("10.1126/SCIENCE.169.3946.635"));
+julia> doi = MetaData(DOI("10.1126/SCIENCE.169.3946.635"));
+
 julia> journal(doi)
-"Frank, Henry S."
+"Science"
 ```
 """
 function journal(x::Dict{Tkey, Tval}) where {Tkey, Tval}
@@ -208,14 +205,14 @@ julia> json(DOI("10.5281/zenodo.6719627"))
 Dict{String, Any} with 11 entries:
   "publisher" => "Zenodo"
   "issued"    => Dict{String, Any}("date-parts"=>Any[Any[2022, 6, 24]])
-  "author"    => Any[Dict{String, Any}("family"=>"Ernst", "given"=>"Maximilian S…
+  "author"    => Any[Dict{String, Any}("family"=>"Ernst", "given"=>"Maximilian …
   "id"        => "https://doi.org/10.5281/zenodo.6719627"
   "copyright" => "MIT License"
   "version"   => "v0.1.0"
   "DOI"       => "10.5281/ZENODO.6719627"
   "URL"       => "https://zenodo.org/record/6719627"
   "title"     => "StructuralEquationModels.jl"
-  "abstract"  => "StructuralEquationModels v0.1.0 This is a package for Structur…
+  "abstract"  => "StructuralEquationModels v0.1.0 This is a package for Structu…
   "type"      => "book"
 ```
 """
@@ -231,12 +228,15 @@ Save metadata.
 Can be from complete minimal metadata, incomplete metadata or preferably from [`DOI`](@ref).
 
 ```jldoctest
-julia> min = Meta("Peikert, Aaron", 2022, "Journal of Statistical Software");
-julia> incomplete = Meta("Peikert, Aaron", 2022, missing);
-julia> extensive = Meta(DOI("10.5281/zenodo.6719627"));
+julia> min = MetaData("Peikert, Aaron", 2022, "Journal of Statistical Software");
+
+julia> incomplete = MetaData("Peikert, Aaron", 2022, missing);
+
+julia> extensive = MetaData(DOI("10.5281/zenodo.6719627"));
+
 ```
 """
-function Meta(author, year, journal)
+function MetaData(author, year, journal)
     if any(ismissing.([author, year, journal]))
         IncompleteMeta(author, year, journal)
     else
@@ -244,10 +244,10 @@ function Meta(author, year, journal)
     end
 end
 
-function Meta(location::AbstractDOI)
+function MetaData(location::AbstractDOI)
     json = Taxonomy.json(location)
     apa_request = request_apa(location)
     apa = apa_request.status == 200 ? Taxonomy.apa(apa_request) : missing
-    meta = Meta(author(json), year(json), journal(json))
+    meta = MetaData(author(json), year(json), journal(json))
     ExtensiveMeta(meta, apa, json)
 end

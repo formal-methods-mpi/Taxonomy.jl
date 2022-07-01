@@ -10,7 +10,7 @@ module Taxonomy
     
     import HTTP
     import JSON
-    export Meta, MinimalMeta, IncompleteMeta, ExtensiveMeta, year, author, journal
+    export MetaData, MinimalMeta, IncompleteMeta, ExtensiveMeta, year, author, journal, apa, json
     include("metadata/meta.jl")
 
     include("taxons/cfa.jl")
