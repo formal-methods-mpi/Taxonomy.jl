@@ -10,6 +10,19 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 
 ```@index
 ```
+## Metadata
+
+```@docs
+Meta
+apa
+json
+author
+year
+journal
+MinimalMeta
+IncompleteMeta
+ExtensiveMeta
+```
 
 ## DOI
 
@@ -18,5 +31,6 @@ DOI
 UsualDOI
 UnusualDOI
 NoDOI
+url
 valid_doi
 ```
