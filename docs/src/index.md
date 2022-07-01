@@ -13,7 +13,7 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 ## Metadata
 
 ```@docs
-Meta
+MetaData
 apa
 json
 author
