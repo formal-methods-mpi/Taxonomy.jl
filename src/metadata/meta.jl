@@ -251,3 +251,7 @@ function MetaData(location::AbstractDOI)
     meta = MetaData(author(json), year(json), journal(json))
     ExtensiveMeta(meta, apa, json)
 end
+
+function MetaData(location::NoDOI)
+    MetaData(author(location), year(location), journal(location))
+end
