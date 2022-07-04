@@ -9,4 +9,5 @@ using Documenter
     end
     
     include("metadata/doi.jl")
+    include("judgement.jl")
 end

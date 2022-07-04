@@ -13,6 +13,10 @@ module Taxonomy
     export MetaData, MinimalMeta, IncompleteMeta, ExtensiveMeta, year, author, journal, apa, json
     include("metadata/meta.jl")
 
+    import Base.convert
+    export J, Judgement, convert
+    include("judgement.jl")
+
     include("taxons/cfa.jl")
 end
 

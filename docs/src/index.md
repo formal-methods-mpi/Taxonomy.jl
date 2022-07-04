@@ -10,6 +10,15 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 
 ```@index
 ```
+
+## Taxon
+
+### Judgement
+
+```@docs
+Judgement
+J
+```
 ## Metadata
 
 ```@docs
@@ -24,7 +33,7 @@ IncompleteMeta
 ExtensiveMeta
 ```
 
-## DOI
+### DOI
 
 ```@docs
 DOI
