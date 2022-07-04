@@ -38,11 +38,11 @@ The metadata we can gather from [doi.org](https://www.doi.org).
 julia> doi = MetaData(DOI("10.1126/SCIENCE.169.3946.635"));
 
 julia> typeof(doi)
-ExtensiveMeta
+ExtensiveMeta{MinimalMeta}
 ```
 """
-struct ExtensiveMeta <: AbstractMeta
-    meta::Union{IncompleteMeta, MinimalMeta}
+struct ExtensiveMeta{T <: Union{IncompleteMeta, MinimalMeta}} <: AbstractMeta
+    meta::T
     citation::Union{String, Missing}
     json::Dict
 end
