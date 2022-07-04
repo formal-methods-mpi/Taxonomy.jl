@@ -11,3 +11,9 @@ function Record(;location, meta = missing, taxons, spec, data)
     end
     Record(location, meta, taxons, spec, data)
 end
+
+taxons(x::Record) = x.taxons
+MetaData(x::Record) = x.meta
+location(x::Record) = x.location
+spec(x::Record) = x.spec
+data(x::Record) = x.data

@@ -52,6 +52,7 @@ for fun in [:year, :author, :journal]
     @eval $fun(x::IncompleteMeta) = x.$fun
     @eval $fun(x::ExtensiveMeta) = $fun(x.meta)
     @eval $fun(x::NoDOI) = x.$fun
+    @eval $fun(x::Record) = $fun(x.meta)
 end
 
 """
@@ -191,6 +192,8 @@ function apa(location)
     interpret_status(request)
     apa(request)
 end
+apa(x::ExtensiveMeta) = x.citation
+apa(x::Record) = apa(x.meta)
 
 """
 Get a Citeproc JSON.
