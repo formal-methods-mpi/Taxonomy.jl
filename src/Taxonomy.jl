@@ -1,5 +1,5 @@
 module Taxonomy
-    export AbstractDOI
+    export AbstractDOI, AbstractLocation
     include("abstracttypes.jl")
 
     import Dates
@@ -17,6 +17,10 @@ module Taxonomy
     export J, Judgement, convert
     include("judgement.jl")
 
+    export Record
+    include("record.jl")
+
+    export GFactor
     include("taxons/cfa.jl")
 end
 
