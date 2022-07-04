@@ -9,7 +9,7 @@ end
         url = "https://github.com/StructuralEquationModels/StructuralEquationModels.jl",
         author = "Ernst, Maximilian Stefan and Peikert, Aaron",
         title = "StructuralEquationModels.jl: A fast and flexible SEM framework",
-        date = Date("2022-06-24"),
+        date = Date("2022-06-24"), # date and year supplied
         year = 2025,
         journal = "No Real Journal"
     )
@@ -17,6 +17,6 @@ end
         url = "https://github.com/StructuralEquationModels/StructuralEquationModels.jl",
         author = "Ernst, Maximilian Stefan and Peikert, Aaron",
         title = "StructuralEquationModels.jl: A fast and flexible SEM framework",
-        journal = "No Real Journal"
+        journal = "No Real Journal" # no date or year supplied
     )
 end
