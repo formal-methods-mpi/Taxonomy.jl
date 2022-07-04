@@ -8,7 +8,7 @@ A judgment about any parameter etc.
 - `location`: optional, Where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
 
 ```jldoctest
-julia>Judgement(1.0, .99, "Figure 1");
+julia> Judgement(1.0, .99, "Figure 1");
 ```
 """
 struct Judgement{T1, T2 <: Float64, T3 <: Union{String, Missing}}
