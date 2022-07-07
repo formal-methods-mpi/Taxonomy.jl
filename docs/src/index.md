@@ -18,6 +18,7 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 ```@docs
 Judgement
 J
+NoJudgement
 ```
 ## Metadata
 

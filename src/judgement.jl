@@ -25,9 +25,19 @@ struct Judgement{T1, T2 <: Float64, T3 <: Union{String, Missing}}
 end
 Judgement(r, c) = Judgement(r, c, missing)
 Judgement(r) = Judgement(r, 1.0, missing)
-Judgemet(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
+Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
 """
 Shorthand for [`Judgement`](@ref)
 """
 const J = Judgement
 convert(::Type{Judgement}, x) = Judgement(x)
+
+"""
+Abstaining from any judgement.
+
+```jldoctest
+NoJudgement()
+Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
+```
+"""
+NoJudgement(location = missing) = Judgement(rating = missing, certainty = 0.0, location = location)
