@@ -13,6 +13,12 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 
 ## Taxon
 
+## ID
+
+```@docs
+generate_id
+```
+
 ### Judgement
 
 ```@docs
