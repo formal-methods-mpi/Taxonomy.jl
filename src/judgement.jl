@@ -36,7 +36,7 @@ convert(::Type{Judgement}, x) = Judgement(x)
 Abstaining from any judgement.
 
 ```jldoctest
-NoJudgement()
+julia> NoJudgement()
 Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
 ```
 """
