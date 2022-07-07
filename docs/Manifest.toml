@@ -135,7 +135,7 @@ version = "1.1.0"
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
 [[deps.Taxonomy]]
-deps = ["Dates", "HTTP", "JSON"]
+deps = ["Dates", "HTTP", "JSON", "UUIDs"]
 path = ".."
 uuid = "fea09e6a-dc4a-42ec-a35f-5cfade855812"
 version = "0.1.0"
