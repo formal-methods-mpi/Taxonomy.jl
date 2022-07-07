@@ -9,7 +9,7 @@ module Taxonomy
     include("metadata/doi.jl")
     
     import Base.convert
-    export J, Judgement, convert
+    export J, Judgement, NoJudgement, convert
     include("judgement.jl")
 
     export Record, taxons,  location, spec, data
