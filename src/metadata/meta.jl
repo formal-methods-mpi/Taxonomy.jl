@@ -258,3 +258,7 @@ end
 function MetaData(location::NoDOI)
     MetaData(author(location), year(location), journal(location))
 end
+
+function MetaData(::NoLocation)
+    MetaData(missing, missing, missing)
+end

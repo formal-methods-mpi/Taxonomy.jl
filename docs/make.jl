@@ -16,7 +16,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Tutorials" => ["Getting Started" => "tutorials/start.md"]
+        "Tutorials" => ["Getting Started" => "tutorials/start.md",
+                        "Something is missing" => "tutorials/missing.md"]
     ],
     doctest = false
 )

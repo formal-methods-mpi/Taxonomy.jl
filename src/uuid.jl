@@ -6,7 +6,7 @@ Generate an Entry ID
 
 To create links between entries we need a stable reference point.
 This ID is generated initially from `url(location)` and if the url is missing, it is generated randomly.
-After the ID is generated once, it is saved with the [`Record`](@ref) and should not be changed.
+After the ID is generated once, it is saved with the `Record` and should not be changed.
 """
 generate_id() = UUIDs.uuid4()
 generate_id(loc::String) = tethered_id(loc)

@@ -1,0 +1,1 @@
+struct NoTaxon <: Taxon end
