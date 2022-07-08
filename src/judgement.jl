@@ -35,6 +35,8 @@ convert(::Type{Judgement}, x) = Judgement(x)
 """
 Abstaining from any judgement.
 
+This implies that your best guess is missing and you are absolutely uncertain about this judgement.
+
 ```jldoctest
 julia> NoJudgement()
 Judgement{Missing, Float64, Missing}(missing, 0.0, missing)

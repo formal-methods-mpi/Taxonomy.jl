@@ -47,6 +47,7 @@ DOI
 UsualDOI
 UnusualDOI
 NoDOI
+NoLocation
 url
 valid_doi
 ```
