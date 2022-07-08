@@ -2,7 +2,7 @@ It is often the case that you can not code every information we would like to ha
 Principly, you are not required to write anything:
 
 ```@meta
-DocTestFilters = r"May we suggest: .*"
+DocTestFilters = [r"May we suggest: .*" r"└ @ Taxonomy .*"]
 ```
 
 ```jldoctest missing
