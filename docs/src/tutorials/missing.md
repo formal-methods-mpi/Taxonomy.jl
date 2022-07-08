@@ -5,22 +5,22 @@ Principly, you are not required to write anything:
 DocTestFilters = r"May we suggest: .*"
 ```
 
-```jldoctest
+```jldoctest missing
 julia> using Taxonomy
 
 julia> Record()
 ┌ Warning: You really should supply an ID. May we suggest: 6ca721fe-619e-42cc-ad8b-047c5e0451e5
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:14
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:14
 ┌ Warning: You really should supply a location.
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:19
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:19
 ┌ Warning: Some of the metadata seem to be incomplete. Check again.
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:25
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:25
 ┌ Warning: `taxons` is missing. Maybe you mean `NoTaxon()`?
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:29
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:29
 ┌ Warning: `spec` is missing. Maybe you mean `NoJudgment()`?
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:32
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:32
 ┌ Warning: `data` is missing. Maybe you mean `NoJudgment()`?
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:35
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:35
 Record(missing, NoLocation(), IncompleteMeta(missing, missing, missing), missing, missing, missing)
 ```
 
@@ -31,7 +31,7 @@ DocTestFilters = nothing
 As you probably notice we warn you to do that.
 This is to encourage you to think twice, however, after having thought twice about it, you may silence every warning with explicitly suppliyng "empty" instances (except ID, really nothing should hinder you to supply a random id).
 
-```jldoctest
+```jldoctest missing
 Record(id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
@@ -53,7 +53,7 @@ But sometimes you have checked but it really does not exist.
 E.g. at first glance you have not found a dataset, than use `NoJudgement()`.
 It implies that you are absolutly uncertain that this is missing:
 
-```jldoctest
+```jldoctest missing
 julia> NoJudgement()
 Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
 ```
