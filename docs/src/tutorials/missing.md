@@ -60,7 +60,7 @@ Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
 
 Or you have checked everywhere but there does not seem to be any data, than use:
 
-```jldoctest
+```jldoctest missing
 julia> Judgement(false, 1.0) # false = no data, 1 = certain
 Judgement{Bool, Float64, Missing}(false, 1.0, missing)
 ```

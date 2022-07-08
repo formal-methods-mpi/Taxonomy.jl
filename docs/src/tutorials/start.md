@@ -8,7 +8,7 @@ We implement these automation to detect error/misunderstanding/etc *while* codin
 To get a feeling for how this is supposed to work, we code the famous political democracy paper together:
 
 ```@meta
-DocTestFilters = [r"\".*\"" r"May we suggest: .*" r"└ @ Taxonomy .*"]
+DocTestFilters = [r"\".*\"", r"May we suggest: .*", r"└ @ Taxonomy .*"]
 ```
 
 ```jldoctest first; output = false
