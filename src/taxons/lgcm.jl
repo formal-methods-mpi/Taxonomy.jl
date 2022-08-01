@@ -5,11 +5,16 @@ struct LGCM <: Taxon
     nonlinearfunction::Judgement
 end
 
-function length_time(timecoding::Vector{<:Number}) length(timecoding) end
-length_time([1,2])
-
-function LGCM(; timecoding, 
-    ntimepoints = length_time(timecoding),
+function LGCM(; 
+    timecoding, 
+    ntimepoints =  
+    if isa(timecoding, Vector{<:Number})
+        length(timecoding)
+    elseif ismissing(timecoding)
+        missing
+    else
+        throw(DomainError(timecoding, "please provide a numeric vector or missing for timecoding argument"))
+    end,
     npredictors = 0,
     nonlinearfunction = 0)
     LGCM(timecoding, 
@@ -18,3 +23,4 @@ function LGCM(; timecoding,
         nonlinearfunction
         )
 end
+
