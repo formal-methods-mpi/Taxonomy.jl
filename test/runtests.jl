@@ -10,5 +10,5 @@ using Documenter
     
     include("metadata/doi.jl")
     include("judgement.jl")
-    include("taxons.jl")
+    include("taxons/lgcm.jl")
 end
