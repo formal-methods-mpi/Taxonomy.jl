@@ -11,15 +11,15 @@ A judgment about any parameter etc.
 julia> Judgement(1.0, .99, "Figure 1");
 ```
 """
-struct Judgement{T1, T2 <: Float64, T3 <: Union{String, Missing}}
-    rating::T1
-    certainty::T2
-    location::T3
-    function Judgement(r::T1, c::T2, l::T3) where {T1, T2, T3}
+struct Judgement{T}
+    rating::T
+    certainty::Float64
+    location::Union{String, Missing}
+    function Judgement(r::T, c, l) where T
         if ((c < 0.0) || (c > 1.0))
             ArgumentError("Certainty must be between 0 and 1.")
         else
-            new{T1, T2, T3}(r, c, l)
+            new{T}(r, c, l)
         end
     end
 end
@@ -40,7 +40,7 @@ This implies that your best guess is missing and you are absolutely uncertain ab
 
 ```jldoctest
 julia> NoJudgement()
-Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
+Judgement{Missing}(missing, 0.0, missing)
 ```
 """
 NoJudgement(location = missing) = Judgement(rating = missing, certainty = 0.0, location = location)
