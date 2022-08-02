@@ -8,7 +8,7 @@ end
 function LGCM(; 
     timecoding, 
     ntimepoints =  
-    if isa(timecoding, Vector{<:Number})
+    if isa(timecoding, Union{Vector{<:Number}, UnitRange{<:Number}})
         length(timecoding)
     elseif ismissing(timecoding)
         missing
