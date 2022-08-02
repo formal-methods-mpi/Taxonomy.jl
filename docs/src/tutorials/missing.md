@@ -41,7 +41,7 @@ data = NoJudgement())
 
 # output
 
-Record(UUID("6ca721fe-619e-42cc-ad8b-047c5e0451e5"), NoLocation(), IncompleteMeta(missing, missing, missing), [NoTaxon()], Judgement{Missing, Float64, Missing}(missing, 0.0, missing), Judgement{Missing, Float64, Missing}(missing, 0.0, missing))
+Record(UUID("6ca721fe-619e-42cc-ad8b-047c5e0451e5"), NoLocation(), IncompleteMeta(missing, missing, missing), [NoTaxon()], Judgement{Missing}(missing, 0.0, missing), Judgement{Missing}(missing, 0.0, missing))
 ```
 We therefore differenciate between "lazy" missings and intentional missings.
 The former remind you that you missed them, the latter will not bother you.
@@ -55,12 +55,12 @@ It implies that you are absolutly uncertain that this is missing:
 
 ```jldoctest missing
 julia> NoJudgement()
-Judgement{Missing, Float64, Missing}(missing, 0.0, missing)
+Judgement{Missing}(missing, 0.0, missing)
 ```
 
 Or you have checked everywhere but there does not seem to be any data, than use:
 
 ```jldoctest missing
 julia> Judgement(false, 1.0) # false = no data, 1 = certain
-Judgement{Bool, Float64, Missing}(false, 1.0, missing)
+Judgement{Bool}(false, 1.0, missing)
 ```

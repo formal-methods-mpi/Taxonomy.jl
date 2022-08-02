@@ -1,8 +1,8 @@
 struct LGCM <: Taxon
-    timecoding::Judgement
-    ntimepoints::Judgement
-    npredictors::Judgement
-    nonlinearfunction::Judgement
+    timecoding::Judgement{Union{AbstractArray{Number}, Missing}}
+    ntimepoints::Judgement{Union{Int, Missing}}
+    npredictors::Judgement{Union{Int, Missing}}
+    nonlinearfunction::Judgement{Union{Int, Missing}}
 end
 
 function LGCM(; 

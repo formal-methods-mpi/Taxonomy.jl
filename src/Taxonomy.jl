@@ -11,7 +11,7 @@ module Taxonomy
     export DOI, UsualDOI, UnusualDOI
     include("metadata/doi.jl")
     
-    import Base.convert
+    import Base.convert, Base.==
     export J, Judgement, NoJudgement, convert, rating, location, certainty
     include("judgement.jl")
 

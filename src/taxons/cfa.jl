@@ -1,8 +1,8 @@
 struct GFactor <: AbstractCFA
-    nobserved::Judgement
-    nerror_covariances::Judgement
-    crossloading_incoming::Judgement
-    crossloading_outgoing::Judgement
+    nobserved::Judgement{Int}
+    nerror_covariances::Judgement{Int}
+    crossloading_incoming::Judgement{Int}
+    crossloading_outgoing::Judgement{Int}
 end
 
 function GFactor(;nobserved,
