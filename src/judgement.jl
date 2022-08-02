@@ -32,9 +32,16 @@ Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, cert
 Shorthand for [`Judgement`](@ref)
 """
 const J = Judgement
+
 convert(::Type{Judgement}, x) = Judgement(x)
 convert(::Type{T}, x::T) where {T <: Judgement} = x
 convert(::Type{Judgement{T}}, x) where T = Judgement{T}(convert(T, x))
+
+function ==(x::Judgement, y::Judgement)
+    isequal(x.rating, y.rating) &&
+    isequal(x.certainty, y.certainty) &&
+    isequal(x.location, y.location)
+end
 
 """
 Abstaining from any judgement.
