@@ -32,6 +32,8 @@ Shorthand for [`Judgement`](@ref)
 const J = Judgement
 convert(::Type{Judgement}, x) = Judgement(x)
 convert(::Type{Judgement}, x::Judgement) = x
+convert(::Type{Judgement{T}}, x) where T = Judgement(convert(T, x))
+
 
 """
 Abstaining from any judgement.
