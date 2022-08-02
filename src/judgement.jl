@@ -28,6 +28,26 @@ Judgement{T}(r::T) where T = Judgement{T}(r, 1.0, missing)
 Judgement{T}(r::T, c) where T = Judgement{T}(r, c, missing)
 
 Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
+
+"""
+Extract rating from Judgement.
+
+If `rating` is called on a `Judgement` it returns the rating, on everything it returns identity.
+
+"""
+rating(x) = x
+rating(x::Judgement) = x.rating
+
+"""
+Extract certainty from Judgement.
+"""
+certainty(x::Judgement) = x.certainty
+
+"""
+Extract location from Judgement.
+"""
+location(x::Judgement) = x.location
+
 """
 Shorthand for [`Judgement`](@ref)
 """

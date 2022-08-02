@@ -25,6 +25,9 @@ generate_id
 Judgement
 J
 NoJudgement
+rating
+location(::Judgement)
+certainty
 ```
 ## Metadata
 
