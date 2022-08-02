@@ -16,7 +16,7 @@ function LGCM(;
         ntimepoints = implied_ntimepoints
     end
     if !ismissing(rating(timecoding)) && ntimepoints != implied_ntimepoints
-        throw(DomainError("ntimepoints does not aggree with ntimepoints"))
+        throw(ArgumentError("ntimepoints does not aggree with ntimepoints"))
     end
     LGCM(timecoding, 
         ntimepoints, 
