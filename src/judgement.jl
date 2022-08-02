@@ -17,7 +17,7 @@ struct Judgement{T}
     location::Union{String, Missing}
     function Judgement{T}(r, c, l) where T
         if ((c < 0.0) || (c > 1.0))
-            ArgumentError("Certainty must be between 0 and 1.")
+            throw(ArgumentError("Certainty must be between 0 and 1."))
         else
             new{T}(r, c, l)
         end
