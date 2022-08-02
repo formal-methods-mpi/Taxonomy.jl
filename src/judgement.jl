@@ -15,7 +15,7 @@ struct Judgement{T}
     rating::T
     certainty::Float64
     location::Union{String, Missing}
-    function Judgement(r::T, c, l) where T
+    function Judgement{T}(r, c, l) where T
         if ((c < 0.0) || (c > 1.0))
             ArgumentError("Certainty must be between 0 and 1.")
         else
@@ -23,17 +23,18 @@ struct Judgement{T}
         end
     end
 end
-Judgement(r, c) = Judgement(r, c, missing)
-Judgement(r) = Judgement(r, 1.0, missing)
+Judgement(r::T, c = 1.0, l = missing) where T = Judgement{T}(r, c, l)
+Judgement{T}(r::T) where T = Judgement{T}(r, 1.0, missing)
+Judgement{T}(r::T, c) where T = Judgement{T}(r, c, missing)
+
 Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
 """
 Shorthand for [`Judgement`](@ref)
 """
 const J = Judgement
 convert(::Type{Judgement}, x) = Judgement(x)
-convert(::Type{Judgement}, x::Judgement) = x
-convert(::Type{Judgement{T}}, x) where T = Judgement(convert(T, x))
-
+convert(::Type{T}, x::T) where {T <: Judgement} = x
+convert(::Type{Judgement{T}}, x) where T = Judgement{T}(convert(T, x))
 
 """
 Abstaining from any judgement.
