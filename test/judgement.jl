@@ -3,6 +3,6 @@
     @test J(missing) == Judgement(missing, 1.0)
     @test convert(Judgement, 2.0) == Judgement(2.0, 1.0)
     @test isequal(rating(J(1.3)), 1.3)
-    @test isequal(location(J(1.3)), missing)
+    @test isequal(location(J(1.3)), 1.0)
     @test isequal(certainty(J(1.3)), missing)
 end
