@@ -8,4 +8,5 @@ mylgcm_missing = LGCM(timecoding = J(missing))
     @test_throws MethodError LGCM(timecoding = "test")
     @test_throws MethodError LGCM(timecoding = 1)
     @test mylgcm_missing.ntimepoints == J(missing, 0.0, missing)
+    @test_throws ArgumentError LGCM(timecoding = 1:4, ntimepoints = 3)
 end
