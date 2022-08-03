@@ -16,7 +16,9 @@ struct Judgement{T}
     certainty::Float64
     location::Union{String, Missing}
     function Judgement{T}(r, c, l) where T
-        if ((c < 0.0) || (c > 1.0))
+        if isa(r, Judgement)
+            throw(ArgumentError("A Judgement of a Judgment is too meta for my taste."))
+        elseif ((c < 0.0) || (c > 1.0))
             throw(ArgumentError("Certainty must be between 0 and 1."))
         else
             new{T}(r, c, l)
@@ -26,8 +28,8 @@ end
 Judgement(r::T, c = 1.0, l = missing) where T = Judgement{T}(r, c, l)
 Judgement{T}(r::T) where T = Judgement{T}(r, 1.0, missing)
 Judgement{T}(r::T, c) where T = Judgement{T}(r, c, missing)
-
 Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
+Judgement(x::Judgement) = x
 
 """
 Extract rating from Judgement.
