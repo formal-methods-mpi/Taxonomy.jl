@@ -1,4 +1,5 @@
 struct Record
+    rater::Union{Char, Missing}
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
@@ -9,7 +10,10 @@ end
 function Record(id::String, location, meta, taxons, spec, data)
     Record(Base.UUID(id), location, meta, taxons, spec, data)
 end
-function Record(;id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
+function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
+    if ismissing(rater)
+        @warn "Please provide rater initials."
+    end
     if ismissing(id)
         if isa(location, AbstractDOI)
             @warn "You really should supply an ID. May we suggest (from DOI): " * string(generate_id(location))
@@ -37,9 +41,10 @@ function Record(;id = missing, location = missing, meta = missing, taxons = miss
     if ismissing(data)
         @warn "`data` is missing. Maybe you mean `NoJudgment()`?"
     end
-    Record(id, location, meta, taxons, spec, data)
+    Record(rater, id, location, meta, taxons, spec, data)
 end
 
+rater(x::Record) = x.rater
 taxons(x::Record) = x.taxons
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
