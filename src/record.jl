@@ -1,5 +1,5 @@
 struct Record
-    rater::Union{Char, Missing}
+    rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
@@ -7,8 +7,8 @@ struct Record
     spec::Union{Judgement, Missing}
     data::Union{Judgement, Missing}
 end
-function Record(id::String, location, meta, taxons, spec, data)
-    Record(Base.UUID(id), location, meta, taxons, spec, data)
+function Record(rater, id::String, location, meta, taxons, spec, data)
+    Record(rater, Base.UUID(id), location, meta, taxons, spec, data)
 end
 function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
     if ismissing(rater)
