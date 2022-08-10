@@ -12,7 +12,7 @@ function Record(id::String, location, meta, taxons, spec, data)
 end
 function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
     if ismissing(rater)
-        @warn "Please provide rater initials."
+        @warn "Please provide your rater ID. This should be your initials."
     end
     if ismissing(id)
         if isa(location, AbstractDOI)
