@@ -10,7 +10,7 @@ It aims to ease the coding of SEMs found in the literature:
 
 ```julia
 import Pkg
-Pkg.add(url = https://github.com/StructuralEquationModels/Taxonomy.jl)
+Pkg.add(url = "https://github.com/StructuralEquationModels/Taxonomy.jl")
 using Taxonomy
 Record(location = DOI("10.2307/2095172"),
     taxons = [GFactor(nobserved = 6, nerror_covariances = 3)],
