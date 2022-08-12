@@ -9,7 +9,9 @@ DocTestFilters = [r"May we suggest: .*", r"└ @ Taxonomy .*"]
 julia> using Taxonomy
 
 julia> Record()
-┌ Warning: You really should supply an ID. May we suggest: 6ca721fe-619e-42cc-ad8b-047c5e0451e5
+┌ Warning: Please provide your rater ID. This should be your initials.
+└ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:15
+┌ Warning: You really should supply an ID. May we suggest: 5260937a-209d-4cf9-a5d5-120f350fae45
 └ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:14
 ┌ Warning: You really should supply a location.
 └ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:19
@@ -21,7 +23,7 @@ julia> Record()
 └ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:32
 ┌ Warning: `data` is missing. Maybe you mean `NoJudgment()`?
 └ @ Taxonomy ~/work/Taxonomy.jl/Taxonomy.jl/src/record.jl:35
-Record(missing, NoLocation(), IncompleteMeta(missing, missing, missing), missing, missing, missing)
+Record(missing, missing, NoLocation(), IncompleteMeta(missing, missing, missing), missing, missing, missing)
 ```
 
 ```@meta
@@ -32,7 +34,8 @@ As you probably notice we warn you to do that.
 This is to encourage you to think twice, however, after having thought twice about it, you may silence every warning with explicitly suppliyng "empty" instances (except ID, really nothing should hinder you to supply a random id).
 
 ```jldoctest missing
-Record(id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+Record(rater = "AP",
+id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
 taxons = [NoTaxon()],
@@ -41,7 +44,7 @@ data = NoJudgement())
 
 # output
 
-Record(UUID("6ca721fe-619e-42cc-ad8b-047c5e0451e5"), NoLocation(), IncompleteMeta(missing, missing, missing), [NoTaxon()], Judgement{Missing}(missing, 0.0, missing), Judgement{Missing}(missing, 0.0, missing))
+Record("AP", UUID("6ca721fe-619e-42cc-ad8b-047c5e0451e5"), NoLocation(), IncompleteMeta(missing, missing, missing), [NoTaxon()], Judgement{Missing}(missing, 0.0, missing), Judgement{Missing}(missing, 0.0, missing))
 ```
 We therefore differenciate between "lazy" missings and intentional missings.
 The former remind you that you missed them, the latter will not bother you.
