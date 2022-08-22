@@ -26,6 +26,7 @@ module Taxonomy
     export NoTaxon
     include("taxons/taxon.jl")
     export GFactor
+    export CFA
     include("taxons/cfa.jl")
     export LGCM
     include("taxons/lgcm.jl")
