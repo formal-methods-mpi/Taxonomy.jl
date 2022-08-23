@@ -26,8 +26,23 @@ struct Pathmodel
 end
 
 
-############################# CFA Tries
-using Taxonomy
+
+"""
+CFA Taxon. 
+
+## Arguments
+
+- `nfactors`: Number of latent variables.
+- `nobserved`: Vector of manifest variables for each vector. 
+- `nerror_covariances_within`: Vector of covariances within factor.
+- `nerror_covariances_between`: Vector of covariances between factors. 
+
+```jldoc
+julia> CFA(nfactors = 3, 
+           nobserved = [3,4,3],
+           nerror_covariances_within = [1, 2, 0])
+```
+"""
 
 struct CFA <: AbstractCFA
     nfactors::Judgement{ <: Union{ <:Int, Missing}}
@@ -69,3 +84,4 @@ end
 
      CFA(nfactors, nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level)
 end
+
