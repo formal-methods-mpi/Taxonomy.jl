@@ -30,6 +30,7 @@ end
 using Taxonomy
 
 struct CFA <: AbstractCFA
+    nfactors::Judgement{ <: Union{ <:Int, Missing}}
      # measurement model
      nobserved::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
      nerror_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
@@ -40,38 +41,31 @@ struct CFA <: AbstractCFA
      latent_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
      latent_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
      level::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-     CFA(nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level) = 
-        new(J(nobserved), J(nerror_covariances_within), J(nerror_covariances_between), J(crossloading_items), J(latent_covariances), J(latent_incoming), J(latent_outgoing), J(level))
+     CFA(nfactors, nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level) = 
+        new(J(nfactors), J(nobserved), J(nerror_covariances_within), J(nerror_covariances_between), J(crossloading_items), J(latent_covariances), J(latent_incoming), J(latent_outgoing), J(level))
 end
 
- function CFA(; nobserved,
-     nerror_covariances_within = fill(0, length(nobserved)),
-     nerror_covariances_between = fill(0, length(nobserved)),
-     crossloading_items = fill(0, length(nobserved)), 
-     latent_covariances = fill(0, length(nobserved)),
-     latent_incoming = fill(0, length(nobserved)),
-     latent_outgoing = fill(0, length(nobserved)),
-     level = fill(0, length(nobserved))
+ function CFA(; nfactors, 
+    nobserved,
+     nerror_covariances_within = fill(0, nfactors),
+     nerror_covariances_between = fill(0, nfactors),
+     crossloading_items = fill(0, nfactors), 
+     latent_covariances = fill(0, nfactors),
+     latent_incoming = fill(0, nfactors),
+     latent_outgoing = fill(0, nfactors),
+     level = fill(0, nfactors)
      )
-     #if # checken, ob alle vektoren die gleiche länge wie factor_id haben
-     CFA(nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level)
+
+     compare_length(value::Judgement) = length(rating(value)) != nfactors
+     compare_length(value::AbstractArray{ <: Number}) = length(rating(value)) != nfactors
+
+    for i in [nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level]
+        
+        print(i)
+        if compare_length(i)
+            @warn string(i, " does not include the amount of elements nfactors makes believe")
+        end
+    end
+
+     CFA(nfactors, nobserved, nerror_covariances_within, nerror_covariances_between, crossloading_items, latent_covariances, latent_incoming, latent_outgoing, level)
 end
-
-
-test_cfa = CFA(
-    nobserved = [3, 3, 3],
-    #nerror_covariances_within = [1,0,0],
-    nerror_covariances_between = [1, 2, 1],
-    crossloading_items = [1, 0, 0],
-    latent_covariances = [1, 1, 0],
-    latent_outgoing = [0, 1, 0],
-    latent_incoming = [0, 0, 1],
-    level = [1,1,1]       
-)
-
-
-# for i in fieldnames(typeof(test_cfa))
-#     print(length(getfield(test_cfa, i)))
-# end
-
-#i = fieldnames(typeof(test_cfa))[1]
