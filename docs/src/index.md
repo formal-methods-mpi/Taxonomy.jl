@@ -15,6 +15,7 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 
 ## CFA
 ```@docs
+Factor
 CFA
 ```
 

@@ -1,6 +1,6 @@
-using StructuralEquationModels
+#using StructuralEquationModels
 
-@testset "CFA" begin
-    @test GFactor(10, 0, 0, 0) == GFactor(nobserved = J(10), nerror_covariances = J(0))
-    @test_throws MethodError GFactor(nobserved = "hi", nerror_covariances = 0)
-end
+#@testset "Factor" begin
+#    @test Factor(10, 0, 0, 0) == Factor(nobserved = J(10), nerror_covariances = J(0))
+#    @test_throws MethodError Factor(nobserved = "hi", nerror_covariances = 0)
+#end
