@@ -1,6 +1,4 @@
-#using StructuralEquationModels
-
-#@testset "Factor" begin
-#    @test Factor(10, 0, 0, 0) == Factor(nobserved = J(10), nerror_covariances = J(0))
-#    @test_throws MethodError Factor(nobserved = "hi", nerror_covariances = 0)
-#end
+@testset "Factor" begin
+#    @test Factor(2, [1, 0.4], 0, 0, 0, 0) == Factor(nobserved = J(2), loadings = J([1, 0.4])) ## WARUUUUM?
+    @test_throws MethodError Factor(nobserved = "hi", loadings = [1, 0.4])
+end
