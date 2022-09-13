@@ -25,7 +25,9 @@ module Taxonomy
 
     export NoTaxon
     include("taxons/taxon.jl")
-    export GFactor
+    
+    import StructuralEquationModels
+    export Factor
     export CFA
     include("taxons/cfa.jl")
     export LGCM
