@@ -1,18 +1,27 @@
-struct GFactor <: AbstractCFA
-    nobserved::Judgement{ <: Int}
-    nerror_covariances::Judgement{ <: Int}
-    crossloading_incoming::Judgement{ <: Int}
-    crossloading_outgoing::Judgement{ <: Int}
-    GFactor(nobserved, nerror_covariances, crossloading_incoming, crossloading_outgoing) =
-        new(J(nobserved), J(nerror_covariances), J(crossloading_incoming), J(crossloading_outgoing))
+using Taxonomy
+
+struct Factor <: AbstractCFA
+     nobserved::Judgement{ <: Union{ <:Int, Missing}}
+     loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+     error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+     error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+     crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+     crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    Factor(nobserved, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
+        new(J(nobserved), J(loadings), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
 
-function GFactor(;nobserved,
-    nerror_covariances,
-    crossloading_incoming = 0,
-    crossloading_outgoing = 0)
-    GFactor(nobserved, nerror_covariances, crossloading_incoming, crossloading_outgoing)
+function Factor(;nobserved,
+    loadings, 
+    error_covariances_within = 0,
+    error_covariances_between = 0, 
+    crossloadings_incoming = 0,
+    crossloadings_outgoing = 0)
+    Factor(nobserved, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
+
+
+myfac = Factor(nobserved = 2, loadings = [1, 0.4])
 
 struct HierachicalCFA <: AbstractCFA
     higher::AbstractCFA
