@@ -1,5 +1,6 @@
 using Taxonomy
 using Documenter
+using StenoGraphs
 
 DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
 

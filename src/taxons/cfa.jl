@@ -1,4 +1,4 @@
-using StructuralEquationModels
+using StenoGraphs
 
 """
 Factor Taxon. 
@@ -53,7 +53,9 @@ Consists of Factors (measurement model) and a graph from StenoGraphs (structural
 - `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
 
 ```jldoctest
-using StructuralEquationModels
+using StenoGraphs
+using Taxonomy
+
 factor1 = Factor(nobserved = 2, loadings = [1, 0.4])
 factor2 = Factor(nobserved = 2, loadings = [0.7, 0.3])
 
@@ -66,7 +68,7 @@ CFA(measurement_model = [factor1, factor2],
 structural_model = graph )
 
 # output
-CFA(Judgement{Vector{Factor}}(Factor[Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing)), Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([0.7, 0.3], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))], 1.0, missing), Judgement{Vector{StenoGraphs.DirectedEdge{StenoGraphs.SimpleNode{Symbol}, StenoGraphs.SimpleNode{Symbol}}}}(fac1 → fac2
+CFA(Judgement{Vector{Factor}}(Factor[Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing)), Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([0.7, 0.3], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))], 1.0, missing), Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}(fac1 → fac2
 , 1.0, missing))
 ```
 """

@@ -1,7 +1,7 @@
 using Taxonomy
 using Test
 using Documenter
-using StructuralEquationModels
+using StenoGraphs
 
 @testset "Taxonomy.jl" begin
     if VERSION ≥ v"1.7"
