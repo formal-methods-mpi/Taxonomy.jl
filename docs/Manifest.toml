@@ -1,6 +1,6 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.7.2"
+julia_version = "1.7.3"
 manifest_format = "2.0"
 
 [[deps.ANSIColoredPrinters]]
@@ -134,8 +134,13 @@ version = "1.1.0"
 [[deps.Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
+[[deps.StenoGraphs]]
+git-tree-sha1 = "2b5a863ee9dce57fbe3c58d000c3e981caf771fd"
+uuid = "78862bba-adae-4a83-bb4d-33c106177f81"
+version = "0.2.0"
+
 [[deps.Taxonomy]]
-deps = ["Dates", "HTTP", "JSON", "UUIDs"]
+deps = ["Dates", "HTTP", "JSON", "StenoGraphs", "UUIDs"]
 path = ".."
 uuid = "fea09e6a-dc4a-42ec-a35f-5cfade855812"
 version = "0.1.0"

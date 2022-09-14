@@ -2,5 +2,6 @@
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+StenoGraphs = "78862bba-adae-4a83-bb4d-33c106177f81"
 Taxonomy = "fea09e6a-dc4a-42ec-a35f-5cfade855812"
 UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
