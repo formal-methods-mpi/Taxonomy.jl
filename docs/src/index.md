@@ -13,6 +13,12 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 
 ## Taxon
 
+## CFA
+```@docs
+Factor
+CFA
+```
+
 ## ID
 
 ```@docs

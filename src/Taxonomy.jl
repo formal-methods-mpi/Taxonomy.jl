@@ -25,7 +25,10 @@ module Taxonomy
 
     export NoTaxon
     include("taxons/taxon.jl")
-    export GFactor
+    
+    import StenoGraphs
+    export Factor
+    export CFA
     include("taxons/cfa.jl")
     export LGCM
     include("taxons/lgcm.jl")
