@@ -12,7 +12,9 @@ It aims to ease the coding of SEMs found in the literature:
 import Pkg
 Pkg.add(url = "https://github.com/StructuralEquationModels/Taxonomy.jl")
 using Taxonomy
-Record(location = DOI("10.2307/2095172"),
+Record(rater = "your initials",
+    id = "a random id" or "generate id()",
+    location = DOI("10.2307/2095172"),
     taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
