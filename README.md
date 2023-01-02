@@ -13,7 +13,7 @@ import Pkg
 Pkg.add(url = "https://github.com/StructuralEquationModels/Taxonomy.jl")
 using Taxonomy
 Record(location = DOI("10.2307/2095172"),
-    taxons = [GFactor(nobserved = 6, nerror_covariances = 3)],
+    taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
