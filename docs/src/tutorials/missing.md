@@ -51,7 +51,7 @@ The former remind you that you missed them, the latter will not bother you.
 
 Another, unfortunately more complicated distinction, is between things you have tried to find out and determined that they probably are not accessable, and things that you havened made your mind up about.
 We assume that missings in about metadata belong to the first category (you tried to find out, but could not) and that missings about judgements about the paper belong to the second category (you have not bothered to find out).
-We make this distinction because you might that it takes to much time to find something out and want to express that you are not certain it exists.
+We make this distinction because you might think that it takes to much time to find something out and want to express that you are not certain it exists.
 But sometimes you have checked but it really does not exist.
 E.g. at first glance you have not found a dataset, than use `NoJudgement()`.
 It implies that you are absolutly uncertain that this is missing:
