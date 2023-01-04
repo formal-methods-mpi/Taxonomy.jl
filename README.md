@@ -10,7 +10,7 @@ It aims to ease the coding of SEMs found in the literature:
 
 ```julia
 import Pkg
-Pkg.add(url = "https://github.com/StructuralEquationModels/Taxonomy.jl")
+Pkg.add(url = https://github.com/StructuralEquationModels/Taxonomy.jl)
 using Taxonomy
 Record(rater = "your initials",
     id = "a random id" or "generate id()",
@@ -21,7 +21,11 @@ Record(rater = "your initials",
 )
 ```
 # Where to get it?
-The source code is currently hosted at Git Hub at: "https://github.com/StructuralEquationModels/Taxonomy.jl"
+The source code is currently hosted at Git Hub at: https://github.com/StructuralEquationModels/Taxonomy.jl
+
+# Dependencies
+If you are planing to use this package for CFA, you need to import the 'StenoGraphs' package as well.
+get this here alogside an introduction: https://aaronpeikert.github.io/StenoGraphs.jl/dev/ 
 
 # More Details!
-For a more detailed documentation of this package look here: "https://structuralequationmodels.github.io/Taxonomy.jl/dev/"
+For a more detailed documentation of this package look here: https://structuralequationmodels.github.io/Taxonomy.jl/dev/
