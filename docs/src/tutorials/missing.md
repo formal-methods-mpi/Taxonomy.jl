@@ -67,3 +67,30 @@ Or you have checked everywhere but there does not seem to be any data, than use:
 julia> Judgement(false, 1.0) # false = no data, 1 = certain
 Judgement{Bool}(false, 1.0, missing)
 ```
+If you want to highlight in the Record of a paper, that there is no model in the paper, that should be coded, use `NoTaxon()`. If however you found a paper you were unable to code, due to limitations of the package or your own knowledge, hence you want to mark it to come back to it later, use `NoTaxonYet()`.This could look like this:
+
+```jldoctest missing
+
+julia> NoTaxon()
+
+Record(rater = "AP",
+id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+location = NoLocation(),
+meta = MetaData(missing, missing, missing),
+taxons = [NoTaxon()],
+spec = NoJudgement(),
+data = NoJudgement())
+```
+or like this:
+```
+julia> NoTaxonYet()
+
+Record(rater = "AP",
+id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+location = NoLocation(),
+meta = MetaData(missing, missing, missing),
+taxons = [NoTaxonYet()],
+spec = NoJudgement(),
+data = NoJudgement())
+
+```
