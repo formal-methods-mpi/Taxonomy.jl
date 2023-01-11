@@ -1,4 +1,3 @@
-using Taxonomy
 """
 Standalone Factor Taxon. 
 Taxon for Models with only one factor.
