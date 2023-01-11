@@ -30,6 +30,8 @@ module Taxonomy
     export Factor
     export CFA
     include("taxons/cfa.jl")
+    export Standalone_Factor
+    include("taxons/standalone_factor.jl")
     export LGCM
     include("taxons/lgcm.jl")
 

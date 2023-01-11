@@ -1,3 +1,4 @@
+using Taxonomy
 """
 Standalone Factor Taxon. 
 Taxon for Models with only one factor.
@@ -13,15 +14,14 @@ Taxon for Models with only one factor.
 - `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. 
 
 ```jldoctest
-Factor(nobserved = 2, loadings = [1, 0.4])
+Standalone_Factor(nobserved = 2, n_sample = 100, loadings = [1, 0.4])
 
 # output
-Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
-```
+Standalone_Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Int64}(100, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))```
 """
 
 # Building block for coding the measurement model
-struct Factor <: AbstractCFA
+struct Standalone_Factor <: AbstractCFA
      nobserved::Judgement{ <: Union{ <:Int, Missing}}
      n_sample::Judgement{ <: Union{ <:Int, Missing}}
      loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
@@ -29,16 +29,16 @@ struct Factor <: AbstractCFA
      error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
      crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
      crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    Factor(nobserved, n_sample, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
+    Standalone_Factor(nobserved, n_sample, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
         new(J(nobserved), J(n_sample), J(loadings), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
 
-function Factor(;nobserved,
+function Standalone_Factor(;nobserved,
     n_sample, 
     loadings, 
     error_covariances_within = 0,
     error_covariances_between = 0, 
     crossloadings_incoming = 0,
     crossloadings_outgoing = 0)
-    Factor(nobserved, n_sample, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
+    Standalone_Factor(nobserved, n_sample, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
