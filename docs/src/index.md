@@ -11,12 +11,18 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 ```@index
 ```
 
-## Taxon
+## Taxons
 
-## CFA
 ```@docs
+Taxon
 Factor
 CFA
+```
+
+## Extractors
+
+```@docs
+n_sample
 ```
 
 ## ID
