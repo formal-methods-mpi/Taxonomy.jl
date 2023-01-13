@@ -6,7 +6,7 @@ Building Block for CFA Taxonomy. Multiple Factors can be combined to a CFA.
 
 ## Arguments
 
-- `nobserved`: Number of manifest variables.
+- `n_variables`: Number of variables (possibly observed/manifest).
 - `loadings`: Vector of loadings, one for each item. 
 - `error_covariances_within`: Vector of covariances within factor.
 - `error_covariances_between`: Vector of covariances the factor shares with a different factor. 
@@ -14,7 +14,7 @@ Building Block for CFA Taxonomy. Multiple Factors can be combined to a CFA.
 - `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. 
 
 ```jldoctest
-Factor(nobserved = 2, loadings = [1, 0.4])
+Factor(n_variables = 2, loadings = [1, 0.4])
 
 # output
 Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
@@ -23,23 +23,23 @@ Factor(Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4],
 
 # Building block for coding the measurement model
 struct Factor <: AbstractCFA
-     nobserved::Judgement{ <: Union{ <:Int, Missing}}
+    n_variables::Judgement{ <: Union{ <:Int, Missing}}
      loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
      error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
      error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
      crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
      crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    Factor(nobserved, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
-        new(J(nobserved), J(loadings), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
+    Factor(n_variables, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
+        new(J(n_variables), J(loadings), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
 
-function Factor(;nobserved,
+function Factor(;n_variables,
     loadings, 
     error_covariances_within = 0,
     error_covariances_between = 0, 
     crossloadings_incoming = 0,
     crossloadings_outgoing = 0)
-    Factor(nobserved, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
+    Factor(n_variables, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
 
 
@@ -56,8 +56,8 @@ Consists of Factors (measurement model) and a graph from StenoGraphs (structural
 using StenoGraphs
 using Taxonomy
 
-factor1 = Factor(nobserved = 2, loadings = [1, 0.4])
-factor2 = Factor(nobserved = 2, loadings = [0.7, 0.3])
+factor1 = Factor(n_variables = 2, loadings = [1, 0.4])
+factor2 = Factor(n_variables = 2, loadings = [0.7, 0.3])
 
 graph = @StenoGraph begin
     # latent regressions

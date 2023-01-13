@@ -16,7 +16,7 @@ using Taxonomy
 first_record = Record(
     rater = "AP",
     location = DOI("10.2307/2095172"),
-    taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
@@ -56,7 +56,7 @@ Record(
         year = 2022, # date is omitted
         journal = "No Real Journal"
     ),
-    taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
