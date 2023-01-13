@@ -6,6 +6,7 @@
 # What is it?
 
 `Taxonomy.jl` is an internal package for Julia of the "Formal Methods of Lifespan Psychology" Group at MPI for Human Development.
+
 It aims to ease the coding of SEMs found in the literature:
 
 # Quick Start
