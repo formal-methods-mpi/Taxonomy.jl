@@ -38,4 +38,7 @@ module Taxonomy
     import UUIDs
     export generate_id
     include("uuid.jl")
+
+    export n_sample
+    include("extractors.jl")
 end

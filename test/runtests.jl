@@ -13,4 +13,5 @@ using StenoGraphs
     include("judgement.jl")
     include("taxons/lgcm.jl")
     include("taxons/cfa.jl")
+    include("extractors.jl")
 end

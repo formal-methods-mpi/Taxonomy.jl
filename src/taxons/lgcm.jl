@@ -1,13 +1,15 @@
 struct LGCM <: Taxon
+    n_sample::Judgement{ <: Union{ <:Int, Missing}}
     timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
     ntimepoints::Judgement{ <: Union{ <: Int, Missing}}
     npredictors::Judgement{ <: Union{ <: Int, Missing}}
     nonlinearfunction::Judgement{ <: Union{ <: Int, Missing}}
-    LGCM(timecoding, ntimepoints, npredictors, nonlinearfunction) =
-        new(J(timecoding), J(ntimepoints), J(npredictors), J(nonlinearfunction))
+    LGCM(n_sample, timecoding, ntimepoints, npredictors, nonlinearfunction) =
+        new(J(n_sample), J(timecoding), J(ntimepoints), J(npredictors), J(nonlinearfunction))
 end
 
 function LGCM(; 
+    n_sample = missing,
     timecoding = NoJudgement(), 
     ntimepoints = NoJudgement(),
     npredictors = 0,
@@ -22,10 +24,11 @@ function LGCM(;
         end
     end
     
-    LGCM(timecoding, 
-        ntimepoints, 
-        npredictors, 
-        nonlinearfunction
-        )
+    LGCM(n_sample,
+    timecoding, 
+    ntimepoints, 
+    npredictors, 
+    nonlinearfunction
+    )
 end
 
