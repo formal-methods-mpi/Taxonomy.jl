@@ -1,5 +1,3 @@
-using StenoGraphs
-
 """
 Factor Taxon. 
 Building Block for CFA Taxonomy. Multiple Factors can be combined to a CFA. 
