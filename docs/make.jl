@@ -20,7 +20,7 @@ makedocs(;
         "Tutorials" => ["Getting Started" => "tutorials/start.md",
                         "Something is missing" => "tutorials/missing.md"]
     ],
-    doctest = false
+    doctest = false, # replace true with :fix to fix doctest
 )
 
 deploydocs(;

@@ -16,7 +16,7 @@ using Taxonomy
 first_record = Record(
     rater = "AP",
     location = DOI("10.2307/2095172"),
-    taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [Standalone_Factor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
@@ -43,6 +43,7 @@ Judgement{Bool}(true, 1.0, missing)
 julia> taxons(first_record)
 1-element Vector{Factor}:
  Factor(Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Float64}}([1.0, 1.19, 0.53, 0.91, 1.0, 1.0], 1.0, missing), Judgement{Missing}(missing, 0.5, missing), Judgement{Vector{Float64}}([10.7, 12.9, 19.0], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
+
 ```
 
 Generally, DOIs are the best and easiest thing to get metadata, however, sometimes none is availible:
@@ -56,7 +57,7 @@ Record(
         year = 2022, # date is omitted
         journal = "No Real Journal"
     ),
-    taxons = [Factor(nobserved = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )

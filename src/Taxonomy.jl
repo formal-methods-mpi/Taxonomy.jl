@@ -30,10 +30,15 @@ module Taxonomy
     export Factor
     export CFA
     include("taxons/cfa.jl")
+    export Standalone_Factor
+    include("taxons/standalone_factor.jl")
     export LGCM
     include("taxons/lgcm.jl")
 
     import UUIDs
     export generate_id
     include("uuid.jl")
+
+    export n_sample
+    include("extractors.jl")
 end
