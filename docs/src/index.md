@@ -23,6 +23,7 @@ CFA
 
 ```@docs
 n_sample
+factor_variance
 ```
 
 ## ID

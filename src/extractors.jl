@@ -21,14 +21,12 @@ function n_sample(x::Taxon)
     x.n_sample
 end
 
-
-
 """
 Function to extract factor variance.
 
 ## Arguments
 
-- `x`: Something of type [`Taxon`](@ref)
+- `x`: [`Factor`](@ref) or [`Standalone_Factor`](@ref).
 
 ## Return
 

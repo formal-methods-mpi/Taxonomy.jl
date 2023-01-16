@@ -40,5 +40,6 @@ module Taxonomy
     include("uuid.jl")
 
     export n_sample
+    export factor_variance
     include("extractors.jl")
 end
