@@ -1,5 +1,5 @@
 mylgcm_sparse = LGCM(timecoding = [0,1,2,3,4])
-mylgcm = LGCM(timecoding = [0,1,2,3,4], n_timepoints = 5, n_predictors = 0, non_linear_function = 0)
+mylgcm = LGCM(timecoding = [0,1,2,3,4], n_timepoints = 5, n_predictors = 0)
 mylgcm_missing = LGCM(timecoding = J(missing))
 
 
