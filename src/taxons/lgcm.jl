@@ -20,34 +20,34 @@ Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missi
 struct LGCM <: Taxon
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    ntimepoints::Judgement{ <: Union{ <: Int, Missing}}
-    npredictors::Judgement{ <: Union{ <: Int, Missing}}
-    nonlinearfunction::Judgement{ <: Union{ <: Int, Missing}}
-    LGCM(n_sample, timecoding, ntimepoints, npredictors, nonlinearfunction) =
-        new(J(n_sample), J(timecoding), J(ntimepoints), J(npredictors), J(nonlinearfunction))
+    n_timepoints::Judgement{ <: Union{ <: Int, Missing}}
+    n_predictors::Judgement{ <: Union{ <: Int, Missing}}
+    non_linear_function::Judgement{ <: Union{ <: Int, Missing}}
+    LGCM(n_sample, timecoding, n_timepoints, n_predictors, non_linear_function) =
+        new(J(n_sample), J(timecoding), J(n_timepoints), J(n_predictors), J(non_linear_function))
 end
 
 function LGCM(; 
     n_sample = missing,
     timecoding = NoJudgement(), 
-    ntimepoints = NoJudgement(),
-    npredictors = 0,
-    nonlinearfunction = 0)
+    n_timepoints = NoJudgement(),
+    n_predictors = 0,
+    non_linear_function = 0)
     if !ismissing(rating(timecoding))
-        implied_ntimepoints = length(rating(timecoding))
-        if ismissing(rating(ntimepoints))
-            ntimepoints = implied_ntimepoints
+        implied_n_timepoints = length(rating(timecoding))
+        if ismissing(rating(n_timepoints))
+            n_timepoints = implied_n_timepoints
         end
-        if ntimepoints != implied_ntimepoints
+        if n_timepoints != implied_n_timepoints
             throw(ArgumentError("ntimepoints does not aggree with ntimepoints"))
         end
     end
     
     LGCM(n_sample,
     timecoding, 
-    ntimepoints, 
-    npredictors, 
-    nonlinearfunction
+    n_timepoints, 
+    n_predictors, 
+    non_linear_function
     )
 end
 
