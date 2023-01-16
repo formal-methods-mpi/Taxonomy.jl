@@ -19,7 +19,7 @@ Factor(n_variables = 2, loadings = [1, 0.4])
 Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
 ```
 """
-struct Factor <: AbstractCFA
+struct Factor <: AbstractFactor
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     n_variables::Judgement{ <: Union{ <:Int, Missing}}
      loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
@@ -71,7 +71,7 @@ CFA(Judgement{Missing}(missing, 1.0, missing), Judgement{Vector{Factor}}(Factor[
 , 1.0, missing))
 ```
 """
-struct CFA <: AbstractCFA
+struct CFA <: Pathmodel
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
     structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
