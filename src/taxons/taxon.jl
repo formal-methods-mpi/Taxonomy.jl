@@ -12,5 +12,12 @@ No taxons Taxon.
 struct NoTaxon <: Taxon end
 
 
-struct NoTaxonYet <: Taxon end
+struct NoTaxonYet <: Taxon
+modeltype :: String
+accessdate :: String
+end
 
+function NoTaxonYet(;modeltype,
+    accessdate)
+    NoTaxonYet(modeltype,accessdate)
+end
