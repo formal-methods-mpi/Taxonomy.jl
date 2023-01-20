@@ -44,6 +44,12 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
     Record(rater, id, location, meta, taxons, spec, data)
 end
 
+function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = NoTaxonYet, spec = missing, data = missing)
+     if
+        taxons == NoTaxonYet
+        @warn "This model is currently not possible to code? - please come back later."
+    end       
+        
 rater(x::Record) = x.rater
 taxons(x::Record) = x.taxons
 MetaData(x::Record) = x.meta
