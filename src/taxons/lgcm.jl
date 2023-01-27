@@ -1,4 +1,3 @@
-using Taxonomy
 """
 LGCM Taxon. 
 Taxon for Linear Growth Curve Model.
@@ -6,13 +5,19 @@ Taxon for Linear Growth Curve Model.
     ## Arguments
 
 - `n_sample`: Number of observed cases.
-- `timecoding`: Vector containing the coding of the measurement time points (loadings of the slope onto the items).
-- `n_timepoints`: Number of measurement time points. Should normally be the length of timecoding.  
-- `n_predictors`: Number of predictors for intercept and/or slope. 
-- `non_linear_function`: Vector for including the slopes introduced by a nonlinear function.  
+- `n_timepoints`: Number of measurement timepoints.
+- `timecoding`: Vector containing the coding of the measurement time points (loadings of the slope onto the timepoints).
+- `nonlinear_timecoding`: Vector for the timecodings introduced by a nonlinear function. 
+- `variance_intercept`: Variance of the intercept.
+- `variance_slope`: Variance of the slope. 
+- `covariance_intercept_slope`: Covariance between intercept and slope.
+- `variances_timepoints`: Vector with variances of the timepoint variables. 
+- `n_predictors`: Number of predictors on intercept and slope. 
+- `predictor_paths_intercept`: Vector for the predictor-paths to the intercept.
+- `predictor_paths_slope`: Vector for the predictor-paths to the slope.
 
 ```jldoctest
-LGCM(n_sample = 500, timecoding = [0, 1, 2, 3, 4, 5], n_timepoints = 6, n_predictors = 2, non_linear_function = [0, 1, 4, 9, 16, 25])
+LGCM(n_sample = 500, timecoding = [0, 1, 2, 3, 4, 5], n_timepoints = 6, n_predictors = 2, nonlinear_timecoding = [0, 1, 4, 9, 16, 25])
 
 # output
 LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 4, 5], 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 4, 9, 16, 25], 1.0, missing))
@@ -20,35 +25,39 @@ LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 
 """
 struct LGCM <: Taxon
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
+    n_timepoints::Judgement{ <: Union{ <:Int, Missing}}
     timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    n_timepoints::Judgement{ <: Union{ <: Int, Missing}}
-    n_predictors::Judgement{ <: Union{ <: Int, Missing}}
-    non_linear_function::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    LGCM(n_sample, timecoding, n_timepoints, n_predictors, non_linear_function) =
-        new(J(n_sample), J(timecoding), J(n_timepoints), J(n_predictors), J(non_linear_function))
+    nonlinear_timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    variance_intercept::Judgement{ <: Union{ <:Int, Missing}}
+    variance_slope::Judgement{ <: Union{ <:Int, Missing}}
+    covariance_intercept_slope::{Union{ <:Int, Missing}}
+    variances_timepoints::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    n_predictors_intercept::Judgement{ <: Union{ <: Int, Missing}}
+    predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints,  
+    n_predictors, predictor_paths_intercept, predictor_paths_slope) =
+        new(J(n_sample), J(n_timepoints), J(timecoding), J(covariance_intercept_slope), 
+        J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), 
+        J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
 end
 
 function LGCM(; 
-    n_sample = missing,
-    timecoding = NoJudgement(), 
-    n_timepoints = NoJudgement(),
-    n_predictors = 0,
-    non_linear_function = NoJudgement())
-    if !ismissing(rating(timecoding))
-        implied_n_timepoints = length(rating(timecoding))
-        if ismissing(rating(n_timepoints))
-            n_timepoints = implied_n_timepoints
-        end
-        if n_timepoints != implied_n_timepoints
-            throw(ArgumentError("ntimepoints does not aggree with ntimepoints"))
-        end
-    end
-    
-    LGCM(n_sample,
-    timecoding, 
+    n_sample,
     n_timepoints, 
-    n_predictors, 
-    non_linear_function
+    timecoding, 
+    nonlinear_timecoding = 0,
+    variance_intercept,
+    variance_slope,
+    covariance_intercept_slope = 0,
+    variances_timepoints = 0,
+    n_predictors = 0,
+    predictor_paths_intercept = 0,
+    predictor_paths_slope = 0
+    
+    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept,
+    variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors,
+    predictor_paths_intercept, predictor_paths_slope)
     )
 end
 
