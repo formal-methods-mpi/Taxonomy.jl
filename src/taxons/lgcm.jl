@@ -17,7 +17,7 @@ Taxon for Linear Growth Curve Model.
 - `predictor_paths_slope`: Vector for the predictor-paths to the slope.
 
 ```jldoctest
-LGCM(n_sample = 500, timecoding = [0, 1, 2, 3, 4, 5], n_timepoints = 6, n_predictors = 2, nonlinear_timecoding = [0, 1, 4, 9, 16, 25])
+LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], variance_intercept = 1, variance_slope = 1)
 
 # output
 LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 4, 5], 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 4, 9, 16, 25], 1.0, missing))
@@ -36,7 +36,7 @@ struct LGCM <: Taxon
     predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
-        new(J(n_sample), J(n_timepoints), J(timecoding), J(covariance_intercept_slope), J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
+        new(J(n_sample), J(n_timepoints), J(timecoding), J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
 end
 
 function LGCM(; 
