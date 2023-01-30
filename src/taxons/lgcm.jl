@@ -30,16 +30,13 @@ struct LGCM <: Taxon
     nonlinear_timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     variance_intercept::Judgement{ <: Union{ <:Int, Missing}}
     variance_slope::Judgement{ <: Union{ <:Int, Missing}}
-    covariance_intercept_slope::{Union{ <:Int, Missing}}
+    covariance_intercept_slope::Judgement{ <: Union{ <:Int, Missing}}
     variances_timepoints::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     n_predictors_intercept::Judgement{ <: Union{ <: Int, Missing}}
     predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints,  
-    n_predictors, predictor_paths_intercept, predictor_paths_slope) =
-        new(J(n_sample), J(n_timepoints), J(timecoding), J(covariance_intercept_slope), 
-        J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), 
-        J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
+    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
+        new(J(n_sample), J(n_timepoints), J(timecoding), J(covariance_intercept_slope), J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
 end
 
 function LGCM(; 
@@ -53,11 +50,8 @@ function LGCM(;
     variances_timepoints = 0,
     n_predictors = 0,
     predictor_paths_intercept = 0,
-    predictor_paths_slope = 0
-    
-    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept,
-    variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors,
-    predictor_paths_intercept, predictor_paths_slope)
-    )
+    predictor_paths_slope = 0)
+   
+    LGCM(n_sample, n_timepoints, timecoding, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
 end
 
