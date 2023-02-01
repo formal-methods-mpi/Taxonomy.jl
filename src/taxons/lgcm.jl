@@ -19,10 +19,12 @@ Taxon for Linear Growth Curve Model.
 - `predictor_paths_slope`: Vector for the predictor-paths to the slope.
 
 ```jldoctest
-LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, slope = 0.96, variance_intercept = 1, variance_slope = 1)
+LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
+slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 1, variance_slope = 1, covariance_intercept_slope = 0.1,
+n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
 
 # output
-LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 4, 5], 1.0, missing), Judgement{Float64}(10.2, 1.0, missing), Judgement{Float64}(0.96, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
+LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 4, 5], 1.0, missing), Judgement{Float64}(10.2, 1.0, missing), Judgement{Float64}(0.96, 1.0, missing), Judgement{Vector{Int64}}([1, 2, 4, 9, 16, 25], 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Float64}(0.1, 1.0, missing), Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Int64}}([2, 4], 1.0, missing), Judgement{Vector{Int64}}([3, 5], 1.0, missing))
 ```
 """
 struct LGCM <: Taxon
@@ -35,7 +37,7 @@ struct LGCM <: Taxon
     variance_intercept::Judgement{ <: Union{ <:Number, Missing}}
     variance_slope::Judgement{ <: Union{ <:Number, Missing}}
     covariance_intercept_slope::Judgement{ <: Union{ <:Number, Missing}}
-    variances_timepoints::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    variances_timepoints::Judgement{ <: Union{ <:Number, Missing}}
     n_predictors_intercept::Judgement{ <: Union{ <: Int, Missing}}
     predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
@@ -47,13 +49,13 @@ function LGCM(;
     n_sample = missing,
     n_timepoints, 
     timecoding, 
-    intercept,
-    slope,
+    intercept = missing,
+    slope = missing,
     nonlinear_timecoding = 0,
-    variance_intercept,
-    variance_slope,
+    variance_intercept = missing,
+    variance_slope = missing,
     covariance_intercept_slope = 0,
-    variances_timepoints = 0,
+    variances_timepoints = missing, 
     n_predictors = 0,
     predictor_paths_intercept = 0,
     predictor_paths_slope = 0)
