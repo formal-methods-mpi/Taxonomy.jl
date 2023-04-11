@@ -38,7 +38,7 @@ struct LGCM <: Taxon
     variance_slope::Judgement{ <: Union{ <:Number, Missing}}
     covariance_intercept_slope::Judgement{ <: Union{ <:Number, Missing}}
     variances_timepoints::Judgement{ <: Union{ <:Number, Missing}}
-    n_predictors_intercept::Judgement{ <: Union{ <: Int, Missing}}
+    n_predictors::Judgement{ <: Union{ <: Int, Missing}}
     predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     LGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
