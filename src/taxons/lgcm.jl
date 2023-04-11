@@ -108,7 +108,7 @@ covariance_intercept_slope(x::LGCM) = x.covariance_intercept_slope
 """
 Extract the variance of the timepoints from LGCM.
 """
-variance_timepoints(x::LGCM) = x.variances_timepoints
+variances_timepoints(x::LGCM) = x.variances_timepoints
 
 """
 Extract the number of predictors from LGCM.
