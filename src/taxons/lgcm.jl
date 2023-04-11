@@ -63,3 +63,71 @@ function LGCM(;
     LGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
 end
 
+
+## Extractors --------
+"""
+Extract number of timepoints from LGCM.
+"""
+n_timepoints(x::LGCM) = x.n_timepoints
+
+"""
+Extract timecoding from LGCM.
+"""
+timecoding(x::LGCM) = x.timecoding
+
+"""
+Extract intercept from LGCM.
+"""
+intercept(x::LGCM) = x.intercept
+
+"""
+Extract slope from LGCM.
+"""
+slope(x::LGCM) = x.slope
+
+"""
+Extract nonlinear_timecoding from LGCM.
+"""
+nonlinear_timecoding(x::LGCM) = x.nonlinear_timecoding
+
+"""
+Extract variance of the intercept from LGCM.
+"""
+variance_intercept(x::LGCM) = x.variance_intercept
+
+"""
+Extract variance of the slope from LGCM.
+"""
+variance_slope(x::LGCM) = x.variance_slope
+
+"""
+Extract the covariance of the intercept and slope from LGCM.
+"""
+covariance_intercept_slope(x::LGCM) = x.covariance_intercept_slope
+
+"""
+Extract the variance of the timepoints from LGCM.
+"""
+variance_timepoints(x::LGCM) = x.variances_timepoints
+
+"""
+Extract the number of predictors from LGCM.
+"""
+n_predictors(x::LGCM) = x.n_predictors
+
+"""
+Extract the predictor-paths for the intercept from LGCM.
+"""
+predictor_paths_intercept(x::LGCM) = x.predictor_paths_intercept
+
+"""
+Extract the predictor-paths for the slope from LGCM.
+"""
+predictor_paths_slope(x::LGCM) = x.predictor_paths_slope
+
+
+
+
+
+
+
