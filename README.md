@@ -40,7 +40,7 @@ using Taxonomy
 # Dependencies
 
 If you are planing to use this package for CFA, you need to import the 'StenoGraphs' package as well.
-get this here alogside an introduction: https://aaronpeikert.github.io/StenoGraphs.jl/dev/ 
+Get this here alogside an introduction: https://aaronpeikert.github.io/StenoGraphs.jl/dev/ 
 
 # More Details!
 
