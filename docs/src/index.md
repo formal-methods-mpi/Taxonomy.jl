@@ -4,7 +4,7 @@ CurrentModule = Taxonomy
 
 # Taxonomy
 
-Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonomy.jl).
+Documentation for [Taxonomy](https://github.com/formal-methods-mpi/Taxonomy.jl).
 
 ## Index
 
