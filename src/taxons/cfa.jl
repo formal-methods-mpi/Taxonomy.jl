@@ -22,11 +22,11 @@ Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missi
 struct Factor <: AbstractFactor
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     n_variables::Judgement{ <: Union{ <:Int, Missing}}
-     loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-     error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+    error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     Factor(n_sample, n_variables, loadings, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
         new(J(n_sample), J(n_variables), J(loadings), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
