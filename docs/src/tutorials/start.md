@@ -24,8 +24,15 @@ first_record = Record(
 # output
 
 ┌ Warning: You really should supply an ID. May we suggest (from DOI): 8f1713c9-482b-58cb-8ed4-128c03e9dafb
-└ @ Taxonomy ~/Downloads/Taxonomy.jl/src/record.jl:19
-Record("AP", missing, UsualDOI{String, Missing}("10.2307/2095172", missing), ExtensiveMeta{MinimalMeta}(MinimalMeta("Bollen, Kenneth A.", 1980, "American Sociological Review"), "Bollen, K. A. (1980). Issues in the Comparative Measurement of Political Democracy. American Sociological Review, 45(3), 370. https://doi.org/10.2307/2095172\n", Dict{String, Any}("publisher" => "SAGE Publications", "member" => "179", "issue" => "3", "indexed" => Dict{String, Any}("date-parts" => Any[Any[2023, 1, 12]], "date-time" => "2023-01-12T14:50:52Z", "timestamp" => 1673535052942), "reference-count" => 0, "container-title-short" => "American Sociological Review", "issued" => Dict{String, Any}("date-parts" => Any[Any[1980, 6]]), "container-title" => "American Sociological Review", "subject" => Any["Sociology and Political Science"], "resource" => Dict{String, Any}("primary" => Dict{String, Any}("URL" => "http://www.jstor.org/stable/2095172?origin=crossref"))…)), Factor[Factor(Judgement{Int64}(113, 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Float64}}([1.0, 1.19, 0.53, 0.91, 1.0, 1.0], 1.0, missing), Judgement{Vector{Float64}}([10.7, 12.9, 19.0], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))], Judgement{Bool}(true, 1.0, missing), Judgement{Bool}(true, 1.0, missing))
+└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:19
+Record
+   rater: String
+   id: Missing
+   location: UsualDOI{String, Missing}
+   meta: ExtensiveMeta{MinimalMeta}
+   taxons: Vector{Factor}
+   spec: Judgement{Bool}
+   data: Judgement{Bool}
 
 ```
 
@@ -42,7 +49,14 @@ julia> spec(first_record)
 Judgement{Bool}(true, 1.0, missing)
 julia> taxons(first_record)
 1-element Vector{Factor}:
- Factor(Judgement{Int64}(113, 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Float64}}([1.0, 1.19, 0.53, 0.91, 1.0, 1.0], 1.0, missing), Judgement{Vector{Float64}}([10.7, 12.9, 19.0], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
+ Factor
+   n_sample: Judgement{Int64}
+   n_variables: Judgement{Int64}
+   loadings: Judgement{Vector{Float64}}
+   error_covariances_within: Judgement{Vector{Float64}}
+   error_covariances_between: Judgement{Int64}
+   crossloadings_incoming: Judgement{Int64}
+   crossloadings_outgoing: Judgement{Int64}
 ```
 
 Generally, DOIs are the best and easiest thing to get metadata, however, sometimes none is availible:
