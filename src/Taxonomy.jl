@@ -41,4 +41,6 @@ module Taxonomy
 
     export n_sample
     include("extractors.jl")
+
+    include("pretty_printing.jl")
 end
