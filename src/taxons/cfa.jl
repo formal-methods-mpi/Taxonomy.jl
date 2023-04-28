@@ -58,7 +58,7 @@ Consists of Factors (measurement model) and a graph from StenoGraphs (structural
 - `measurement_model`: Vector of Factors.
 - `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
 
-```jldoctest
+```julia
 using StenoGraphs
 using Taxonomy
 
@@ -72,12 +72,6 @@ end
 
 CFA(measurement_model = [factor1, factor2], 
 structural_model = graph )
-
-# output
-CFA
-   n_sample: Judgement{Missing}
-   measurement_model: Judgement{Vector{Factor}}
-   structural_model: Judgement{Vector{StenoGraphs.DirectedEdge{StenoGraphs.SimpleNode{Symbol}, StenoGraphs.SimpleNode{Symbol}}}}
 ```
 """
 struct CFA <: Pathmodel

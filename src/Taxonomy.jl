@@ -26,7 +26,7 @@ module Taxonomy
     export NoTaxon
     include("taxons/taxon.jl")
     
-    using StenoGraphs
+    import StenoGraphs
     export Factor
     export CFA
     include("taxons/cfa.jl")
