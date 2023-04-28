@@ -74,10 +74,10 @@ CFA(measurement_model = [factor1, factor2],
 structural_model = graph )
 
 # output
-│ CFA
-│    n_sample: Judgement{Missing}
-│    measurement_model: Judgement{Vector{Factor}}
-│    structural_model: Judgement{Vector{StenoGraphs.DirectedEdge{StenoGraphs.SimpleNode{Symbol}, StenoGraphs.SimpleNode{Symbol}}}}
+CFA
+   n_sample: Judgement{Missing}
+   measurement_model: Judgement{Vector{Factor}}
+   structural_model: Judgement{Vector{StenoGraphs.DirectedEdge{StenoGraphs.SimpleNode{Symbol}, StenoGraphs.SimpleNode{Symbol}}}}
 ```
 """
 struct CFA <: Pathmodel
