@@ -4,7 +4,7 @@ CurrentModule = Taxonomy
 
 # Taxonomy
 
-Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonomy.jl).
+Documentation for [Taxonomy](https://github.com/formal-methods-mpi/Taxonomy.jl).
 
 ## Index
 
@@ -17,12 +17,14 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 Taxon
 Factor
 CFA
+LGCM
 ```
 
 ## Extractors
 
 ```@docs
 n_sample
+factor_variance
 ```
 
 ## ID
