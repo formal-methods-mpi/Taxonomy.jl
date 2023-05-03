@@ -53,6 +53,7 @@ julia> taxons(first_record)
    n_sample: Judgement{Int64}
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
+   error_variances: Judgement{Int64}
    error_covariances_within: Judgement{Vector{Float64}}
    error_covariances_between: Judgement{Int64}
    crossloadings_incoming: Judgement{Int64}
