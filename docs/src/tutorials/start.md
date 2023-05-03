@@ -16,7 +16,7 @@ using Taxonomy
 first_record = Record(
     rater = "AP",
     location = DOI("10.2307/2095172"),
-    taxons = [Standalone_Factor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [Standalone_Factor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
@@ -24,7 +24,7 @@ first_record = Record(
 # output
 
 ┌ Warning: You really should supply an ID. May we suggest (from DOI): 8f1713c9-482b-58cb-8ed4-128c03e9dafb
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:19
+└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:19
 Record
    rater: String
    id: Missing
@@ -53,6 +53,7 @@ julia> taxons(first_record)
    n_sample: Judgement{Int64}
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
+   factor_variance: Judgement{Missing}
    error_variances: Judgement{Int64}
    error_covariances_within: Judgement{Vector{Float64}}
    error_covariances_between: Judgement{Int64}
