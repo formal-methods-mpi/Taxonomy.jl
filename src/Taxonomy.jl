@@ -41,4 +41,8 @@ module Taxonomy
 
     export n_sample
     include("extractors.jl")
+
+    export RecordDatabase
+    import Base: UUID
+    include("dict.jl")
 end
