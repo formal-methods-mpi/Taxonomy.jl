@@ -22,7 +22,7 @@ These samplers can quickly be turned into models for [StructuralEquationModels.j
 
 Simulations are only in so far helpful as they reflect some (simplified) aspect of reality.
 A simulation that is only based on the guess of the researchers conducting it is prone to fail to represent realistic conditions and may even favour the procedures that are investigated unduly.
-Being able to base simulations on a sample of the literature strengtens the inference and practical impact of simulation studies.
+Being able to base simulations on a sample of the literature strengthens the inference and practical impact of simulation studies.
 
 ### Impact on scientific community
 
@@ -30,7 +30,7 @@ The Julia package will provide an according database and interface, and therefor
 By this, it may enable more general claims and facilitate preregistration of simulations.
 Furthermore, Bayesian methodology has highlighted the importance of incorporating prior knowledge in the form of prior distributions.
 Taxonomy.jl seeks to make this process more transparent and accessible for researchers and consumers of science, which can greatly facilitate cumulative science.
-Besides enabling better simulations, knowing what types of SEMs are how common may greatly help guiding the development of new methodolgies.
+Besides enabling better simulations, knowing how common different types of SEMs are may greatly help guiding the development of new methodologies.
 
 ## Index
 
