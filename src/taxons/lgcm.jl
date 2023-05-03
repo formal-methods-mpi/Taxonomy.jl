@@ -24,7 +24,20 @@ slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 
 n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
 
 # output
-LGCM(Judgement{Int64}(500, 1.0, missing), Judgement{Int64}(6, 1.0, missing), Judgement{Vector{Int64}}([0, 1, 2, 3, 4, 5], 1.0, missing), Judgement{Float64}(10.2, 1.0, missing), Judgement{Float64}(0.96, 1.0, missing), Judgement{Vector{Int64}}([1, 2, 4, 9, 16, 25], 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Float64}(0.1, 1.0, missing), Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Int64}}([2, 4], 1.0, missing), Judgement{Vector{Int64}}([3, 5], 1.0, missing))
+LGCM
+   n_sample: Judgement{Int64}
+   n_timepoints: Judgement{Int64}
+   timecoding: Judgement{Vector{Int64}}
+   intercept: Judgement{Float64}
+   slope: Judgement{Float64}
+   nonlinear_timecoding: Judgement{Vector{Int64}}
+   variance_intercept: Judgement{Int64}
+   variance_slope: Judgement{Int64}
+   covariance_intercept_slope: Judgement{Float64}
+   variances_timepoints: Judgement{Missing}
+   n_predictors: Judgement{Int64}
+   predictor_paths_intercept: Judgement{Vector{Int64}}
+   predictor_paths_slope: Judgement{Vector{Int64}}
 ```
 """
 struct LGCM <: Taxon
