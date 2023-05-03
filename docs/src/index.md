@@ -9,7 +9,9 @@ CurrentModule = Taxonomy
 ## What?
 
 Taxonomy.jl aims to serve as a comprehensive database of structural equation models (SEMs) that can be used to infer distributions of both structures and parameters.
-This will greatly facilitate simulation studies that accurately reflect real-world conditions.
+This will greatly facilitate simulation studies that accurately reflect real-world conditions and takes seriously the idea that "Simulation studies are to a statistician what experiments are to a scientist" [Pawel & Kook et al.](https://doi.org/10.1002/bimj.202200091).
+Having a common basis for setting parameters in simulations will also reduce the extremely wide latitude statisticians have to create an overly positive image of the strengths of novel methods.
+So-called researchers-degrees of freedom are already a concern in empirical studies but simulation studies exaggerate the issue by allowing an almost infinite freedom over the data-generating process.
 Additionally, Taxonomy.jl will provide a user-friendly interface for researchers to easily sample these parameters for use in their own simulation studies.
 
 ### End product
