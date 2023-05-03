@@ -17,6 +17,7 @@ Documentation for [Taxonomy](https://github.com/StructuralEquationModels/Taxonom
 Taxon
 Factor
 CFA
+LGCM
 ```
 
 ## Extractors
