@@ -22,7 +22,7 @@ These samplers can quickly be turned into models for [StructuralEquationModels.j
 
 ## So what?
 
-Simulations are only in so far helpful as they reflect some (simplified) aspect of reality.
+Simulations are only helpful in so far as they reflect some (simplified) aspects of reality.
 A simulation, that is only based on the guess of the researchers conducting it, is prone to fail to represent realistic conditions and may even favour the procedures that are investigated unduly.
 Being able to base simulations on a sample of the literature strengthens the inference and practical impact of simulation studies.
 
