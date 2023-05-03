@@ -17,18 +17,27 @@ Building Block for CFA Taxonomy. Multiple Factors can be combined to a CFA.
 Factor(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
 
 # output
-Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Float64}(0.6, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))
+
+Factor
+   n_sample: Judgement{Missing}
+   n_variables: Judgement{Int64}
+   loadings: Judgement{Vector{Float64}}
+   factor_variance: Judgement{Float64}
+   error_covariances_within: Judgement{Int64}
+   error_covariances_between: Judgement{Int64}
+   crossloadings_incoming: Judgement{Int64}
+   crossloadings_outgoing: Judgement{Int64}
 ```
 """
-struct Factor <: AbstractCFA
+struct Factor <: AbstractFactor
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     n_variables::Judgement{ <: Union{ <:Int, Missing}}
-     loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-     factor_variance::Judgement{ <: Union{ <:Number, Missing}}
-     error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-     crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+    factor_variance::Judgement{ <: Union{ <:Number, Missing}}
+    error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     Factor(n_sample, n_variables, loadings, factor_variance, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
         new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
@@ -54,7 +63,7 @@ Consists of Factors (measurement model) and a graph from StenoGraphs (structural
 - `measurement_model`: Vector of Factors.
 - `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
 
-```jldoctest
+```julia
 using StenoGraphs
 using Taxonomy
 
@@ -67,14 +76,18 @@ graph = @StenoGraph begin
 end
 
 CFA(measurement_model = [factor1, factor2], 
-structural_model = graph )
+structural_model = graph)
 
 # output
-CFA(Judgement{Missing}(missing, 1.0, missing), Judgement{Vector{Factor}}(Factor[Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Float64}(0.7, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing)), Factor(Judgement{Missing}(missing, 1.0, missing), Judgement{Int64}(2, 1.0, missing), Judgement{Vector{Float64}}([0.7, 0.3], 1.0, missing), Judgement{Int64}(1, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))], 1.0, missing), Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}(fac1 → fac2
-, 1.0, missing))
+
+CFA
+   n_sample: Judgement{Missing}
+   measurement_model: Judgement{Vector{Factor}}
+   structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
+
 ```
 """
-struct CFA <: AbstractCFA
+struct CFA <: Pathmodel
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
     structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}

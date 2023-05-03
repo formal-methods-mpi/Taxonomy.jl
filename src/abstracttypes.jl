@@ -5,4 +5,5 @@ abstract type AbstractMeta end
 Taxon is the supertype of all taxons.
 """
 abstract type Taxon end
-abstract type AbstractCFA <: Taxon end
+abstract type Pathmodel <: Taxon end
+abstract type AbstractFactor <: Taxon end

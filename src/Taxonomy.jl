@@ -33,6 +33,7 @@ module Taxonomy
     export Standalone_Factor
     include("taxons/standalone_factor.jl")
     export LGCM
+    export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
     include("taxons/lgcm.jl")
 
     import UUIDs
@@ -42,4 +43,6 @@ module Taxonomy
     export n_sample
     export factor_variance
     include("extractors.jl")
+
+    include("pretty_printing.jl")
 end
