@@ -8,6 +8,7 @@ Building Block for CFA Taxonomy. Multiple Factors can be combined to a CFA.
 - `n_variables`: Number of variables (possibly observed/manifest).
 - `loadings`: Vector of loadings, one for each item. 
 - `factor_variance`: Variance of the factor.
+- `error_variances`: Vector of variances of the respective errors
 - `error_covariances_within`: Vector of covariances within factor.
 - `error_covariances_between`: Vector of covariances the factor shares with a different factor. 
 - `crossloadings_incoming`: Vector of crossloadings coming from other factors. They should be lower than the loading coming to the item from this factor.  
@@ -23,6 +24,7 @@ Factor
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
    factor_variance: Judgement{Float64}
+   error_variances: Judgement{Int64}
    error_covariances_within: Judgement{Int64}
    error_covariances_between: Judgement{Int64}
    crossloadings_incoming: Judgement{Int64}
@@ -34,23 +36,25 @@ struct Factor <: AbstractFactor
     n_variables::Judgement{ <: Union{ <:Int, Missing}}
     loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
     factor_variance::Judgement{ <: Union{ <:Number, Missing}}
+    error_variances::Judgement{<:Union{<:AbstractArray{<:Number},<: Int, Missing}}
     error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    Factor(n_sample, n_variables, loadings, factor_variance, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
-        new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
+    Factor(n_sample, n_variables, loadings,factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
+        new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_variances), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
 
 function Factor(;n_sample = missing,
     n_variables,
     loadings, 
     factor_variance,
+    error_variances = 0,
     error_covariances_within = 0,
     error_covariances_between = 0, 
     crossloadings_incoming = 0,
     crossloadings_outgoing = 0)
-    Factor(n_sample, n_variables, loadings, factor_variance, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
+    Factor(n_sample, n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
 
 
