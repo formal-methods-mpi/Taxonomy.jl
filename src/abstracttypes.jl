@@ -8,8 +8,8 @@ abstract type Taxon end
 
 abstract type AbstractPathmodel <: Taxon end
 abstract type AbstractCFA <: Taxon end
-abstract type LGCM <: Taxon end
-abstract type CLPM <: Taxon end
+abstract type AbstractLGCM <: Taxon end
+abstract type AbstractCLPM <: Taxon end
 
 struct Measurement <: AbstractCFA
     n_sample::Int64
@@ -33,18 +33,18 @@ struct LatentPathmodel <: AbstractPathmodel
     measurement::Measurement
 end
 
-struct BifactorCFA <: AbstractCFA 
-    measurement::HierarchicalCFA
-end
-
 struct HierarchicalCFA <: AbstractCFA
     measurement::Measurement
 end
 
+struct BifactorCFA <: AbstractCFA 
+    measurement::HierarchicalCFA
+end
 
-struct CLPM <: AbstractPathmodel
+struct SimpleCLPM <: Taxon
     measurement::Measurement
 end
-struct LGCM <: AbstractPathmodel
+
+struct SimpleLGCM <: Taxon
     measurement::Measurement
 end
