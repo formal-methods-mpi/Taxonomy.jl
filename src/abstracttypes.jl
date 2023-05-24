@@ -15,7 +15,7 @@ struct Measurement <: AbstractCFA
     n_sample::Int64
 end
 
-function Standalone_Factor(;n_sample, kwargs...)
+function StandaloneFactor(;n_sample, kwargs...)
     Measurement(;n_sample = n_sample, kwargs...)
 end
 
