@@ -1,5 +1,8 @@
 module Taxonomy
     export AbstractDOI, AbstractLocation
+    export AbstractPathmodel, AbstractCFA, AbstractLGCM, AbstractCLPM
+    export Measurement, Structural, LatentPathmodel, HierarchicalCFA, BifactorCFA, SimpleCLPM, SimpleLGCM
+    export StandaloneFactor, ManifestPathmodel
     include("abstracttypes.jl")
 
     import Dates
@@ -30,6 +33,7 @@ module Taxonomy
     export Factor
     export CFA
     include("taxons/cfa.jl")
+    
     export Standalone_Factor
     include("taxons/standalone_factor.jl")
     export LGCM
