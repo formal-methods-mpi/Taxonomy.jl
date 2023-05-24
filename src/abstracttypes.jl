@@ -23,7 +23,7 @@ struct Structural <: AbstractPathmodel
     n_sample::Int64
 end
     
-function Manifest_Pathmodel(;n_sample, kwargs...)
+function ManifestPathmodel(;n_sample, kwargs...)
     Strucutural(;n_sample = n_sample, kwargs...)
 end
 
