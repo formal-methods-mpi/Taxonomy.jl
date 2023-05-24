@@ -5,7 +5,7 @@ A judgment about any parameter etc.
 
 - `rating`: The rating, e.g. "CFA" or 1.0.
 - `certainty`: If uncertain, a number between 0.0 and 1.0 (0-100%)
-- `location`: optional, Where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
+- `location`: optional, where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
 
 ```jldoctest
 julia> Judgement(1.0, .99, "Figure 1");

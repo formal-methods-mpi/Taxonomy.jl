@@ -1,12 +1,22 @@
-mylgcm_sparse = LGCM(timecoding = [0,1,2,3,4])
-mylgcm = LGCM(timecoding = [0,1,2,3,4], ntimepoints = 5, npredictors = 0, nonlinearfunction = 0)
-mylgcm_missing = LGCM(timecoding = J(missing))
+@testset "LGCM" begin    
+    @test_throws MethodError LGCM(n_timepoints = "hi", timecoding = [1, 0.4])
+end
 
-
-@testset "LGCM" begin
-    @test mylgcm.ntimepoints.rating == mylgcm_sparse.ntimepoints.rating == 5
-    @test_throws MethodError LGCM(timecoding = "test")
-    @test_throws MethodError LGCM(timecoding = 1)
-    @test mylgcm_missing.ntimepoints == J(missing, 0.0, missing)
-    @test_throws ArgumentError LGCM(timecoding = 1:4, ntimepoints = 3)
+@testset "LGCM extractors" begin
+    lgcm_model =  LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
+    slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 1, variance_slope = 1, covariance_intercept_slope = 0.1,
+    variances_timepoints = 0.8, n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
+    
+    @test rating(n_timepoints(lgcm_model)) == 6
+    @test rating(timecoding(lgcm_model)) == [0, 1, 2, 3, 4, 5]
+    @test rating(intercept(lgcm_model)) == 10.2
+    @test rating(slope(lgcm_model)) == 0.96
+    @test rating(nonlinear_timecoding(lgcm_model)) == [1, 2, 4, 9, 16, 25]
+    @test rating(variance_intercept(lgcm_model)) == 1
+    @test rating(variance_slope(lgcm_model)) == 1
+    @test rating(covariance_intercept_slope(lgcm_model)) == 0.1
+    @test rating(variances_timepoints(lgcm_model)) == 0.8
+    @test rating(n_predictors(lgcm_model)) == 2
+    @test rating(predictor_paths_intercept(lgcm_model)) == [2, 4]
+    @test rating(predictor_paths_slope(lgcm_model)) == [3, 5]
 end

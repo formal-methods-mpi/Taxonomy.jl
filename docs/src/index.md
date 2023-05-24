@@ -4,8 +4,6 @@ CurrentModule = Taxonomy
 
 # Taxonomy
 
-`Taxonomy.jl` is work in progress but here is our vision about what it is supposed to do when finished:
-
 ## What?
 
 Taxonomy.jl aims to serve as a comprehensive database of structural equation models (SEMs) that can be used to infer distributions of both structures (e.g., types of models, numbers of observed and latent variables) and parameters (e.g., what is the average factor loading).
@@ -45,12 +43,14 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 Taxon
 Factor
 CFA
+LGCM
 ```
 
 ## Extractors
 
 ```@docs
 n_sample
+factor_variance
 ```
 
 ## ID

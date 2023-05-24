@@ -10,7 +10,7 @@ Function to extract sample size.
 Returns a [`Judgement`](@ref)
 
 ```jldoctest
-f = Factor(n_sample = 100, n_variables = 2, loadings = [1, 0.4])
+f = Factor(n_sample = 100, n_variables = 2, loadings = [1, 0.4], factor_variance = 1.0)
 rating(n_sample(f))
 
 # output
@@ -19,4 +19,27 @@ rating(n_sample(f))
 """
 function n_sample(x::Taxon)
     x.n_sample
+end
+
+"""
+Function to extract factor variance.
+
+## Arguments
+
+- `x`: [`Factor`](@ref) or [`Standalone_Factor`](@ref).
+
+## Return
+
+Returns a [`Judgement`](@ref)
+
+```jldoctest
+f = Factor(n_sample = 100, n_variables = 2, loadings = [1, 0.4], factor_variance = 1.0)
+rating(factor_variance(f))
+
+# output
+1.0
+```
+"""
+function factor_variance(x::Factor)
+    x.factor_variance
 end
