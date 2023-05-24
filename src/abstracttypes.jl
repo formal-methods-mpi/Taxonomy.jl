@@ -51,7 +51,29 @@ Measurement
 """
 
 struct Measurement <: AbstractCFA
-    n_sample::Int64
+    n_sample::Judgement{ <: Union{ <:Int, Missing}}
+    n_variables::Judgement{ <: Union{ <:Int, Missing}}
+    loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+    factor_variance::Judgement{ <: Union{ <:Number, Missing}}
+    error_variances::Judgement{<:Union{<:AbstractArray{<:Number},<: Int, Missing}}
+    error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    Measurement(n_sample, n_variables, loadings,factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
+        new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_variances), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
+end
+
+function Measurement(;n_sample = missing,
+    n_variables,
+    loadings, 
+    factor_variance,
+    error_variances = 0,
+    error_covariances_within = 0,
+    error_covariances_between = 0, 
+    crossloadings_incoming = 0,
+    crossloadings_outgoing = 0)
+    Measurement(n_sample, n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
 
 """
@@ -79,20 +101,30 @@ end
 
 struct Structural <: AbstractPathmodel
     n_sample::Int64
+    measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
+    structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
+    Structural(n_sample, measurement_model, structural_model) = new(J(n_sample), J(measurement_model), J(structural_model))
 end
-    
+
+function Structural(;n_sample = missing,
+    measurement_model,
+    structural_model) # hier basic CFA model festlegen
+    Structural(n_sample, measurement_model, structural_model)
+end
+
+
 function ManifestPathmodel(;n_sample, kwargs...)
     Strucutural(;n_sample = n_sample, kwargs...)
 end
 
 """
 LatentPathmodel AbstractPathmodel. 
-Consists of a graph from StenoGraphs structural (structural model) and a meassurement (measurement model). 
+Consists of a graph from StenoGraphs structural (structural model) and a measurement (measurement model). 
 
 ## Arguments
 
-- `structural`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement.  
-- `measurement`: Vector of Factors.
+- `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
+- `measurement_model`: Vector of Factors.
 
 ```julia
 using StenoGraphs
@@ -106,36 +138,36 @@ graph = @StenoGraph begin
     fac1 → fac2
 end
 
-LatentPathmodel(measurement = [factor1, factor2], 
-structural = graph)
+LatentPathmodel(measurement_model = [factor1, factor2], 
+structural_model = graph)
 
 # output
 
 LatentPathmodel
    n_sample: Judgement{Missing}
-   measurement: Judgement{Vector{Measurement}}
-   structural: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
+   measurement_model: Judgement{Vector{Measurement}}
+   structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
 
 ```
 """
 
 struct LatentPathmodel <: AbstractPathmodel 
-    structural::Structural
-    measurement::Measurement
+    structural_model::Structural
+    measurement_model::Measurement
 end
 
 struct HierarchicalCFA <: AbstractCFA
-    measurement::Measurement
+    measurement_model::Measurement
 end
 
 struct BifactorCFA <: AbstractCFA 
-    measurement::HierarchicalCFA
+    measurement_model::HierarchicalCFA
 end
 
 struct SimpleCLPM <: Taxon
-    measurement::Measurement
+    measurement_model::Measurement
 end
 
 struct SimpleLGCM <: Taxon
-    measurement::Measurement
+    measurement_model::Measurement
 end
