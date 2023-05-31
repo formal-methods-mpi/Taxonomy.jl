@@ -30,13 +30,13 @@ module Taxonomy
     include("taxons/taxon.jl")
     
     import StenoGraphs
-    export Factor
-    export CFA
+    export Measurement
+    export Structural
     include("taxons/cfa.jl")
     
     export Standalone_Factor
     include("taxons/standalone_factor.jl")
-    export LGCM
+    export SimpleLGCM
     export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
     include("taxons/lgcm.jl")
 
