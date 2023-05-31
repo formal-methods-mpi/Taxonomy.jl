@@ -3,7 +3,7 @@ A judgment about any parameter etc.
 
 ## Arguments
 
-- `rating`: The rating, e.g. "CFA" or 1.0.
+- `rating`: The rating, e.g. "Structural" or 1.0.
 - `certainty`: If uncertain, a number between 0.0 and 1.0 (0-100%)
 - `location`: optional, where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
 
