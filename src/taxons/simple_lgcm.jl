@@ -1,3 +1,7 @@
+struct SimpleLGCM <: AbstractLGCM
+    measurement_model::Measurement
+end
+
 """
 LGCM Taxon. 
 Taxon for Linear Growth Curve Model.

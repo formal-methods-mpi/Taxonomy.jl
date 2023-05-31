@@ -22,10 +22,4 @@ abstract type AbstractCFA <: Taxon end
 abstract type AbstractLGCM <: Taxon end
 abstract type AbstractCLPM <: Taxon end
 
-"""
-add dokumentation here!
-"""
 
-struct SimpleLGCM <: AbstractLGCM
-    measurement_model::Measurement
-end
