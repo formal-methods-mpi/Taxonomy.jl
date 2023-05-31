@@ -22,4 +22,3 @@ abstract type AbstractCFA <: Taxon end
 abstract type AbstractLGCM <: Taxon end
 abstract type AbstractCLPM <: Taxon end
 
-
