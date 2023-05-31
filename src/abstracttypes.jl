@@ -25,11 +25,6 @@ abstract type AbstractCLPM <: Taxon end
 """
 add dokumentation here!
 """
-struct LatentPathmodel <: AbstractPathmodel 
-    structural_model::Structural
-    measurement_model::Measurement
-end
-
 struct HierarchicalCFA <: AbstractCFA
     measurement_model::Measurement
 end
