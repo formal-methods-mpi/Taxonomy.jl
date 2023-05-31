@@ -40,6 +40,6 @@ rating(factor_variance(f))
 1.0
 ```
 """
-function factor_variance(x::Factor)
+function factor_variance(x::Measurement)
     x.factor_variance
 end
