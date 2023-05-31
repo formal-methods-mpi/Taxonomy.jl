@@ -25,10 +25,6 @@ abstract type AbstractCLPM <: Taxon end
 """
 add dokumentation here!
 """
-struct HierarchicalCFA <: AbstractCFA
-    measurement_model::Measurement
-end
-
 struct BifactorCFA <: AbstractCFA 
     measurement_model::HierarchicalCFA
 end
