@@ -104,27 +104,8 @@ function StandaloneFactor(;n_sample, kwargs...)
     Measurement(;n_sample = n_sample, kwargs...)
 end
 
-
-struct Structural <: AbstractPathmodel
-    n_sample::Int64
-    measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
-    structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
-    Structural(n_sample, measurement_model, structural_model) = new(J(n_sample), J(measurement_model), J(structural_model))
-end
-
-function Structural(;n_sample = missing,
-    measurement_model,
-    structural_model) # hier basic CFA model festlegen
-    Structural(n_sample, measurement_model, structural_model)
-end
-
-
-function ManifestPathmodel(;n_sample, kwargs...)
-    Strucutural(;n_sample = n_sample, kwargs...)
-end
-
 """
-LatentPathmodel AbstractPathmodel. 
+Structural Taxon. 
 Consists of a graph from StenoGraphs structural (structural model) and a measurement (measurement model). 
 
 ## Arguments
@@ -144,7 +125,7 @@ graph = @StenoGraph begin
     fac1 → fac2
 end
 
-LatentPathmodel(measurement_model = [factor1, factor2], 
+Structural(measurement_model = [factor1, factor2], 
 structural_model = graph)
 
 # output
@@ -156,7 +137,27 @@ LatentPathmodel
 
 ```
 """
+struct Structural <: AbstractPathmodel
+    n_sample::Int64
+    measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
+    structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
+    Structural(n_sample, measurement_model, structural_model) = new(J(n_sample), J(measurement_model), J(structural_model))
+end
 
+function Structural(;n_sample = missing,
+    measurement_model,
+    structural_model) # hier basic CFA model festlegen
+    Structural(n_sample, measurement_model, structural_model)
+end
+
+
+function ManifestPathmodel(;n_sample, kwargs...)
+    Strucutural(;n_sample = n_sample, kwargs...)
+end
+
+"""
+add dokumentation here!
+"""
 struct LatentPathmodel <: AbstractPathmodel 
     structural_model::Structural
     measurement_model::Measurement
