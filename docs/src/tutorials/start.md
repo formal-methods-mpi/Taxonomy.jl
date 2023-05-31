@@ -48,8 +48,8 @@ julia> apa(first_record)
 julia> spec(first_record)
 Judgement{Bool}(true, 1.0, missing)
 julia> taxons(first_record)
-1-element Vector{Factor}:
- Factor
+1-element Vector{Measurement}:
+ Measurement
    n_sample: Judgement{Int64}
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
