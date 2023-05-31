@@ -34,7 +34,7 @@ Sructural
 """
 struct Structural <: AbstractPathmodel
     n_sample::Int64
-    measurement_model::Judgement{ <: Union{<:AbstractArray{<: Factor}, Missing}}
+    measurement_model::Judgement{ <: Union{<:AbstractArray{<: AbstractCFA}, Missing}}
     structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
     Structural(n_sample, measurement_model, structural_model) = new(J(n_sample), J(measurement_model), J(structural_model))
 end
