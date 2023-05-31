@@ -27,18 +27,18 @@ module Taxonomy
     include("metadata/meta.jl")
 
     export NoTaxon
-    include("taxons/taxon.jl")
+    include("taxons/no_taxon.jl")
     
     import StenoGraphs
     export Measurement
     export Structural
-    include("taxons/cfa.jl")
+    include("taxons/structural.jl")
     
     export Standalone_Factor
-    include("taxons/standalone_factor.jl")
+    include("taxons/measurement.jl")
     export SimpleLGCM
     export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
-    include("taxons/lgcm.jl")
+    include("taxons/simple_lgcm.jl")
 
     import UUIDs
     export generate_id
