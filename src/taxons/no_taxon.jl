@@ -1,1 +1,1 @@
-struct NoTaxon <: Taxon end
+struct NoTaxon <: NoAbstractTaxon end
