@@ -165,10 +165,10 @@ struct BifactorCFA <: AbstractCFA
     measurement_model::HierarchicalCFA
 end
 
-struct SimpleCLPM <: Taxon
+struct SimpleCLPM <: AbstractCLPM
     measurement_model::Measurement
 end
 
-struct SimpleLGCM <: Taxon
+struct SimpleLGCM <: AbstractLGCM
     measurement_model::Measurement
 end
