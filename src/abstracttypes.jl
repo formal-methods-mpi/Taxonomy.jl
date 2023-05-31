@@ -25,13 +25,6 @@ abstract type AbstractCLPM <: Taxon end
 """
 add dokumentation here!
 """
-struct BifactorCFA <: AbstractCFA 
-    measurement_model::HierarchicalCFA
-end
-
-struct SimpleCLPM <: AbstractCLPM
-    measurement_model::Measurement
-end
 
 struct SimpleLGCM <: AbstractLGCM
     measurement_model::Measurement
