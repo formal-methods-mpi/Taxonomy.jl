@@ -1,6 +1,6 @@
 
 """
-Structural Taxon. 
+Structural AbstractPathmodel. 
 Consists of a graph from StenoGraphs structural (structural model) and a measurement (measurement model). 
 
 ## Arguments
@@ -25,7 +25,7 @@ structural_model = graph)
 
 # output
 
-LatentPathmodel
+Sructural
    n_sample: Judgement{Missing}
    measurement_model: Judgement{Vector{Measurement}}
    structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
