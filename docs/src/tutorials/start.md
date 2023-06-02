@@ -30,7 +30,7 @@ Record
    id: Missing
    location: UsualDOI{String, Missing}
    meta: ExtensiveMeta{MinimalMeta}
-   taxons: Vector{Factor}
+   taxons: Vector{Measurement}
    spec: Judgement{Bool}
    data: Judgement{Bool}
 
