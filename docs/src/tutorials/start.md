@@ -16,7 +16,7 @@ using Taxonomy
 first_record = Record(
     rater = "AP",
     location = DOI("10.2307/2095172"),
-    taxons = [Standalone_Factor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19])],
+    taxons = [StandaloneFactor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19])],
     spec = true,
     data = true
 )
@@ -30,7 +30,7 @@ Record
    id: Missing
    location: UsualDOI{String, Missing}
    meta: ExtensiveMeta{MinimalMeta}
-   taxons: Vector{Factor}
+   taxons: Vector{Measurement}
    spec: Judgement{Bool}
    data: Judgement{Bool}
 
@@ -48,12 +48,13 @@ julia> apa(first_record)
 julia> spec(first_record)
 Judgement{Bool}(true, 1.0, missing)
 julia> taxons(first_record)
-1-element Vector{Factor}:
- Factor
+1-element Vector{Measurement}:
+ Measurement
    n_sample: Judgement{Int64}
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
    factor_variance: Judgement{Missing}
+   error_variances: Judgement{Int64}
    error_covariances_within: Judgement{Vector{Float64}}
    error_covariances_between: Judgement{Int64}
    crossloadings_incoming: Judgement{Int64}

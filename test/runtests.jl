@@ -11,8 +11,8 @@ using StenoGraphs
     
     include("metadata/doi.jl")
     include("judgement.jl")
-    include("taxons/lgcm.jl")
-    include("taxons/cfa.jl")
+    include("taxons/simple_lgcm.jl")
+    include("taxons/measurement.jl")
     include("extractors.jl")
     include("database.jl")
 end
