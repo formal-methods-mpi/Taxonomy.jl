@@ -33,10 +33,6 @@ Record
    data: Missing
 ```
 
-```@meta
-DocTestFilters = nothing
-```
-
 As you probably notice we warn you to do that.
 This is to encourage you to think twice, however, after having thought twice about it, you may silence every warning with explicitly suppliyng "empty" instances (except ID, really nothing should hinder you to supply a random id).
 
@@ -130,4 +126,8 @@ Record
    taxons: Vector{NoTaxonYet}
    spec: Judgement{Missing}
    data: Judgement{Missing}
+```
+
+```@meta
+DocTestFilters = nothing
 ```
