@@ -10,7 +10,6 @@ env:
 
 jobs:
   build:
-    if:  startsWith(github.head_ref, 'documentation/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
