@@ -1,9 +1,9 @@
 @testset "LGCM" begin    
-    @test_throws MethodError LGCM(n_timepoints = "hi", timecoding = [1, 0.4])
+    @test_throws MethodError SimpleLGCM(n_timepoints = "hi", timecoding = [1, 0.4])
 end
 
 @testset "LGCM extractors" begin
-    lgcm_model =  LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
+    lgcm_model =  SimpleLGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
     slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 1, variance_slope = 1, covariance_intercept_slope = 0.1,
     variances_timepoints = 0.8, n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
     

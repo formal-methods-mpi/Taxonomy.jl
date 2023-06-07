@@ -1,5 +1,5 @@
 """
-LGCM Taxon. 
+SimpleLGCM AbstractLGCM. 
 Taxon for Linear Growth Curve Model.
 
     ## Arguments
@@ -19,12 +19,12 @@ Taxon for Linear Growth Curve Model.
 - `predictor_paths_slope`: Vector for the predictor-paths to the slope.
 
 ```jldoctest
-LGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
+SimpleLGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
 slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 1, variance_slope = 1, covariance_intercept_slope = 0.1,
 n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
 
 # output
-LGCM
+SimpleLGCM
    n_sample: Judgement{Int64}
    n_timepoints: Judgement{Int64}
    timecoding: Judgement{Vector{Int64}}
@@ -40,7 +40,7 @@ LGCM
    predictor_paths_slope: Judgement{Vector{Int64}}
 ```
 """
-struct LGCM <: Taxon
+struct SimpleLGCM <: AbstractLGCM
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     n_timepoints::Judgement{ <: Union{ <:Int, Missing}}
     timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
@@ -54,11 +54,11 @@ struct LGCM <: Taxon
     n_predictors::Judgement{ <: Union{ <: Int, Missing}}
     predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    LGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
+    SimpleLGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
         new(J(n_sample), J(n_timepoints), J(timecoding), J(intercept), J(slope), J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
 end
 
-function LGCM(; 
+function SimpleLGCM(; 
     n_sample = missing,
     n_timepoints, 
     timecoding, 
@@ -73,7 +73,7 @@ function LGCM(;
     predictor_paths_intercept = 0,
     predictor_paths_slope = 0)
    
-    LGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
+    SimpleLGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
 end
 
 
@@ -81,62 +81,62 @@ end
 """
 Extract number of timepoints from LGCM.
 """
-n_timepoints(x::LGCM) = x.n_timepoints
+n_timepoints(x::SimpleLGCM) = x.n_timepoints
 
 """
 Extract timecoding from LGCM.
 """
-timecoding(x::LGCM) = x.timecoding
+timecoding(x::SimpleLGCM) = x.timecoding
 
 """
 Extract intercept from LGCM.
 """
-intercept(x::LGCM) = x.intercept
+intercept(x::SimpleLGCM) = x.intercept
 
 """
 Extract slope from LGCM.
 """
-slope(x::LGCM) = x.slope
+slope(x::SimpleLGCM) = x.slope
 
 """
 Extract nonlinear_timecoding from LGCM.
 """
-nonlinear_timecoding(x::LGCM) = x.nonlinear_timecoding
+nonlinear_timecoding(x::SimpleLGCM) = x.nonlinear_timecoding
 
 """
 Extract variance of the intercept from LGCM.
 """
-variance_intercept(x::LGCM) = x.variance_intercept
+variance_intercept(x::SimpleLGCM) = x.variance_intercept
 
 """
 Extract variance of the slope from LGCM.
 """
-variance_slope(x::LGCM) = x.variance_slope
+variance_slope(x::SimpleLGCM) = x.variance_slope
 
 """
 Extract the covariance of the intercept and slope from LGCM.
 """
-covariance_intercept_slope(x::LGCM) = x.covariance_intercept_slope
+covariance_intercept_slope(x::SimpleLGCM) = x.covariance_intercept_slope
 
 """
 Extract the variance of the timepoints from LGCM.
 """
-variances_timepoints(x::LGCM) = x.variances_timepoints
+variances_timepoints(x::SimpleLGCM) = x.variances_timepoints
 
 """
 Extract the number of predictors from LGCM.
 """
-n_predictors(x::LGCM) = x.n_predictors
+n_predictors(x::SimpleLGCM) = x.n_predictors
 
 """
 Extract the predictor-paths for the intercept from LGCM.
 """
-predictor_paths_intercept(x::LGCM) = x.predictor_paths_intercept
+predictor_paths_intercept(x::SimpleLGCM) = x.predictor_paths_intercept
 
 """
 Extract the predictor-paths for the slope from LGCM.
 """
-predictor_paths_slope(x::LGCM) = x.predictor_paths_slope
+predictor_paths_slope(x::SimpleLGCM) = x.predictor_paths_slope
 
 
 

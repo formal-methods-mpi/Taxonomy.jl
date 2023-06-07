@@ -1,0 +1,1 @@
+struct NoTaxon <: NoAbstractTaxon end
