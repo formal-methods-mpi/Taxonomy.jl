@@ -39,6 +39,22 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 
 ## Taxons
 
+```julia
+using Taxonomy, AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Taxonomy.Taxon)
+Taxon
+├─ AbstractCFA
+│  └─ Measurement
+├─ AbstractCLPM
+├─ AbstractLGCM
+│  └─ SimpleLGCM
+├─ AbstractPathmodel
+│  └─ Structural
+└─ NoAbstractTaxon
+   └─ NoTaxon
+```
+
 ```@docs
 Taxon
 Factor
