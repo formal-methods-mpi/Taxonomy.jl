@@ -10,6 +10,7 @@ end
 function Record(rater, id::String, location, meta, taxons, spec, data)
     Record(rater, Base.UUID(id), location, meta, taxons, spec, data)
 end
+
 function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
