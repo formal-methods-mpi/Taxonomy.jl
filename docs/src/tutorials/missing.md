@@ -56,7 +56,7 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Vector{NoTaxon}
+   taxons: Vector{NoTaxonEver}
    spec: Judgement{Missing}
    data: Judgement{Missing}
 ```
@@ -87,27 +87,47 @@ If you want to highlight in the Record of a paper, that there is no model in the
 If however you found a paper you were unable to code, due to limitations of the package or your own knowledge, hence you want to mark it to come back to it later, use `NoTaxonYet()`.This could look like this:
 
 ```jldoctest missing
-
-julia> NoTaxon()
-
 Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-taxons = [NoTaxon()],
+taxons = [NoTaxonEver()],
 spec = NoJudgement(),
 data = NoJudgement())
+
+# output
+
+Record
+   rater: String
+   id: Base.UUID
+   location: NoLocation
+   meta: IncompleteMeta
+   taxons: Vector{NoTaxonEver}
+   spec: Judgement{Missing}
+   data: Judgement{Missing}
 ```
+
 or like this:
-```
-julia> NoTaxonYet()
 
+```jldoctest missing
 Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-taxons = [NoTaxonYet()],
+taxons = [NoTaxonYet("2023-06-06")],
 spec = NoJudgement(),
 data = NoJudgement())
 
+# output
+
+┌ Warning: This model is currently not possible to code? - please come back later.
+└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/taxons/no_taxon.jl:31
+Record
+   rater: String
+   id: Base.UUID
+   location: NoLocation
+   meta: IncompleteMeta
+   taxons: Vector{NoTaxonYet}
+   spec: Judgement{Missing}
+   data: Judgement{Missing}
 ```

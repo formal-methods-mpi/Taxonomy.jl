@@ -35,10 +35,7 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
     end
     if ismissing(taxons)
         @warn "`taxons` is missing. Maybe you mean `NoTaxon()`?"
-        else isa(taxons, NoTaxonYet) 
-            any[isa(i,NoTaxonYet) for i in taxons]
-            @warn "This model is currently not possible to code? - please come back later."
-        end
+    end
     if ismissing(spec)
         @warn "`spec` is missing. Maybe you mean `NoJudgment()`?"
     end
