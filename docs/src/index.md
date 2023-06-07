@@ -39,6 +39,12 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 
 ## Taxons
 
+```@example
+using Taxonomy, AbstractTrees
+AbstractTrees.children(d::DataType) = subtypes(d)
+print_tree(Taxonomy.Taxon)
+```
+
 ```@docs
 Taxon
 Factor
