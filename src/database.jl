@@ -54,7 +54,7 @@ Base.convert(::Type{Pair{UUID, Record}}, r::Record) = invariant_pair(r)
 # Overload the push! function to add a new Record to the RecordDatabase
 # builds function to be able to push new records to the database
 # push! as function with two arguments: db of type RecordDatabase and record of type Record, returns an instance of RecordDatabase
-function Base.push!(x::RecordDatabase{K, V}, new::Pair{K, V}) where {K, V}
+function Base.push!(x::RecordDatabase, new::Pair)
     push!(x.records, invariant_pair(new))
     x
 end
