@@ -26,7 +26,7 @@
     push!(my_database, second_record)
     @test length(my_database) == 2
 
-    @test length(RecordDatabase(first_record, second_record))
+    @test length(RecordDatabase(first_record, second_record)) == 2
 
     my_database = RecordDatabase()
     my_database += first_record
