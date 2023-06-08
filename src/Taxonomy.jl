@@ -50,7 +50,7 @@ module Taxonomy
 
     export RecordDatabase
     import Base: UUID
-    include("dict.jl")
+    include("database.jl")
 
     include("pretty_printing.jl")
 
