@@ -1,3 +1,16 @@
+function invariant_pair(x::Pair{K,V}) where {K, V <: Record}
+  x[1] == id(x[2]) ? x : throw(ArgumentError("Key and Record id must be the same."))
+end
+
+function invariant_pair(key, value::Record)
+  invariant_pair(Pair(key, value))
+end
+
+function invariant_pair(value::Record)
+  invariant_pair(id(value), value)
+end
+
+
 """
 RecordDatabase(records::Record...)
 
@@ -35,17 +48,18 @@ end
 
 # Constructor to create an empty RecordDatabase
 RecordDatabase() = RecordDatabase(Dict{UUID, Record}())
-RecordDatabase(records::Record...) = RecordDatabase(Dict(convert.(Pair{Base.UUID, Record}, records)))
-Base.convert(::Type{Pair{UUID, Record}}, r::Record) = r.id => r
+RecordDatabase(records::Record...) = RecordDatabase(Dict(invariant_pair.(records)))
+Base.convert(::Type{Pair{UUID, Record}}, r::Record) = invariant_pair(r)
 
 # Overload the push! function to add a new Record to the RecordDatabase
 # builds function to be able to push new records to the database
 # push! as function with two arguments: db of type RecordDatabase and record of type Record, returns an instance of RecordDatabase
-function Base.push!(x::RecordDatabase{K, V}, new) where {K, V}
-    push!(x.records, convert(Pair{K, V}, new))
+function Base.push!(x::RecordDatabase{K, V}, new::Pair{K, V}) where {K, V}
+    push!(x.records, invariant_pair(new))
     x
 end
-Base.setindex!(rd::RecordDatabase{K, V}, value::K, key::V) where {K, V} = push!(rd, key => value)
+Base.push!(x::RecordDatabase{K, V}, new) where {K, V} = push!(x, convert(Pair{K, V}, new))
+Base.setindex!(rd::RecordDatabase{K, V}, value::V, key::K) where {K, V} = push!(rd, invariant_pair(key, value))
 Base.haskey(rd::RecordDatabase{K, V}, key::K) where {K, V} = haskey(rd.records, key)
 Base.get(rd::RecordDatabase, args...) = get(rd.records, args...)
 function Base.delete!(rd::RecordDatabase{K, V}, key::K) where {K, V}
