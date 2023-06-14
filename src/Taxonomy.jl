@@ -18,7 +18,7 @@ module Taxonomy
     export J, Judgement, NoJudgement, convert, rating, location, certainty
     include("judgement.jl")
 
-    export Record, taxons,  location, spec, data
+    export Record, id, taxons,  location, spec, data
     include("record.jl")
 
     import HTTP
@@ -48,5 +48,10 @@ module Taxonomy
     export factor_variance
     include("extractors.jl")
 
+    export RecordDatabase
+    import Base: UUID
+    include("database.jl")
+
     include("pretty_printing.jl")
+
 end

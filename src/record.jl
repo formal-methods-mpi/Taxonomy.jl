@@ -44,10 +44,13 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
     end
     Record(rater, id, location, meta, taxons, spec, data)
 end
-        
+
+id(x::Record) = x.id        
 rater(x::Record) = x.rater
 taxons(x::Record) = x.taxons
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
 spec(x::Record) = x.spec
 data(x::Record) = x.data
+
+Base.length(::Record) = 1
