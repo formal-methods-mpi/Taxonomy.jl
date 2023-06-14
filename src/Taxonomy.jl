@@ -26,7 +26,7 @@ module Taxonomy
     export MetaData, MinimalMeta, IncompleteMeta, ExtensiveMeta, url, year, author, journal, apa, json
     include("metadata/meta.jl")
 
-    export NoTaxon
+    export NoTaxon, NoTaxonEver, NoTaxonYet
     include("taxons/no_taxon.jl")
     
     import StenoGraphs

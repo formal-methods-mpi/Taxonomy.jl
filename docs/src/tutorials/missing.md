@@ -33,10 +33,6 @@ Record
    data: Missing
 ```
 
-```@meta
-DocTestFilters = nothing
-```
-
 As you probably notice we warn you to do that.
 This is to encourage you to think twice, however, after having thought twice about it, you may silence every warning with explicitly suppliyng "empty" instances (except ID, really nothing should hinder you to supply a random id).
 
@@ -56,10 +52,11 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Vector{NoTaxon}
+   taxons: Vector{NoTaxonEver}
    spec: Judgement{Missing}
    data: Judgement{Missing}
 ```
+
 We therefore differenciate between "lazy" missings and intentional missings.
 The former remind you that you missed them, the latter will not bother you.
 
@@ -80,4 +77,57 @@ Or you have checked everywhere but there does not seem to be any data, than use:
 ```jldoctest missing
 julia> Judgement(false, 1.0) # false = no data, 1 = certain
 Judgement{Bool}(false, 1.0, missing)
+```
+
+If you want to highlight in the Record of a paper, that there is no model in the paper, that should be coded, use `NoTaxon()`.
+If however you found a paper you were unable to code, due to limitations of the package or your own knowledge, hence you want to mark it to come back to it later, use `NoTaxonYet()`.This could look like this:
+
+```jldoctest missing
+Record(rater = "AP",
+id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+location = NoLocation(),
+meta = MetaData(missing, missing, missing),
+taxons = [NoTaxonEver()],
+spec = NoJudgement(),
+data = NoJudgement())
+
+# output
+
+Record
+   rater: String
+   id: Base.UUID
+   location: NoLocation
+   meta: IncompleteMeta
+   taxons: Vector{NoTaxonEver}
+   spec: Judgement{Missing}
+   data: Judgement{Missing}
+```
+
+or like this:
+
+```jldoctest missing
+Record(rater = "AP",
+id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+location = NoLocation(),
+meta = MetaData(missing, missing, missing),
+taxons = [NoTaxonYet("2023-06-06")],
+spec = NoJudgement(),
+data = NoJudgement())
+
+# output
+
+┌ Warning: This model is currently not possible to code? - please come back later.
+└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/taxons/no_taxon.jl:31
+Record
+   rater: String
+   id: Base.UUID
+   location: NoLocation
+   meta: IncompleteMeta
+   taxons: Vector{NoTaxonYet}
+   spec: Judgement{Missing}
+   data: Judgement{Missing}
+```
+
+```@meta
+DocTestFilters = nothing
 ```

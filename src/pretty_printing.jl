@@ -24,3 +24,16 @@ function Base.show(io::IO, struct_inst::Taxon)
     print_type_name(io, struct_inst)
     print_field_types(io, struct_inst)
 end
+
+function Base.show(io::IO, x::NoTaxonYet)
+    if ismissing(x.modeltype)
+        print(io, "NoTaxonYet(\"", x.accessdate, "\")")
+    else
+        print(io,
+        "NoTaxonYet(accessdate = \"",
+        x.accessdate,
+        "\", modeltype = \"",
+        x.modeltype,
+        "\")")
+    end
+end

@@ -4,12 +4,16 @@ abstract type AbstractMeta end
 """
 Taxon is the supertype of all taxons.
 """
-#Can you see this?
 abstract type Taxon end
 """
-NoAbstractTaxon is the supertype for not exiting Taxons (yet)
+NoTaxon is the supertype for when a Taxon cannot be coded (yet).
+
+ - `NoTaxonEver` : A Taxon to show, that there is no SEM to code in this paper
+ - `NoTaxonYet`:  A Taxon to show, that there is in fact a model to be coded, but this is at the current point not possible
+          NoTaxonYet gives you the option to name the 'modeltype', you were not able to code, to spare your future self the work of going everything through.
+          NoTaxonYet is also supposed to give your Record a timestamp 'accessdate' to further specify at what point there were no possibility to code the respective model.
 """
-abstract type NoAbstractTaxon <: Taxon end
+abstract type NoTaxon <: Taxon end
 
 """
 AbstractPathmodel is the supertype of all pathmodels.
