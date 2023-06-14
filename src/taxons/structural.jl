@@ -27,22 +27,19 @@ structural_model = graph)
 
 Sructural
    n_sample: Judgement{Missing}
-   measurement_model: Judgement{Vector{Measurement}}
    structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
 
 ```
 """
 struct Structural <: AbstractPathmodel
     n_sample::Judgement{<: Int}
-    measurement_model::Judgement{ <: Union{<:AbstractArray{<: AbstractCFA}, Missing}}
     structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
     Structural(n_sample, measurement_model, structural_model) = new(J(n_sample), J(measurement_model), J(structural_model))
 end
 
 function Structural(;n_sample = missing,
-    measurement_model,
     structural_model) # hier basic CFA model festlegen
-    Structural(n_sample, measurement_model, structural_model)
+    Structural(n_sample, structural_model)
 end
 
 
