@@ -1,7 +1,7 @@
 
 """
 Structural AbstractPathmodel. 
-Consists of a graph from StenoGraphs structural (structural model) and a measurement (measurement model). 
+Consists of a graph from StenoGraphs structural (structural model). 
 
 ## Arguments
 
@@ -10,9 +10,6 @@ Consists of a graph from StenoGraphs structural (structural model) and a measure
 ```julia
 using StenoGraphs
 using Taxonomy
-
-factor1 = Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.7)
-factor2 = Measuremnt(n_variables = 2, loadings = [0.7, 0.3], factor_variance = 1)
 
 graph = @StenoGraph begin
     # latent regressions
@@ -23,7 +20,7 @@ Structural(structural_model = graph)
 
 # output
 
-Sructural
+Structural
    n_sample: Judgement{Missing}
    structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
 
@@ -42,5 +39,5 @@ end
 
 
 function ManifestPathmodel(;n_sample, kwargs...)
-    Strucutural(;n_sample = n_sample, kwargs...)
+    Structural(;n_sample = n_sample, kwargs...)
 end
