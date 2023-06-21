@@ -1,18 +1,23 @@
 """
 Taxon for Linear Growth Curve Model.
-
-LatentPathmodel(;
-n_sample = missing, 
-structural_model,
-n_variables,
-loadings, 
-factor_variance,
-error_variances = 0,
-error_covariances_within = 0,
-error_covariances_between = 0, 
-crossloadings_incoming = 0,
-crossloadings_outgoing = 0
-)
+    function LatentPathmodel(;
+        Structural(
+            
+        ),
+        Measurement(
+            n_sample = 100, 
+            structural_model = structural_model_example,
+            n_variables = 5,
+            loadings = [0.7, 0.6, 0.8, 0.5, 0.9], 
+            factor_variance = 1.0,
+            error_variances = 0.05,
+            error_covariances_within = 0,
+            error_covariances_between = 0, 
+            crossloadings_incoming = 0,
+            crossloadings_outgoing = 0
+    ))
+    
+    
 
 Create a new `LatentPathmodel` instance.
 
@@ -22,7 +27,7 @@ Create a new `LatentPathmodel` instance.
 julia> structural_model_example = Structural(...) # replace with actual example
 julia> measurement_model_example = Measurement(...) # replace with actual example
 
-julia> model = LatentPathmodel(
+julia> LatentPathmodel(
 n_sample = 100, 
 structural_model = structural_model_example,
 n_variables = 5,
@@ -45,8 +50,9 @@ struct LatentPathmodel <: AbstractPathmodel
 end
 
 function LatentPathmodel(;
-        n_sample = missing, 
-        structural_model,
+    structural = Structural(n_sample, structural_model),
+    measurement = Measurement(
+        n_sample = missing,
         n_variables,
         loadings, 
         factor_variance,
@@ -55,18 +61,6 @@ function LatentPathmodel(;
         error_covariances_between = 0, 
         crossloadings_incoming = 0,
         crossloadings_outgoing = 0
-    )
-    structural = Structural(n_sample = n_sample, structural_model = structural_model)
-    measurement = Measurement(
-        n_sample = n_sample, 
-        n_variables = n_variables,
-        loadings = loadings, 
-        factor_variance = factor_variance,
-        error_variances = error_variances,
-        error_covariances_within = error_covariances_within,
-        error_covariances_between = error_covariances_between,
-        crossloadings_incoming = crossloadings_incoming,
-        crossloadings_outgoing = crossloadings_outgoing
         )
-    LatentPathmodel(structural, measurement)
+    LatentPathmodel(structural, measurement))
 end
