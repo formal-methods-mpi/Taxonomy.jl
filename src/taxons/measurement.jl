@@ -31,7 +31,6 @@ Measurement
    crossloadings_outgoing: Judgement{Int64}
 ```
 """
-
 struct Measurement <: AbstractCFA
     n_sample::Judgement{ <: Union{ <:Int, Missing}}
     n_variables::Judgement{ <: Union{ <:Int, Missing}}
