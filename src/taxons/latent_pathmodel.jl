@@ -48,6 +48,8 @@ n_sample: Judgement{Missing}
 struct LatentPathmodel <: AbstractPathmodel 
     structural_model::Structural
     measurement_model::Measurement
+    # constructor from Structural and Measurement
+    LatentPathmodel(structural::Structural, measurement::Measurement) = new(structural, measurement)
 end
 
 
