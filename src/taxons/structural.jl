@@ -1,7 +1,7 @@
 
 """
 Structural AbstractPathmodel. 
-Consists of a graph from StenoGraphs structural (structural model). 
+Consists of a graph from StenoGraphs (structural model). 
 
 ## Arguments
 
