@@ -48,22 +48,9 @@ n_sample: Judgement{Missing}
 struct LatentPathmodel <: AbstractPathmodel 
     structural_model::Structural
     measurement_model::Measurement
-    # constructor from Structural and Measurement
-    LatentPathmodel(structural::Structural, measurement::Measurement) = new(structural, measurement)
 end
 
-
 function LatentPathmodel(;
-    n_sample = missing, 
-    structural_model,
-    n_variables,
-    loadings, 
-    factor_variance,
-    error_variances = 0,
-    error_covariances_within = 0,
-    error_covariances_between = 0, 
-    crossloadings_incoming = 0,
-    crossloadings_outgoing = 0
     )
     structural = Structural(n_sample = n_sample, structural_model = structural_model)
     measurement = Measurement(
