@@ -6,7 +6,7 @@ my_model.structural_model.structural_model
 my_model.measurement_model[:fac2]
 
 ```jldoctest
-using StenoGraph
+using StenoGraphs
 graph = @StenoGraph begin
     # latent regressions
     fac1 → fac2
