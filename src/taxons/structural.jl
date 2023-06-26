@@ -7,7 +7,7 @@ Consists of a graph from StenoGraphs (structural model).
 
 - `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
 
-```jldoctest
+```julia-repl
 using StenoGraphs
 
 graph = @StenoGraph begin
@@ -16,14 +16,6 @@ graph = @StenoGraph begin
 end
 
 Structural(structural_model = graph)
-
-# output
-
-Structural
-   n_sample: Judgement{Missing}
-   structural_model: Judgement{Vector{DirectedEdge{SimpleNode{Symbol}, SimpleNode{Symbol}}}}
-   
-
 ```
 """
 struct Structural <: AbstractPathmodel
