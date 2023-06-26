@@ -1,6 +1,5 @@
-@testset "Structural" begin
-    using StenoGraphs
-
+@testset "Structural" begin    
+    
     graph = @StenoGraph begin
         # latent regressions
         fac1 → fac2
