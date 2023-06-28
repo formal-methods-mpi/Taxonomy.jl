@@ -14,6 +14,18 @@ using Pkg
 Pkg.add(url = "https://github.com/formal-methods-mpi/Taxonomy.jl")
 ```
 
+## Using Pkg.instantiate to Set Up the Environment
+
+When working with Julia packages, it is often important to ensure that your environment is consistent with the project's specifications. This is particularly crucial when you are working on a project that has a specific set of dependencies. The `Pkg.instantiate()` command helps in setting up such an environment.
+
+Use the following command in Julia to instantiate the environment:
+
+```julia
+using Pkg
+Pkg.instantiate()
+```
+In short:`Pkg.instantiate()' installs the dependencies that are specified in the `Project.toml`and `Manifest.toml`files of a project.
+
 ## Installing the Version of One Commit in the Package's History
 If you want to install a specific version of Taxonomy.jl corresponding to a particular commit, you can do so by specifying the commit hash. 
 To find the commit hash, go to the [Taxonomy.jl GitHub repository](https://github.com/formal-methods-mpi/Taxonomy.jl), click on the commit, and copy the hash.
@@ -52,8 +64,3 @@ It enables reproducible environments by pinning each dependency to a specific ve
 When you install a package, Julia uses the `Project.toml` to determine which versions of the dependencies are compatible. 
 It then generates or updates a `Manifest.toml` with the specific versions that were installed. 
 This is crucial for ensuring that your environment is reproducible and that the package will work with the set of dependencies specified in the `Manifest.toml`.
-
-#### Conclusion
-This tutorial covered how to install the latest version of the Taxonomy.jl package, how to install a specific commit, and how to implement bug fixes by creating a new branch. 
-Additionally, we discussed the role of `Manifest.toml` and `Project.toml` in package versioning and dependency management.
-
