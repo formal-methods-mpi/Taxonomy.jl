@@ -13,6 +13,7 @@ using StenoGraphs
     include("judgement.jl")
     include("taxons/simple_lgcm.jl")
     include("taxons/measurement.jl")
+    include("taxons/structural.jl")
     include("extractors.jl")
     include("database.jl")
 end

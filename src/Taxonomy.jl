@@ -1,7 +1,7 @@
 module Taxonomy
     export AbstractDOI, AbstractLocation
     export AbstractPathmodel, AbstractCFA, AbstractLGCM, AbstractCLPM
-    export Measurement, Structural, LatentPathmodel, HierarchicalCFA, BifactorCFA, SimpleCLPM, SimpleLGCM
+    export Structural, LatentPathmodel, HierarchicalCFA, BifactorCFA, SimpleCLPM, SimpleLGCM
     export StandaloneFactor, ManifestPathmodel
     include("abstracttypes.jl")
 
@@ -30,22 +30,23 @@ module Taxonomy
     include("taxons/no_taxon.jl")
     
     import StenoGraphs
-    export Measurement
     export Structural
     include("taxons/structural.jl")
     
-    export Standalone_Factor
+    export Standalone_Factor, Measurement
     include("taxons/measurement.jl")
+
     export SimpleLGCM
     export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
     include("taxons/simple_lgcm.jl")
+
+    include("taxons/latent_pathmodel.jl")
 
     import UUIDs
     export generate_id
     include("uuid.jl")
 
-    export n_sample
-    export factor_variance
+    export n_sample, factor_variance, structural_model
     include("extractors.jl")
 
     export RecordDatabase
