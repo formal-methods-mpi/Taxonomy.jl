@@ -5,7 +5,7 @@ Consists of a graph from StenoGraphs (structural model).
 
 ## Arguments
 
-- `structural_model`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
+- `structural_graph`: Graph from StenoGraphs package. Defines the latent relations between the factors of measurement_model.  
 
 ```julia-repl
 using StenoGraphs
@@ -15,18 +15,18 @@ graph = @StenoGraph begin
     fac1 → fac2
 end
 
-Structural(structural_model = graph)
+Structural(structural_graph = graph)
 ```
 """
 struct Structural <: AbstractPathmodel
     n_sample::Judgement{<: Union{<: Int, Missing}}
-    structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
-    Structural(n_sample, structural_model) = new(J(n_sample), J(structural_model))
+    structural_graph::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
+    Structural(n_sample, structural_graph) = new(J(n_sample), J(structural_graph))
 end
 
 function Structural(;n_sample = missing,
-    structural_model) # hier basic CFA model festlegen
-    Structural(n_sample, structural_model)
+    structural_graph)
+    Structural(n_sample, structural_graph)
 end
 
 

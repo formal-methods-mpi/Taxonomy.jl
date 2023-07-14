@@ -5,8 +5,8 @@
         fac1 → fac2
     end
 
-    struct_model = Structural(structural_model = graph)
+    struct_model = Structural(structural_graph = graph)
 
-    @test rating(structural_model(struct_model)) == graph
+    @test rating(structural_graph(struct_model)) == graph
     @test n_sample(struct_model) == J(missing)
 end

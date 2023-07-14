@@ -47,7 +47,7 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export n_sample, factor_variance, structural_model
+    export n_sample, factor_variance, structural_graph
     include("extractors.jl")
 
     export RecordDatabase

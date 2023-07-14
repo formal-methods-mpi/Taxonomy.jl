@@ -65,13 +65,11 @@ graph = @StenoGraph begin
     fac1 → fac2
 end
 
-struct_model = Structural(structural_model = graph)
+struct_model = Structural(structural_graph = graph)
 
-structural_model(struct_model)
+structural_graph(struct_model)
 ```
 """
-function structural_model(x::Structural)
-    x.structural_model
+function structural_graph(x::Structural)
+    x.structural_graph
 end
-
-
