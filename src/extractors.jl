@@ -73,3 +73,39 @@ structural_graph(struct_model)
 function structural_graph(x::Structural)
     x.structural_graph
 end
+
+
+"""
+Function to extract the structural model of the type Structural from a taxon.
+
+## Arguments
+
+- `x`: [`LatentPathmodel`](@ref).
+
+## Return
+
+Returns a [`Judgement`](@ref)
+
+```julia-repl
+using Taxonomy
+using StenoGraphs
+
+graph = @StenoGraph begin
+    # latent regressions
+    fac1 → fac2
+end
+
+latent_path_example = LatentPathmodel(
+        Structural(n_sample = 12, structural_graph = graph),
+        Dict(
+            :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
+            :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
+        )
+    )
+
+structural_model(latent_path_example)
+```
+"""
+function structural_model(x::LatentPathmodel)
+    x.structural_model
+end
