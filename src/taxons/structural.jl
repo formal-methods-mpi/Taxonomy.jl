@@ -33,3 +33,5 @@ end
 function ManifestPathmodel(;n_sample, kwargs...)
     Structural(;n_sample = n_sample, kwargs...)
 end
+
+

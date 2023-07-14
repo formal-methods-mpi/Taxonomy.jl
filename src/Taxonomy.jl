@@ -40,6 +40,7 @@ module Taxonomy
     export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
     include("taxons/simple_lgcm.jl")
 
+    export LatentPathmodel
     include("taxons/latent_pathmodel.jl")
 
     import UUIDs

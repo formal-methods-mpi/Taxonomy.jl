@@ -21,4 +21,12 @@
 
 end
 
-@testset "extract stenoGraphs from Taxons"
+@testset "extract stenoGraphs from Taxons" begin
+    graph_1 = StenoGraphs.@StenoGraph begin
+        # latent regressions
+        fac1 → fac2
+    end
+
+    latent_path_example = LatentPathmodel(graph_1)
+
+end

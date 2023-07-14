@@ -7,11 +7,12 @@
 
 ## Extract all Stenographs from a list of taxons and return a random one.
 
-function extract_StenoGraph(taxon_vec::Vector{Taxon})
+function extract_StenoGraph(taxon_vec::Vector{AbstractPathmodel})
     steno_vec = []
     for i = 1:length(taxon_vec)
        push!(steno_vec, (rating(structural_model(taxon_vec[i]))))
     end
+    return(steno_vec)
 end
 
 """
