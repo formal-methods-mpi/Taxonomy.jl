@@ -7,8 +7,11 @@
 
 ## Extract all Stenographs from a list of taxons and return a random one.
 
-function extract_StenoGraph(taxon_vec)
-
+function extract_StenoGraph(taxon_vec::Vector{Taxon})
+    steno_vec = []
+    for i = 1:length(taxon_vec)
+       push!(steno_vec, (rating(structural_model(taxon_vec[i]))))
+    end
 end
 
 """
@@ -42,7 +45,3 @@ end
 ## Sample all with Judgement Prob > value
 
 
-#    steno_vec = []
-#    for i = 1:length(taxons)
-#       push!(steno_vec, (rating(structural_model(taxons[i]))))
-#    end
