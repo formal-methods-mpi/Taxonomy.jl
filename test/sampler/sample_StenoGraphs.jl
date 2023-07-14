@@ -27,6 +27,16 @@ end
         fac1 → fac2
     end
 
-    latent_path_example = LatentPathmodel(graph_1)
+    latent_path_example = LatentPathmodel(
+        Structural(n_sample = 12, structural_graph = graph_1),
+        Dict(
+            :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
+            :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
+        )
+    )
+
+    structural_graph(structural_model(latent_path_example))
 
 end
+
+taxon_vec = vec(latent_path_example)

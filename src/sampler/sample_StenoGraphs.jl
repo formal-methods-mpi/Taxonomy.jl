@@ -10,7 +10,7 @@
 function extract_StenoGraph(taxon_vec::Union{AbstractPathmodel, Vector{AbstractPathmodel}})
     steno_vec = []
     for i = 1:length(taxon_vec)
-       push!(steno_vec, (rating(structural_model(taxon_vec[i]))))
+       push!(steno_vec, (rating(structural_graph(structural_model(taxon_vec[i])))))
     end
     return(steno_vec)
 end
