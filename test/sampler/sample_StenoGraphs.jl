@@ -1,9 +1,5 @@
-@testset "sample StenoGraph" begin
+@testset "sample StenoGraph typecheck" begin
 
-    ## Generating two Taxons with a StenoGraph:
-    factor1 = Factor(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.7)
-    factor2 = Factor(n_variables = 2, loadings = [0.7, 0.3], factor_variance = 1)
-    
     graph_1 = StenoGraphs.@StenoGraph begin
         # latent regressions
         fac1 → fac2
@@ -16,12 +12,16 @@
         # latent regressions
         fac1 → fac2^NodeLabel("Home an der Spree")
     end
-    
-    cfa_1 = CFA(measurement_model = [factor1, factor2],
-    structural_model = graph_1)
-    cfa_2 = CFA(measurement_model = [factor1, factor2],
-    structural_model = graph_2)
-    
+        
     ## combine:
-    cfa_vec = [cfa_1, cfa_2]
-    
+    steno_vec = [graph_1, graph_2]
+
+    @test sample_StenoGraph(graph_1, 1) == graph_1
+    @test sample_StenoGraph([graph_1, missing], 1) == graph_1
+    @test ismissing(sample_StenoGraph([missing, missing], 1)) == true
+
+#   @test sample_StenoGraph(steno_vec, 2)
+
+    @test_throws MethodError sample_StenoGraph(1, 2)
+
+end
