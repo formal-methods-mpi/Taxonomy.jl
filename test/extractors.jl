@@ -15,3 +15,32 @@ end
     @test rating(factor_variance(measurement)) == 1.0
     @test rating(factor_variance(standalone_factor)) == 0.5
 end
+
+@testset "structural_model" begin
+    graph = @StenoGraph begin
+        # latent regressions
+        fac1 → fac2
+    end
+
+    latent_path = LatentPathmodel(
+        Structural(n_sample = 12, structural_graph = graph),
+        Dict(
+            :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
+            :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
+        )
+    )
+    
+    @test rating(structural_model(latent_path)) == Structural(n_sample = 12, structural_graph = graph)
+    @test_throws MethodError structural_graph(missing) 
+end
+
+@testset "structural_graph" begin
+    graph = @StenoGraph begin
+        # latent regressions
+        fac1 → fac2
+    end
+    struct_model = Structural(structural_graph = graph)
+
+    @test rating(structural_graph(struct_model)) == graph
+    @test_throws MethodError structural_graph(missing)
+end

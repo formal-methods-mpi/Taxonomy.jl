@@ -45,35 +45,6 @@ function factor_variance(x::Measurement)
 end
 
 
-"""
-Function to extract the `StenoGraphs` structural model from [`Structural`].
-
-## Arguments
-
-- `x`: [`Strucutral`](@ref).
-
-## Return
-
-Returns a [`Judgement`](@ref)
-
-```julia-repl
-using Taxonomy
-using StenoGraphs
-
-graph = @StenoGraph begin
-    # latent regressions
-    fac1 → fac2
-end
-
-struct_model = Structural(structural_graph = graph)
-
-structural_graph(struct_model)
-```
-"""
-function structural_graph(x::Structural)
-    x.structural_graph
-end
-
 
 """
 Function to extract the structural model of the type Structural from a taxon.
@@ -109,3 +80,35 @@ structural_model(latent_path_example)
 function structural_model(x::LatentPathmodel)
     x.structural_model
 end
+
+
+
+"""
+Function to extract the `StenoGraphs` structural model from [`Structural`].
+
+## Arguments
+
+- `x`: [`Strucutral`](@ref).
+
+## Return
+
+Returns a [`Judgement`](@ref)
+
+```julia-repl
+using Taxonomy
+using StenoGraphs
+
+graph = @StenoGraph begin
+    # latent regressions
+    fac1 → fac2
+end
+
+struct_model = Structural(structural_graph = graph)
+
+structural_graph(struct_model)
+```
+"""
+function structural_graph(x::Structural)
+    x.structural_graph
+end
+
