@@ -12,12 +12,12 @@
         fac1 → fac2^NodeLabel("Home an der Spree")
     end
         
-    @test sample_StenoGraph(graph_1, 1) == graph_1
-    @test sample_StenoGraph([graph_1, missing], 1) == [graph_1]
-    @test ismissing(sample_StenoGraph([missing, missing], 1)) == true
+    @test sample_steno(graph_1, 1) == graph_1
+    @test sample_steno([graph_1, missing], 1) == [graph_1]
+    @test ismissing(sample_steno([missing, missing], 1)) == true
     Random.seed!(42)
-    @test sample_StenoGraph([graph_1, graph_2], 2) == [graph_2, graph_1]
-    @test_throws MethodError sample_StenoGraph(1, 2)
+    @test sample_steno([graph_1, graph_2], 2) == [graph_2, graph_1]
+    @test_throws MethodError sample_steno(1, 2)
 
 end
 
@@ -27,12 +27,12 @@ end
         fac1 → fac2
     end
 
-    struct NodeLabel <: NodeModifier
+    struct NodeLabel_2 <: NodeModifier
         l
     end
     graph_2 = StenoGraphs.@StenoGraph begin
         # latent regressions
-        fac1 → fac2^NodeLabel("Home an der Spree")
+        fac1 → fac2^NodeLabel_2("Home an der Spree")
     end
 
     latent_path_example_1 = LatentPathmodel(
