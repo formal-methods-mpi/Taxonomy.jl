@@ -27,7 +27,15 @@ end
         fac1 → fac2
     end
 
-    latent_path_example = LatentPathmodel(
+    struct NodeLabel <: NodeModifier
+        l
+    end
+    graph_2 = StenoGraphs.@StenoGraph begin
+        # latent regressions
+        fac1 → fac2^NodeLabel("Home an der Spree")
+    end
+
+    latent_path_example_1 = LatentPathmodel(
         Structural(n_sample = 12, structural_graph = graph_1),
         Dict(
             :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
@@ -35,8 +43,14 @@ end
         )
     )
 
-    structural_graph(structural_model(latent_path_example))
+    latent_path_example_2 = LatentPathmodel(
+        Structural(n_sample = 12, structural_graph = graph_2),
+        Dict(
+            :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
+            :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
+        )
+    )
+      
+    @test extract_StenoGraph([latent_path_example_1, latent_path_example_2]) == [graph_1, graph_2]
 
 end
-
-taxon_vec = vec(latent_path_example)

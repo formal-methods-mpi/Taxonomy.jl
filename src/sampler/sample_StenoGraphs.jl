@@ -7,13 +7,14 @@
 
 ## Extract all Stenographs from a list of taxons and return a random one.
 
-function extract_StenoGraph(taxon_vec::Union{AbstractPathmodel, Vector{AbstractPathmodel}})
+function extract_StenoGraph(taxon_vec::Union{LatentPathmodel, Vector{LatentPathmodel}})
     steno_vec = []
     for i = 1:length(taxon_vec)
        push!(steno_vec, (rating(structural_graph(structural_model(taxon_vec[i])))))
     end
     return(steno_vec)
 end
+
 
 """
 Sampling StenoGraphs from a vector of StenoGraphs. 
@@ -35,9 +36,6 @@ function sample_StenoGraph(steno_vec::Union{Vector{<:Union{Vector, Missing}}, Ab
     sample_vec = vec(sample_vec)
     return sample_vec
 end
-
-
-
 
 
 ## To Do:
