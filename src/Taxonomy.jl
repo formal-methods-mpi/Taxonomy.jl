@@ -43,6 +43,9 @@ module Taxonomy
     export LatentPathmodel
     include("taxons/latent_pathmodel.jl")
 
+    export sample_StenoGraph, extract_StenoGraph, sample_steno
+    include("sampler/sample_StenoGraph.jl")
+
     import UUIDs
     export generate_id
     include("uuid.jl")
