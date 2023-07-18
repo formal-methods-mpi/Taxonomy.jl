@@ -28,6 +28,10 @@ latent_path_example_2 = LatentPathmodel(
     )
 )
 
+@testset "extract stenoGraphs from Taxons" begin
+    @test extract_StenoGraph([latent_path_example_1, latent_path_example_2]) == [graph_1, graph_2]
+end
+
 @testset "sample StenoGraph" begin
     @test sample_steno(graph_1, 1) == graph_1
     @test sample_steno([graph_1, missing], 1) == [graph_1]
@@ -36,10 +40,6 @@ latent_path_example_2 = LatentPathmodel(
     @test sample_steno([graph_1, graph_2], 2) == [graph_2, graph_1]
     @test_throws MethodError sample_steno(1, 2)
 
-end
-
-@testset "extract stenoGraphs from Taxons" begin
-    @test extract_StenoGraph([latent_path_example_1, latent_path_example_2]) == [graph_1, graph_2]
 end
 
 @testset "sample random StenoGraph from a vector of taxons" begin
