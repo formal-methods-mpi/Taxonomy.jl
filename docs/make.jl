@@ -1,6 +1,7 @@
 using Taxonomy
 using Documenter
 using StenoGraphs
+using Random
 
 DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
 
