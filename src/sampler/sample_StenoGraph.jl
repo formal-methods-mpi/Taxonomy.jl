@@ -48,7 +48,8 @@ sample_StenoGraph([latent_path_example_1, latent_path_example_2])
  fac1 → fac2^NodeLabel_2("Home an der Spree")
 ```
 """
-function sample_StenoGraph(taxon_vec::Union{LatentPathmodel, Vector{LatentPathmodel}}, n::Integer=1)
+
+function sample_StenoGraph(taxon_vec::Union{<: LatentPathmodel, Vector{<: LatentPathmodel}}, n::Integer=1)
     steno_vec = extract_StenoGraph(taxon_vec)
     sample_vec = sample_steno(steno_vec, n)
 
@@ -67,11 +68,10 @@ Extract StenoGraphs from a list of Taxons (currently of Type [LatentPathmodel]),
 - `taxon_vec`: Vector of [LatentPathmodel]'s.
 
 """
-function extract_StenoGraph(taxon_vec::Union{LatentPathmodel, Vector{LatentPathmodel}})
+function extract_StenoGraph(taxon_vec::Union{<: LatentPathmodel, Vector{<: LatentPathmodel}})
     steno_vec = rating.(structural_graph.(structural_model.(taxon_vec)))
     return(steno_vec)
 end
-
 
 """
 Sampling random StenoGraphs from a vector of StenoGraphs. 
@@ -82,7 +82,7 @@ Sampling random StenoGraphs from a vector of StenoGraphs.
 - `n`: Integer for the number of [StenoGraph]'s that should be sampled with replacement. Defaults to `1`.
 
 """
-function sample_steno(steno_vec::Union{Vector{<:Union{Vector, StenoGraphs.AbstractEdge, Missing}}, AbstractArray{<: StenoGraphs.AbstractEdge}}, n::Integer=1)
+function sample_steno(steno_vec::Union{Vector{<:Union{Vector, <: StenoGraphs.AbstractEdge, Missing}}, AbstractArray{<: StenoGraphs.AbstractEdge}}, n::Integer=1)
     if (all(ismissing, steno_vec))
         return missing
     end
