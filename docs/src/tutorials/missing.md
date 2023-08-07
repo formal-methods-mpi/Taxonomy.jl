@@ -41,7 +41,7 @@ Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-taxons = [NoTaxon()],
+judgements = Dict("Taxon" => J(NoTaxon())),
 spec = NoJudgement(),
 data = NoJudgement())
 

@@ -22,7 +22,7 @@ module Taxonomy
     export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
     include("judgements/typebased.jl")
 
-    export Record, id, taxons,  location, spec, data
+    export Record, id, judgements,  location, spec, data
     include("record.jl")
 
     import HTTP
