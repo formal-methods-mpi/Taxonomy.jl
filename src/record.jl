@@ -1,17 +1,18 @@
+using Taxonomy
 struct Record
     rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
-    taxons::Union{Vector{<: Taxon}, Missing}
+    judgements::Union{Dict{String, AbstractJudgement}, Missing} # That can be any number of things you want to code.
     spec::Union{Judgement, Missing}
     data::Union{Judgement, Missing}
 end
-function Record(rater, id::String, location, meta, taxons, spec, data)
-    Record(rater, Base.UUID(id), location, meta, taxons, spec, data)
+function Record(rater, id::String, location, meta, judgements, spec, data)
+    Record(rater, Base.UUID(id), location, meta, judgements, spec, data)
 end
 
-function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
+function Record(; rater = missing, id = missing, location = missing, meta = missing, judgements = missing, spec = missing, data = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
     end
@@ -33,8 +34,8 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
             @warn "Some of the metadata seem to be incomplete. Check again."
         end
     end
-    if ismissing(taxons)
-        @warn "`taxons` is missing. Maybe you mean `NoTaxon()`?"
+    if ismissing(judgements)
+        @warn "`judgements` is missing. Maybe you mean `NoTaxon()`?"
     end
     if ismissing(spec)
         @warn "`spec` is missing. Maybe you mean `NoJudgment()`?"
@@ -42,12 +43,12 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
     if ismissing(data)
         @warn "`data` is missing. Maybe you mean `NoJudgment()`?"
     end
-    Record(rater, id, location, meta, taxons, spec, data)
+    Record(rater, id, location, meta, judgements, spec, data)
 end
 
 id(x::Record) = x.id        
 rater(x::Record) = x.rater
-taxons(x::Record) = x.taxons
+judgements(x::Record) = x.judgements
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
 spec(x::Record) = x.spec
