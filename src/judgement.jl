@@ -1,5 +1,5 @@
 """
-A judgment about any parameter etc.
+A generic judgment without any checks on content.
 
 ## Arguments
 
@@ -11,7 +11,7 @@ A judgment about any parameter etc.
 julia> Judgement(1.0, .99, "Figure 1");
 ```
 """
-struct Judgement{T}
+struct Judgement{T}  <: AbstractJudgement{T}
     rating::T
     certainty::Float64
     location::Union{String, Missing}
@@ -38,17 +38,17 @@ If `rating` is called on a `Judgement` it returns the rating, on everything it r
 
 """
 rating(x) = x
-rating(x::Judgement) = x.rating
+rating(x::AbstractJudgement) = x.rating
 
 """
 Extract certainty from Judgement.
 """
-certainty(x::Judgement) = x.certainty
+certainty(x::AbstractJudgement) = x.certainty
 
 """
 Extract location from Judgement.
 """
-location(x::Judgement) = x.location
+location(x::AbstractJudgement) = x.location
 
 """
 Shorthand for [`Judgement`](@ref)
@@ -59,10 +59,10 @@ convert(::Type{Judgement}, x) = Judgement(x)
 convert(::Type{T}, x::T) where {T <: Judgement} = x
 convert(::Type{Judgement{T}}, x) where T = Judgement{T}(convert(T, x))
 
-function ==(x::Judgement, y::Judgement)
-    isequal(x.rating, y.rating) &&
-    isequal(x.certainty, y.certainty) &&
-    isequal(x.location, y.location)
+function ==(x::AbstractJudgement, y::AbstractJudgement)
+    isequal(rating(x), rating(y)) &&
+    isequal(certainty(x), certainty(y)) &&
+    isequal(location(x), location(y))
 end
 
 """
