@@ -1,3 +1,5 @@
+ check_certainty(c) = ((c < 0.0) || (c > 1.0)) ? throw(ArgumentError("Certainty must be between 0 and 1.")) : nothing
+
 """
 A generic judgment without any checks on content.
 
@@ -18,9 +20,8 @@ struct Judgement{T}  <: AbstractJudgement{T}
     function Judgement{T}(r, c, l) where T
         if isa(r, Judgement)
             throw(ArgumentError("A Judgement of a Judgment is too meta for my taste."))
-        elseif ((c < 0.0) || (c > 1.0))
-            throw(ArgumentError("Certainty must be between 0 and 1."))
         else
+            check_certainty(c)
             new{T}(r, c, l)
         end
     end
