@@ -30,7 +30,7 @@ Record
    id: Missing
    location: UsualDOI{String, Missing}
    meta: ExtensiveMeta{MinimalMeta}
-   taxons: Vector{Measurement}
+   judgements: Dict{String, AbstractJudgement}
    spec: Judgement{Bool}
    data: Judgement{Bool}
 
@@ -47,9 +47,8 @@ julia> apa(first_record)
 "Bollen, K. A. (1980). Issues in the Comparative Measurement of Political Democracy. American Sociological Review, 45(3), 370. https://doi.org/10.2307/2095172\n"
 julia> spec(first_record)
 Judgement{Bool}(true, 1.0, missing)
-julia> taxons(first_record)
-1-element Vector{Measurement}:
- Measurement
+julia> rating(get(judgements(first_record), "Taxon", 3))
+Measurement
    n_sample: Judgement{Int64}
    n_variables: Judgement{Int64}
    loadings: Judgement{Vector{Float64}}
@@ -72,7 +71,7 @@ Record(
         year = 2022, # date is omitted
         journal = "No Real Journal"
     ),
-    taxons = [Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19])],
+    judgements = Dict("Taxon" => J(Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19]))),
     spec = true,
     data = true
 )

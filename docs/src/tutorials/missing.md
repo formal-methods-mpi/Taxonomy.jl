@@ -17,7 +17,7 @@ julia> Record()
 └ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:26
 ┌ Warning: Some of the metadata seem to be incomplete. Check again.
 └ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:32
-┌ Warning: `taxons` is missing. Maybe you mean `NoTaxon()`?
+┌ Warning: `judgements` is missing. Maybe you mean `NoTaxon()`?
 └ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:36
 ┌ Warning: `spec` is missing. Maybe you mean `NoJudgment()`?
 └ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:39
@@ -28,7 +28,7 @@ Record
    id: Missing
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Missing
+   judgements: Missing
    spec: Missing
    data: Missing
 ```
@@ -52,7 +52,7 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Vector{NoTaxonEver}
+   judgements: Dict{String, AbstractJudgement}
    spec: Judgement{Missing}
    data: Judgement{Missing}
 ```
@@ -87,7 +87,7 @@ Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-taxons = [NoTaxonEver()],
+judgements = Dict("Taxon" => J(NoTaxonEver())),
 spec = NoJudgement(),
 data = NoJudgement())
 
@@ -98,7 +98,7 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Vector{NoTaxonEver}
+   judgements: Dict{String, AbstractJudgement}
    spec: Judgement{Missing}
    data: Judgement{Missing}
 ```
@@ -110,7 +110,7 @@ Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-taxons = [NoTaxonYet("2023-06-06")],
+judgements = Dict("Taxon" => J(NoTaxonYet("2023-06-06"))),
 spec = NoJudgement(),
 data = NoJudgement())
 
@@ -123,7 +123,7 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   taxons: Vector{NoTaxonYet}
+   judgements: Dict{String, AbstractJudgement}
    spec: Judgement{Missing}
    data: Judgement{Missing}
 ```
