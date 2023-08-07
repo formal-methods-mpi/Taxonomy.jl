@@ -16,13 +16,9 @@ module Taxonomy
     include("metadata/doi.jl")
     
     import Base.convert, Base.==
-    export J, Judgement, NoJudgement, convert, rating, location, certainty
-    include("judgements/judgement.jl")
-
-    export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
-    export @newjudgement
-    export JudgementLanguage
-    include("judgements/constrained.jl")
+    export Judgements, J, Judgement, NoJudgement, convert, rating, location, certainty
+    include("judgements/Judgements.jl")
+    import Taxonomy.Judgements: J, Judgement, NoJudgement, rating, location, certainty
 
     export Record, id, judgements,  location, spec, data
     include("record.jl")

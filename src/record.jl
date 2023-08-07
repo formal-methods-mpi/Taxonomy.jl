@@ -5,8 +5,8 @@ struct Record
     location::AbstractLocation
     meta::AbstractMeta
     judgements::Union{Dict{String, AbstractJudgement}, Missing}
-    spec::Union{Judgement, Missing}
-    data::Union{Judgement, Missing}
+    spec::Union{AbstractJudgement, Missing}
+    data::Union{AbstractJudgement, Missing}
 end
 function Record(rater, id::String, location, meta, judgements, spec, data)
     Record(rater, Base.UUID(id), location, meta, judgements, spec, data)

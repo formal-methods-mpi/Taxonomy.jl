@@ -1,36 +1,39 @@
-check_certainty(c) = ((c < 0.0) || (c > 1.0)) ? throw(ArgumentError("Certainty must be between 0 and 1.")) : nothing
-
-"""
-A generic judgment without any checks on content.
-
-## Arguments
-
-- `rating`: The rating, e.g. "Structural" or 1.0.
-- `certainty`: If uncertain, a number between 0.0 and 1.0 (0-100%)
-- `location`: optional, where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
-
-```jldoctest
-julia> Judgement(1.0, .99, "Figure 1");
-```
-"""
-struct Judgement{T}  <: AbstractJudgement{T}
-    rating::T
-    certainty::Float64
-    location::Union{String, Missing}
-    function Judgement{T}(r, c, l) where T
-        if isa(r, Judgement)
-            throw(ArgumentError("A Judgement of a Judgment is too meta for my taste."))
-        else
-            check_certainty(c)
-            new{T}(r, c, l)
+macro newjudgement(name, type, check = x -> nothing)
+    inner = quote
+            struct $name{T <: Union{<: $(type), Missing}} <: AbstractJudgement{T}
+            rating::T
+            certainty::Float64
+            location::Union{String, Missing}
+            function $name{T}(r, c, l) where T
+                $check(r)
+                check_certainty(c)
+                new{T}(r, c, l)
+            end
         end
     end
+    outer = :($name(r::T, c = 1.0, l = missing) where T = $name{T}(r, c, l))
+    return quote
+        $(esc(inner))
+        $(esc(outer))
+    end
 end
-Judgement(r::T, c = 1.0, l = missing) where T = Judgement{T}(r, c, l)
-Judgement{T}(r::T) where T = Judgement{T}(r, 1.0, missing)
-Judgement{T}(r::T, c) where T = Judgement{T}(r, c, missing)
-Judgement(;rating, certainty = 1.0, location = missing) = Judgement(rating, certainty, location)
-Judgement(x::Judgement) = x
+
+@eval begin
+    @newjudgement(Judgement, Any, x -> nothing)
+    @doc """
+    A generic judgment without any checks on content.
+    
+    ## Arguments
+    
+    - `rating`: The rating, e.g. "Structural" or 1.0.
+    - `certainty`: If uncertain, a number between 0.0 and 1.0 (0-100%)
+    - `location`: optional, where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number.
+    
+    ```jldoctest
+    julia> Judgement(1.0, .99, "Figure 1");
+    ```
+    """ Judgement
+end
 
 """
 Extract rating from Judgement.

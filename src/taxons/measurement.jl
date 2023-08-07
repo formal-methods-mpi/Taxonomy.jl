@@ -20,27 +20,27 @@ Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
 # output
 
 Measurement
-   n_sample: Judgement{Missing}
-   n_variables: Judgement{Int64}
-   loadings: Judgement{Vector{Float64}}
-   factor_variance: Judgement{Float64}
-   error_variances: Judgement{Int64}
-   error_covariances_within: Judgement{Int64}
-   error_covariances_between: Judgement{Int64}
-   crossloadings_incoming: Judgement{Int64}
-   crossloadings_outgoing: Judgement{Int64}
+   n_sample: AbstractJudgement{Missing}
+   n_variables: AbstractJudgement{Int64}
+   loadings: AbstractJudgement{Vector{Float64}}
+   factor_variance: AbstractJudgement{Float64}
+   error_variances: AbstractJudgement{Int64}
+   error_covariances_within: AbstractJudgement{Int64}
+   error_covariances_between: AbstractJudgement{Int64}
+   crossloadings_incoming: AbstractJudgement{Int64}
+   crossloadings_outgoing: AbstractJudgement{Int64}
 ```
 """
 struct Measurement <: AbstractCFA
-    n_sample::Judgement{ <: Union{ <:Int, Missing}}
-    n_variables::Judgement{ <: Union{ <:Int, Missing}}
-    loadings::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    factor_variance::Judgement{ <: Union{ <:Number, Missing}}
-    error_variances::Judgement{<:Union{<:AbstractArray{<:Number},<: Int, Missing}}
-    error_covariances_within::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    error_covariances_between::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    crossloadings_incoming::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    crossloadings_outgoing::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    n_sample::AbstractJudgement{ <: Union{ <:Int, Missing}}
+    n_variables::AbstractJudgement{ <: Union{ <:Int, Missing}}
+    loadings::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+    factor_variance::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    error_variances::AbstractJudgement{<:Union{<:AbstractArray{<:Number},<: Int, Missing}}
+    error_covariances_within::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    error_covariances_between::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_incoming::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    crossloadings_outgoing::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     Measurement(n_sample, n_variables, loadings,factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
         new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_variances), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
 end
@@ -72,7 +72,7 @@ All others
 StandaloneFactor(n_sample = 2, n_sample = 100, loadings = [1, 0.4])
 
 # output
-StandaloneFactor(Judgement{Int64}(2, 1.0, missing), Judgement{Int64}(100, 1.0, missing), Judgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing), Judgement{Int64}(0, 1.0, missing))```
+StandaloneFactor(AbstractJudgement{Int64}(2, 1.0, missing), AbstractJudgement{Int64}(100, 1.0, missing), AbstractJudgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing))```
 """
 function StandaloneFactor(;n_sample, kwargs...)
     Measurement(;n_sample = n_sample, kwargs...)

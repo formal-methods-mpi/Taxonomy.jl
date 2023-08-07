@@ -25,35 +25,35 @@ n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3
 
 # output
 SimpleLGCM
-   n_sample: Judgement{Int64}
-   n_timepoints: Judgement{Int64}
-   timecoding: Judgement{Vector{Int64}}
-   intercept: Judgement{Float64}
-   slope: Judgement{Float64}
-   nonlinear_timecoding: Judgement{Vector{Int64}}
-   variance_intercept: Judgement{Int64}
-   variance_slope: Judgement{Int64}
-   covariance_intercept_slope: Judgement{Float64}
-   variances_timepoints: Judgement{Missing}
-   n_predictors: Judgement{Int64}
-   predictor_paths_intercept: Judgement{Vector{Int64}}
-   predictor_paths_slope: Judgement{Vector{Int64}}
+   n_sample: AbstractJudgement{Int64}
+   n_timepoints: AbstractJudgement{Int64}
+   timecoding: AbstractJudgement{Vector{Int64}}
+   intercept: AbstractJudgement{Float64}
+   slope: AbstractJudgement{Float64}
+   nonlinear_timecoding: AbstractJudgement{Vector{Int64}}
+   variance_intercept: AbstractJudgement{Int64}
+   variance_slope: AbstractJudgement{Int64}
+   covariance_intercept_slope: AbstractJudgement{Float64}
+   variances_timepoints: AbstractJudgement{Missing}
+   n_predictors: AbstractJudgement{Int64}
+   predictor_paths_intercept: AbstractJudgement{Vector{Int64}}
+   predictor_paths_slope: AbstractJudgement{Vector{Int64}}
 ```
 """
 struct SimpleLGCM <: AbstractLGCM
-    n_sample::Judgement{ <: Union{ <:Int, Missing}}
-    n_timepoints::Judgement{ <: Union{ <:Int, Missing}}
-    timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    intercept::Judgement{ <: Union{ <:Number, Missing}}
-    slope::Judgement{ <: Union{ <:Number, Missing}}
-    nonlinear_timecoding::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    variance_intercept::Judgement{ <: Union{ <:Number, Missing}}
-    variance_slope::Judgement{ <: Union{ <:Number, Missing}}
-    covariance_intercept_slope::Judgement{ <: Union{ <:Number, Missing}}
-    variances_timepoints::Judgement{ <: Union{ <:Number, Missing}}
-    n_predictors::Judgement{ <: Union{ <: Int, Missing}}
-    predictor_paths_intercept::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    predictor_paths_slope::Judgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    n_sample::AbstractJudgement{ <: Union{ <:Int, Missing}}
+    n_timepoints::AbstractJudgement{ <: Union{ <:Int, Missing}}
+    timecoding::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
+    intercept::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    slope::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    nonlinear_timecoding::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    variance_intercept::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    variance_slope::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    covariance_intercept_slope::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    variances_timepoints::AbstractJudgement{ <: Union{ <:Number, Missing}}
+    n_predictors::AbstractJudgement{ <: Union{ <: Int, Missing}}
+    predictor_paths_intercept::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
+    predictor_paths_slope::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
     SimpleLGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope) =
         new(J(n_sample), J(n_timepoints), J(timecoding), J(intercept), J(slope), J(nonlinear_timecoding), J(variance_intercept), J(variance_slope), J(covariance_intercept_slope), J(variances_timepoints), J(n_predictors), J(predictor_paths_intercept), J(predictor_paths_slope))
 end
