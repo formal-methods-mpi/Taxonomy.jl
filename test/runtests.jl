@@ -10,7 +10,7 @@ using StenoGraphs
     end
     
     include("metadata/doi.jl")
-    include("judgement.jl")
+    include("judgements/judgement.jl")
     include("taxons/simple_lgcm.jl")
     include("taxons/measurement.jl")
     include("taxons/structural.jl")

@@ -17,7 +17,7 @@ module Taxonomy
     
     import Base.convert, Base.==
     export J, Judgement, NoJudgement, convert, rating, location, certainty
-    include("judgement.jl")
+    include("judgements/judgement.jl")
 
     export Record, id, taxons,  location, spec, data
     include("record.jl")
