@@ -20,7 +20,9 @@ module Taxonomy
     include("judgements/judgement.jl")
 
     export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
-    include("judgements/typebased.jl")
+    export @newjudgement
+    export JudgementLanguage
+    include("judgements/constrained.jl")
 
     export Record, id, judgements,  location, spec, data
     include("record.jl")
