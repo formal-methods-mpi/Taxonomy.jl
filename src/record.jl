@@ -4,7 +4,7 @@ struct Record
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
-    judgements::Union{Dict{String, AbstractJudgement}, Missing} # That can be any number of things you want to code.
+    judgements::Union{Dict{String, AbstractJudgement}, Missing}
     spec::Union{Judgement, Missing}
     data::Union{Judgement, Missing}
 end
