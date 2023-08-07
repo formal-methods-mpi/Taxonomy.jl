@@ -19,6 +19,9 @@ module Taxonomy
     export J, Judgement, NoJudgement, convert, rating, location, certainty
     include("judgements/judgement.jl")
 
+    export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
+    include("judgements/typebased.jl")
+
     export Record, id, taxons,  location, spec, data
     include("record.jl")
 
