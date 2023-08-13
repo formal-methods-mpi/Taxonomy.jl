@@ -1,17 +1,23 @@
-@testset "Judgment standard values" begin
-    @test J(1.3) == Judgement(1.3, 1.0)
-    @test J(missing) == Judgement(missing, 1.0)
-    @test J{Int}(1, .5) == Judgement(1, .5, missing)
+@testset "Judgment standard values & extractors" begin
+    j = J(2.0)
+    @test rating(j) == 2.0
+    @test certainty(j) == 1.0
+    @test ismissing(location(j))
 end
 
-@testset "Judgment" begin
-    @test convert(Judgement, 2.0) == Judgement(2.0, 1.0)
-    @test_throws ArgumentError Judgement(2.0, 2.0)
-    @test_throws ArgumentError Judgement(J("hi"), 2.0)
+@testset "Argument checks" begin
+    @test_throws ArgumentError Judgement(2.0, 2.0) # certainty outside 0 > x > 1.0
+    @test_throws ArgumentError Judgement(J("hi")) # too meta
+    @test_throws MethodError Judgement("hi", .5, 3) # location is not a string
 end
 
-@testset "Judgment Getter" begin
-    @test isequal(rating(J(1.3)), 1.3)
-    @test isequal(certainty(J(1.3)), 1.0)
-    @test isequal(location(J(1.3)), missing)
+@testset "Conversion" begin
+    @test convert(Judgement{Int128}, J(4.0)) == Judgement{Int128}(4)
+    x = [J(1), J(2), J(2)]
+    x[3] = 3
+    @test x == J.(1:3)
+end
+
+@testset "Promotion" begin
+    @test [J(1), J(2), 3] == J.(1:3)
 end
