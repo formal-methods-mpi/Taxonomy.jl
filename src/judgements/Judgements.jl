@@ -6,6 +6,8 @@ module Judgements
     export @newjudgement
     export J, Judgement, NoJudgement, convert, rating, location, certainty
     include("judgement.jl")
+    export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
+    include("constrained.jl")
     export JudgementLanguage
     include("language.jl")
 end
