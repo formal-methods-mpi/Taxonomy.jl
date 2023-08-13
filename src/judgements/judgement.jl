@@ -1,4 +1,4 @@
-macro newjudgement(name, type, check = x -> nothing)
+macro newjudgement(name, level, doc, type = Any, check = x -> nothing)
     inner = quote
             struct $name{T <: Union{<: $(type), Missing}} <: AbstractJudgement{T}
             rating::T
@@ -12,15 +12,25 @@ macro newjudgement(name, type, check = x -> nothing)
         end
     end
     outer = :($name(r::T, c = 1.0, l = missing) where T = $name{T}(r, c, l))
+    doc = :(@doc """
+        $($name)(r::Union{<: $($type), Missing}, c = 1.0, l = missing})
+
+    Level: `$($level)`
+
+    $($doc)
+
+    """ $name)
     return quote
         $(esc(inner))
         $(esc(outer))
+        $(esc(doc))
     end
 end
 
-@eval begin
-    @newjudgement(Judgement, Any, x -> nothing)
-    @doc """
+@newjudgement(
+    Judgement,
+    AnyLevelJudgement,
+    """
     A generic judgment without any checks on content.
     
     ## Arguments
@@ -32,8 +42,8 @@ end
     ```jldoctest
     julia> Judgement(1.0, .99, "Figure 1");
     ```
-    """ Judgement
-end
+    """
+)
 
 """
 Extract rating from Judgement.
