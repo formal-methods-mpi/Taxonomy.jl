@@ -1,10 +1,17 @@
-for (name, type) in zip((:JBool, :JNumber, :JInt, :JFloat, :JString), (:(Base.Bool), :(Base.Number), :(Base.Int), :(Base.Real), :(Base.AbstractString)))
-    @eval begin
-        @newjudgement($name, $type)
-        @doc """
-        $($name)
+base_types = [:Bool :Number :Int :String]
+vec_types = @eval [:(Vector{$x}) for x in base_types]
+types = [base_types vec_types]
+names = Symbol.([("Judgement" .* String.(base_types)) ("JudgementVec" .* String.(base_types))])
 
-        A judgement type that only allows `$($type)` for its rating.
-        """ $name
+for (name, type) in zip(names, types)
+        @eval begin
+        export $name
+        @newjudgement(
+            $name,
+            AnyLevelJudgement,
+            """
+            A generic judgement that only allows ratings of a certain type.
+            """,
+            $type)
     end
 end

@@ -4,9 +4,9 @@ module Judgements
     export JudgementLevel, AnyLevelJudgement, RecordJudgement, StudyJudgement
     include("level.jl")
     export @newjudgement
-    export J, Judgement, NoJudgement, convert, rating, location, certainty
+    export J, Judgement, NoJudgement, convert, rating, comment, certainty
     include("judgement.jl")
-    export JudgementBool, JudgementNumber, JudgementInt, JudgementFloat, JudgementString
+    # exports via code gen within the file
     include("constrained.jl")
     export JudgementLanguage
     include("language.jl")

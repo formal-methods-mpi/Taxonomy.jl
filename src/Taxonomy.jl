@@ -18,7 +18,7 @@ module Taxonomy
     import Base.convert, Base.==
     export Judgements, J, Judgement, NoJudgement, convert, rating, location, certainty
     include("judgements/Judgements.jl")
-    import Taxonomy.Judgements: J, Judgement, NoJudgement, rating, location, certainty
+    using Taxonomy.Judgements
 
     export Record, id, judgements,  location, spec, data
     include("record.jl")
