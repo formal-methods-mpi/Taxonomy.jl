@@ -16,7 +16,7 @@ module Taxonomy
     include("metadata/doi.jl")
     
     import Base.convert, Base.==
-    export Judgements, J, Judgement, NoJudgement, convert, rating, location, certainty
+    export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
     include("judgements/Judgements.jl")
     using Taxonomy.Judgements
 

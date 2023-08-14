@@ -2,7 +2,7 @@
     j = J(2.0)
     @test rating(j) == 2.0
     @test certainty(j) == 1.0
-    @test ismissing(location(j))
+    @test ismissing(comment(j))
 end
 
 @testset "Argument checks" begin
