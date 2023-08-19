@@ -4,6 +4,7 @@
 using Taxonomy;
 using Taxonomy.Judgements;
 using StenoGraphs
+struct Weight{N <: Number} <: EdgeModifier w::N end
 
 ##---Define what to Code---
 
@@ -43,7 +44,7 @@ using StenoGraphs
     """
     The number of models that use the same dataset.
     """,
-    Study,
+    StudyJudgement,
     Int,
     ## Here we define a certain range. If our Input value lies within that range, nothing happens. Otherwise, we get an error. 
     # x -> x^2 is the syntax to define an anyonym function
@@ -71,7 +72,7 @@ const langcodes =
 ## If missings are valid types for the custom type check, we have to define that as well. If we don't provide a input check function, missings are always allowed per default. 
 @newjudgement(
     Data,
-    StudyLevel,
+    StudyJudgement,
     """
     Is the data for the study is availible? Valid values include: "openly", "closed" and "upon request".
     """,
@@ -94,28 +95,32 @@ const langcodes =
 )
 
 ## Another use of warnings would be to allert to changes of the Judgement specification. In this example, we have renamed "N" to "NSample": 
-# Now we can tell everyone using the N-Judgement to please reconsider: 
-@newjudgement(
-    N,
-    """
-    Deprecated! Please use 'Note' instead. Something that we have noticed that is unusual and should be discussed.
-    """,
-    Record,
-    AbstractString,
-    x -> warning("'NSample' was depricated. Please use 'NSample'instead.")
-)
+# Now we can tell everyone using the N-Judgement to please reconsider:
+# commented out because you can not redifine constants in the same session
+# @newjudgement(
+#     N,
+#     """
+#     Deprecated! Please use 'NSample' instead.
+#     """,
+#     Record,
+#     AbstractString,
+#     x -> warning("'N' was depricated. Please use 'NSample'instead.")
+# )
 
 
 ## Or we don't do any of that, and just allow everything: 
 @newjudgement(
     Observation,
-    RecordJudgment,
+    AnyLevelJudgement, # may occur anywhere
     """
     An observation without any consequences.
     """,
-    Any,
+    Any, # any is the default type anyway
     x -> nothing # this is the default check function anyway
 )
+
+# usually metadata are inferred from the DOI but this takes time and an internet connection and can be deactivated
+auto_request_meta(false)
 
 ############################################################################################
 
@@ -134,18 +139,18 @@ db += Record(
     rater = "AP",
     id = "823ddb98-f880-5691-aecc-d74b67fbe263",
     location = DOI("10.1007/s10869-019-09648-5"),
-    Lang( #This is the Judgement we defined earlier. Within it, we can input the value, the certainty and the location like before: 
+    Lang( #This is the Judgement we defined earlier. Within it, we can input the value, the certainty and a comments like before: 
         "de",
         0.5, # not clear what language the paper has
-        "abstract", # because the abstract exists in both english and german
+        "abstract in both de and en", # because the abstract exists in both english and german
     ), 
     Study(
-        n = N(100, 0.8, "the abstract says 120 but table 1 is saying 100"),
-        Measurement(n_variables = 2, loadings = [0.53, 0.95], factor_variance = 0.16), # they fitted two models
-        Measurment(n_variables = 2, loadings = [1, 1], factor_variance = missing),
+        N(100, 0.8, "the abstract says 120 but table 1 is saying 100"),
+        Measurement(n_variables = 2, loadings = [0.53, 0.95], factor_variance = 0.16), # they fitted two models to the same dataset
+        Measurement(n_variables = 2, loadings = [1, 1], factor_variance = missing),
     ),
     Study( # a second study (i.e. new an different data), much more complex then the first
-        n = N(985),
+        N(985),
         LatentPathmodel(
             Structural(
                 structural_model =  @StenoGraph begin
@@ -162,11 +167,11 @@ db += Record(
                     DN ⇔ BC * Weight(-0.10)
                 end),
             Dict(
-                :IP => Measurement(n_sample = 985, n_variables = 3, factor_variance = 1.53^2, loadings = missing),
-                :IN => Measurement(n_sample = 985, n_variables = 4, factor_variance = 1.14^2, loadings = missing),
-                :DN => Measurement(n_sample = 985, n_variables = 3, factor_variance = 1.42^2, loadings = missing),
-                :BC => Measurement(n_sample = 985, n_variables = 3, factor_variance = 0.95^2, loadings = missing),
-                :IB => Measurement(n_sample = 748, n_variables = 5, factor_variance = 0.96^2, loadings = missing)
+                :IP => Measurement(n_variables = 3, factor_variance = 1.53^2, loadings = missing),
+                :IN => Measurement(n_variables = 4, factor_variance = 1.14^2, loadings = missing),
+                :DN => Measurement(n_variables = 3, factor_variance = 1.42^2, loadings = missing),
+                :BC => Measurement(n_variables = 3, factor_variance = 0.95^2, loadings = missing),
+                :IB => Measurement(n_variables = 5, factor_variance = 0.96^2, loadings = missing)
             )
     )
-)
+))

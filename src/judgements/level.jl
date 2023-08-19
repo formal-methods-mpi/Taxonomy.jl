@@ -1,4 +1,4 @@
 abstract type JudgementLevel end
-abstract type AnyLevelJudgement <: JudgementLevel end
-abstract type RecordJudgement <: JudgementLevel end
-abstract type StudyJudgement <: JudgementLevel end
+struct AnyLevelJudgement <: JudgementLevel end
+struct RecordJudgement <: JudgementLevel end
+struct StudyJudgement <: JudgementLevel end

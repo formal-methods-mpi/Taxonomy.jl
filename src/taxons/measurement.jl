@@ -32,29 +32,26 @@ Measurement
 ```
 """
 struct Measurement <: AbstractCFA
-    n_sample::AbstractJudgement{ <: Union{ <:Int, Missing}}
-    n_variables::AbstractJudgement{ <: Union{ <:Int, Missing}}
-    loadings::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, Missing}}
-    factor_variance::AbstractJudgement{ <: Union{ <:Number, Missing}}
-    error_variances::AbstractJudgement{<:Union{<:AbstractArray{<:Number},<: Int, Missing}}
-    error_covariances_within::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    error_covariances_between::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    crossloadings_incoming::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    crossloadings_outgoing::AbstractJudgement{ <: Union{ <: AbstractArray{ <: Number}, <: Int, Missing}}
-    Measurement(n_sample, n_variables, loadings,factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing) =
-        new(J(n_sample), J(n_variables), J(loadings), J(factor_variance), J(error_variances), J(error_covariances_within), J(error_covariances_between), J(crossloadings_incoming), J(crossloadings_outgoing))
+    n_variables::JudgementInt
+    loadings::JudgementVecNumber
+    factor_variance::JudgementNumber
+    error_variances::JudgementVecNumber
+    error_covariances_within::JudgementVecNumber
+    error_covariances_between::JudgementVecNumber
+    crossloadings_incoming::JudgementVecNumber
+    crossloadings_outgoing::JudgementVecNumber
 end
 
-function Measurement(;n_sample = missing,
+function Measurement(;
     n_variables,
     loadings, 
     factor_variance,
-    error_variances = 0,
-    error_covariances_within = 0,
-    error_covariances_between = 0, 
-    crossloadings_incoming = 0,
-    crossloadings_outgoing = 0)
-    Measurement(n_sample, n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
+    error_variances = missing,
+    error_covariances_within = missing,
+    error_covariances_between = missing, 
+    crossloadings_incoming = missing,
+    crossloadings_outgoing = missing)
+    Measurement(n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
 
 """

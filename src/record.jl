@@ -4,15 +4,14 @@ struct Record
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
-    judgements::Union{Dict{String, AbstractJudgement}, Missing}
-    spec::Union{AbstractJudgement, Missing}
-    data::Union{AbstractJudgement, Missing}
-end
-function Record(rater, id::String, location, meta, judgements, spec, data)
-    Record(rater, Base.UUID(id), location, meta, judgements, spec, data)
+    judgements::Union{Dict{Symbol, Vector{AbstractJudgement}}, Missing}
 end
 
-function Record(; rater = missing, id = missing, location = missing, meta = missing, judgements = missing, spec = missing, data = missing)
+function Record(rater, id::String, location, meta, judgements)
+    Record(rater, Base.UUID(id), location, meta, judgements)
+end
+
+function Record(j...; rater = missing, id = missing, location = missing, meta = missing, judgements = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
     end
@@ -34,16 +33,9 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
             @warn "Some of the metadata seem to be incomplete. Check again."
         end
     end
-    if ismissing(judgements)
-        @warn "`judgements` is missing. Maybe you mean `NoTaxon()`?"
-    end
-    if ismissing(spec)
-        @warn "`spec` is missing. Maybe you mean `NoJudgment()`?"
-    end
-    if ismissing(data)
-        @warn "`data` is missing. Maybe you mean `NoJudgment()`?"
-    end
-    Record(rater, id, location, meta, judgements, spec, data)
+    check_judgement_level.(j, (RecordJudgement(), ))
+    judgements = judgement_dict(j...)
+    Record(rater, id, location, meta, judgements)
 end
 
 id(x::Record) = x.id        
@@ -51,7 +43,5 @@ rater(x::Record) = x.rater
 judgements(x::Record) = x.judgements
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
-spec(x::Record) = x.spec
-data(x::Record) = x.data
 
 Base.length(::Record) = 1

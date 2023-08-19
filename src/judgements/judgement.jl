@@ -1,4 +1,37 @@
-macro newjudgement(name, level, doc, type = Any, check = x -> nothing)
+"""
+    judgement_unique(::AbstractJudgement)
+
+Indicates weather a judgement can be made only once (it is unique) or if it may relate to different entities (it is not unique).
+"""
+function judgement_unique end
+
+"""
+    judgement_key(::AbstractJudgement)
+
+Under which key to find this particular judgement type.
+"""
+function judgement_key end
+
+"""
+    judgement_level(::AbstractJudgement)
+
+For which level this judgement is applicable.
+"""
+function judgement_level end
+
+function correct_judgement_level(x, level = AnyLevelJudgement)
+    x in (level, AnyLevelJudgement)
+end
+
+function check_judgement_level(x, level = AnyLevelJudgement)
+    x = x isa JudgementLevel ? x : judgement_level(x)
+    if !correct_judgement_level(x, level)
+        throw(ArgumentError("An `$level` was requires but an `$x` was given."))
+    end
+    nothing
+end
+
+macro newjudgement(name, level, doc, type = Any, check = x -> nothing, unique = true)
     inner = quote
             struct $name{T <: Union{<: $(type), Missing}} <: AbstractJudgement{T}
             rating::T
@@ -6,7 +39,7 @@ macro newjudgement(name, level, doc, type = Any, check = x -> nothing)
             comment::Union{String, Missing}
             function $name{T}(r, c = 1.0, l = missing) where T
                 $check(r)
-                check_certainty(c)
+                Judgements.check_certainty(c)
                 new{T}(r, c, l)
             end
         end
@@ -21,10 +54,18 @@ macro newjudgement(name, level, doc, type = Any, check = x -> nothing)
     $($doc)
 
     """ $name)
+
+    unique = :(Judgements.judgement_unique(::$name) = $unique)
+    key = :(Judgements.judgement_key(::$name) = Symbol($name))
+    level = :(Judgements.judgement_level(::$name) = $level())
+
     return quote
         $(esc(inner))
         $(esc(outer))
         $(esc(outer2))
+        $(esc(unique))
+        $(esc(level))
+        $(esc(key))
         $(esc(doc))
     end
 end
