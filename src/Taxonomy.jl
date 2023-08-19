@@ -6,10 +6,12 @@ module Taxonomy
     export StandaloneFactor, ManifestPathmodel
     include("abstracttypes.jl")
 
+    import Preferences: @set_preferences!, @load_preference
     import Dates
     import Dates: Date
     export Date
     export NoDOI, NoLocation
+    export auto_request_meta
     include("metadata/location.jl")
 
     export DOI, UsualDOI, UnusualDOI
