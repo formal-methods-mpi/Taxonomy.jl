@@ -24,7 +24,7 @@ Use the following command in Julia to instantiate the environment:
 using Pkg
 Pkg.instantiate()
 ```
-In short:`Pkg.instantiate()' installs the dependencies that are specified in the `Project.toml`and `Manifest.toml`files of a project.
+In short:`Pkg.instantiate()` installs the dependencies that are specified in the `Project.toml` and `Manifest.toml` files of a project.
 
 ## Installing the Version of One Commit in the Package's History
 If you want to install a specific version of Taxonomy.jl corresponding to a particular commit, you can do so by specifying the commit hash. 
