@@ -64,3 +64,4 @@ It enables reproducible environments by pinning each dependency to a specific ve
 When you install a package, Julia uses the `Project.toml` to determine which versions of the dependencies are compatible. 
 It then generates or updates a `Manifest.toml` with the specific versions that were installed. 
 This is crucial for ensuring that your environment is reproducible and that the package will work with the set of dependencies specified in the `Manifest.toml`.
+`Pkg.instantiate()` will take the `Manifest.toml` and ensures that exactly these versions are installed.
