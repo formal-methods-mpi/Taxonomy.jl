@@ -1,10 +1,11 @@
 """
     Study()
 
-Stores a dictionary with StudyJudgements.
-"""
+Use this function to group together multiple Judgements on the Study level. This means you have
+    one Study, but want to group together the according Judgements like `N`, `Taxon`, etc.
 
-## This needs to get an abstract type? Same as Record, model
+Return: Output value will be a dictionary containing StudyJudgements. 
+"""
 
 struct Study <: JudgementLevel
     judgements::Union{Dict{Symbol, Vector{AbstractJudgement}}, Missing}
@@ -17,14 +18,3 @@ function Study(j::AbstractJudgement...)
 end
 
 
-# Next action: 
-## Add warning in judgement_dict if the same key appears twice
-
-#function Study(j::AbstractJudgement...)
-#    check_judgement_level.(j, (StudyJudgement(), ))
-#    Study()
-#end
-
-judgement_level(x::Study) = StudyJudgement()
-judgement_unique(x::Study) = true
-judgement_key(x::Study) = :Study
