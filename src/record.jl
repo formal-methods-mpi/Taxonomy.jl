@@ -40,7 +40,6 @@ end
 
 id(x::Record) = x.id        
 rater(x::Record) = x.rater
-judgements(x::Record) = x.judgements
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
 
