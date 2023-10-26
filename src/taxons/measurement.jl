@@ -4,7 +4,6 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 
 ## Arguments
 
-- `n_sample`: Number of observed cases. May be between different taxons from same paper sometime, e.g. multigroup models.
 - `n_variables`: Number of variables (possibly observed/manifest).
 - `loadings`: Vector of loadings, one for each item. 
 - `factor_variance`: Variance of the factor.
@@ -20,7 +19,6 @@ Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
 # output
 
 Measurement
-   n_sample: AbstractJudgement{Missing}
    n_variables: AbstractJudgement{Int64}
    loadings: AbstractJudgement{Vector{Float64}}
    factor_variance: AbstractJudgement{Float64}
@@ -54,23 +52,16 @@ function Measurement(;
     Measurement(n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
 end
 
+## Has to take @newjudgements, so the sample size can get coded:
 """
 Standalone Factor Taxon. 
 Taxon for Models with only one factor.
 
 ## Arguments
 
-- `nsample`: Sample size.
 - `, kwargs...`: all other arguments are passed onto [`Measurement`](@ref)
 
-All others
-
-```jldoctest
-StandaloneFactor(n_sample = 2, n_sample = 100, loadings = [1, 0.4])
-
-# output
-StandaloneFactor(AbstractJudgement{Int64}(2, 1.0, missing), AbstractJudgement{Int64}(100, 1.0, missing), AbstractJudgement{Vector{Float64}}([1.0, 0.4], 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing), AbstractJudgement{Int64}(0, 1.0, missing))```
 """
-function StandaloneFactor(;n_sample, kwargs...)
-    Measurement(;n_sample = n_sample, kwargs...)
+function StandaloneFactor(;kwargs...)
+    Measurement(;kwargs...)
 end
