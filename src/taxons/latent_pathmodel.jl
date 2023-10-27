@@ -2,7 +2,7 @@
 Create a new `LatentPathmodel` instance.
 
 for indexing:
-my_model.structural_model.structural_model
+my_model.structural_model.structural_graph
 my_model.measurement_model[:fac2]
 
 ```jldoctest
@@ -13,7 +13,7 @@ graph = @StenoGraph begin
 end
 
 my_model = LatentPathmodel(
-    Structural(n_sample = 12, structural_model = graph),
+    Structural(n_sample = 12, structural_graph = graph),
     Dict(
         :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
         :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)

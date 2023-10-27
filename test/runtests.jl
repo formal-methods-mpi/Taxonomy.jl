@@ -2,6 +2,7 @@ using Taxonomy
 using Test
 using Documenter
 using StenoGraphs
+using Random
 
 @testset "Taxonomy.jl" begin
     if VERSION ≥ v"1.7"
@@ -11,6 +12,7 @@ using StenoGraphs
     
     include("metadata/doi.jl")
     include("judgement.jl")
+    include("sampler/sample_StenoGraph.jl")
     include("taxons/simple_lgcm.jl")
     include("taxons/measurement.jl")
     include("taxons/structural.jl")

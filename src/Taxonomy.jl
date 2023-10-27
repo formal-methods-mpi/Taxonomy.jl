@@ -40,13 +40,17 @@ module Taxonomy
     export n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope,  covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope
     include("taxons/simple_lgcm.jl")
 
+    export LatentPathmodel
     include("taxons/latent_pathmodel.jl")
+
+    export sample_StenoGraph, extract_StenoGraph, sample_steno
+    include("sampler/sample_StenoGraph.jl")
 
     import UUIDs
     export generate_id
     include("uuid.jl")
 
-    export n_sample, factor_variance, structural_model
+    export n_sample, factor_variance, structural_graph, structural_model
     include("extractors.jl")
 
     export RecordDatabase
