@@ -20,7 +20,11 @@ module Taxonomy
     import Base.convert, Base.==
     export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
     include("judgements/Judgements.jl")
+
     using Taxonomy.Judgements
+
+    export Study
+    include("study.jl")
 
     export Record, id, judgements,  location, spec, data
     include("record.jl")
@@ -58,5 +62,4 @@ module Taxonomy
     include("database.jl")
 
     include("pretty_printing.jl")
-
 end
