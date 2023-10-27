@@ -1,4 +1,5 @@
 using Taxonomy
+using Taxonomy.Judgements
 using Test
 using Documenter
 using StenoGraphs
@@ -11,6 +12,8 @@ using StenoGraphs
     
     include("metadata/doi.jl")
     include("judgements/judgement.jl")
+    include("study.jl")
+    include("record.jl")
     include("taxons/simple_lgcm.jl")
     include("taxons/measurement.jl")
     include("taxons/structural.jl")
