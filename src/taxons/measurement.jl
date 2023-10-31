@@ -38,18 +38,33 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
+    judgements::Union{Dict{Symbol,Vector{AbstractJudgement}}, Missing}
 end
 
-function Measurement(;
+    
+
+function Measurement(j...;
     n_variables,
-    loadings, 
+    loadings,
     factor_variance,
-    error_variances = missing,
-    error_covariances_within = missing,
-    error_covariances_between = missing, 
-    crossloadings_incoming = missing,
-    crossloadings_outgoing = missing)
-    Measurement(n_variables, loadings, factor_variance, error_variances, error_covariances_within, error_covariances_between, crossloadings_incoming, crossloadings_outgoing)
+    error_variances=missing,
+    error_covariances_within=missing,
+    error_covariances_between=missing,
+    crossloadings_incoming=missing,
+    crossloadings_outgoing=missing)
+
+    check_judgement_level.(j, (ModelJudgement(),))
+    judgements = judgement_dict(j...)
+
+    Measurement(n_variables,
+        loadings,
+        factor_variance,
+        error_variances,
+        error_covariances_within,
+        error_covariances_between,
+        crossloadings_incoming,
+        crossloadings_outgoing,
+        judgements)
 end
 
 ## Has to take @newjudgements, so the sample size can get coded:
@@ -62,6 +77,6 @@ Taxon for Models with only one factor.
 - `, kwargs...`: all other arguments are passed onto [`Measurement`](@ref)
 
 """
-function StandaloneFactor(;kwargs...)
-    Measurement(;kwargs...)
+function StandaloneFactor(; kwargs...)
+    Measurement(; kwargs...)
 end
