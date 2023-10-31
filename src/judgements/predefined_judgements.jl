@@ -1,3 +1,20 @@
+
+"""
+    CFI()
+
+Judgement for Comparative Fit Index (CFI). 
+"""
+
+@newjudgement(
+    CFI,
+    ModelJudgement,
+    """
+    The Taxons Comparative Fit Index (CFI). Takes float values or missings. 
+    """,
+    Float64 # Input type. In this case Integer. 
+)
+
+
 @newjudgement(
     Empirical, # Name of this custom judgement type
     StudyJudgement, # Specify on which level this judgement should be used. Paper level in this case. 
@@ -7,22 +24,6 @@
     """,
     Bool # Input type. In this case boolian.
 )
-
-"""
-    N()
-
-Judgement for N. 
-"""
-
-@newjudgement(
-    N,
-    StudyJudgement, # Specify on which level this judgement should be used. Study level in this case.  
-    """
-    The number of observations in the study. Takes integer values or missings. 
-    """,
-    Int # Input type. In this case Integer. 
-)
-
 
 """
     Lang()
@@ -41,3 +42,22 @@ const langcodes = ["aa" "ab" "ae" "af" "ak" "am" "an" "ar" "as" "av" "ay" "az" "
     AbstractString,
     x -> x in langcodes ? nothing : throw(ArgumentError("Not an ISO 639-1 code"))
 )
+
+
+
+"""
+    N()
+
+Judgement for N. 
+"""
+
+@newjudgement(
+    N,
+    StudyJudgement, # Specify on which level this judgement should be used. Study level in this case.  
+    """
+    The number of observations in the study. Takes integer values or missings. 
+    """,
+    Int # Input type. In this case Integer. 
+)
+
+
