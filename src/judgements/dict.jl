@@ -18,12 +18,14 @@ function add_judgement!(dict, j::T) where {T <: AbstractJudgement}
 end
 
 function add_judgement!(dict, j::T) where {T <: JudgementLevel}
-    keyname = Symbol(string(typeof(j)))
-    if (keyname in keys(dict))
-        keyname = Symbol(string(keyname) * "_2") ## figure out how to give concisive names
-    end
 
-    vec = get(dict, string(typeof(j)), T[])
+    if j isa Taxon
+        keyname = Symbol("Taxon")
+    else
+    keyname = Symbol(string(typeof(j)))
+    end
+ 
+    vec = get(dict, keyname, T[])
     push!(vec, j)
     push!(dict, keyname => vec)
 end

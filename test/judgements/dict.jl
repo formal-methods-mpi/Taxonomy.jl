@@ -9,8 +9,9 @@
     )
 
     @test test_dict[:N][1] == N(300, 1)
-    @test test_dict[:Measurement][1] isa Measurement
-    @test rating(test_dict[:Measurement][1].loadings) == [0.53, 0.95]
+    @test test_dict[:Taxon][1] isa Measurement
+    @test length(test_dict[:Taxon]) == 2
+    @test rating(test_dict[:Taxon][1].loadings) == [0.53, 0.95]
     @test test_dict[:Study][1] isa Study
     @test test_dict[:Lang][1] == Lang("de", 1)
 end

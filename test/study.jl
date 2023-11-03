@@ -10,7 +10,7 @@
     @test typeof(simple_study_test_judgements[:N][1]) == N{Int64}
     @test typeof(simple_study_test_judgements[:Empirical][1]) == Empirical{Bool}
     @test rating(simple_study_test_judgements[:Empirical][1]) == true
-    @test simple_study_test_judgements[:Measurement][1] isa Measurement
+    @test simple_study_test_judgements[:Taxon][1] isa Measurement
 end
 
 @testset "Study() can not take Judgements of RecordLevel typpe" begin
