@@ -1,6 +1,8 @@
 abstract type AbstractLocation end
 abstract type AbstractDOI <: AbstractLocation end
 abstract type AbstractMeta end
+abstract type JudgementLevel end
+
 """
 A judgment about something. All judgments should return:
 
@@ -18,7 +20,7 @@ abstract type AbstractJudgement{T} end
 """
 Taxon is the supertype of all taxons.
 """
-abstract type Taxon end
+abstract type Taxon <: JudgementLevel end
 
 """
 NoTaxon is the supertype for when a Taxon cannot be coded (yet).

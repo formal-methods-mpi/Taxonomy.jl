@@ -1,6 +1,7 @@
 module Taxonomy
     export AbstractDOI, AbstractLocation
     export AbstractJudgement
+    export Taxon, JudgementLevel
     export AbstractPathmodel, AbstractCFA, AbstractLGCM, AbstractCLPM
     export Structural, LatentPathmodel, HierarchicalCFA, BifactorCFA, SimpleCLPM, SimpleLGCM
     export StandaloneFactor, ManifestPathmodel
