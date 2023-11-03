@@ -101,4 +101,4 @@ struct_model = Structural(structural_model = graph)
 structural_model(struct_model)
 ```
 """
-judgements(x::Union{JudgementLevel, Taxon}) = x.judgements
+judgements(x::JudgementLevel) = x.judgements
