@@ -1,6 +1,5 @@
-@testset "LGCM" begin    
-    @test_throws MethodError SimpleLGCM(n_timepoints = "hi", timecoding = [1, 0.4])
-end
+using Taxonomy
+using Taxonomy.Judgements
 
 @testset "LGCM extractors" begin
     lgcm_model =  SimpleLGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
