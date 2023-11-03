@@ -39,7 +39,7 @@ struct Measurement <: AbstractCFA
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
     judgements::Union{Dict{Symbol,Vector{AbstractJudgement}}, Missing}
-end
+  end
 
     
 
@@ -67,7 +67,6 @@ function Measurement(j...;
         judgements)
 end
 
-## Has to take @newjudgements, so the sample size can get coded:
 """
 Standalone Factor Taxon. 
 Taxon for Models with only one factor.
