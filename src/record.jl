@@ -4,7 +4,7 @@ struct Record <: JudgementLevel
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
-    judgements::Union{Dict{Symbol, Vector{AbstractJudgement}}, Missing}
+    judgements::Union{Dict{Symbol, Vector{Union{AbstractJudgement, Study}}}, Missing}
 end
 
 function Record(rater, id::String, location, meta, judgements)
@@ -33,10 +33,13 @@ function Record(j...; rater = missing, id = missing, location = missing, meta = 
             @warn "Some of the metadata seem to be incomplete. Check again."
         end
     end
+
     check_judgement_level.(j, (RecordJudgement(), ))
+    
     judgements = judgement_dict(j...)
     Record(rater, id, location, meta, judgements)
 end
+
 
 id(x::Record) = x.id        
 rater(x::Record) = x.rater
