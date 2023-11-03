@@ -1,20 +1,19 @@
 """
     Study()
 
-Use this function to group together multiple Judgements on the Study level. This means you have
-    one Study, but want to group together the according Judgements like `N`, `Taxon`, etc.
+Use this function to group together multiple Judgements and/or Taxons on the Study level. 
 
-Return: Output value will be a dictionary containing StudyJudgements. 
+Return: Output value will be a dictionary containing StudyJudgements and/or Taxons. 
 """
-
 struct Study <: JudgementLevel
-    judgements::Union{Dict{Symbol, Vector{AbstractJudgement}}, Missing}
+    judgements::Union{Dict{Symbol,Vector{Union{AbstractJudgement,Taxon}}},Missing}
 end
 
-function Study(j::AbstractJudgement...)
-    check_judgement_level.(j, (StudyJudgement(), ))
+function Study(j::Union{AbstractJudgement,Taxon}...)
+
+    check_judgement_level.(j, (StudyJudgement(),))
+
     judgements = judgement_dict(j...)
     Study(judgements)
 end
-
 
