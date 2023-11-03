@@ -19,9 +19,9 @@ Structural(structural_model = graph)
 ```
 """
 struct Structural <: AbstractPathmodel
-    n_sample::AbstractJudgement{<: Union{<: Int, Missing}}
+    n_sample::JudgementInt
     structural_model::AbstractJudgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
-    Structural(n_sample, structural_model) = new(J(n_sample), J(structural_model))
+    Structural(n_sample, structural_model) = new(n_sample, J(structural_model))
 end
 
 function Structural(;n_sample = missing,
