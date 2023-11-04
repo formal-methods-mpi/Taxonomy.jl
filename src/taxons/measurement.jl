@@ -38,7 +38,6 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
-    judgements::Union{Dict{Symbol,Vector{AbstractJudgement}}, Missing}
   end
 
     
@@ -53,9 +52,6 @@ function Measurement(j...;
     crossloadings_incoming=missing,
     crossloadings_outgoing=missing)
 
-    check_judgement_level.(j, (ModelJudgement(),))
-    judgements = judgement_dict(j...)
-
     Measurement(n_variables,
         loadings,
         factor_variance,
@@ -63,8 +59,7 @@ function Measurement(j...;
         error_covariances_within,
         error_covariances_between,
         crossloadings_incoming,
-        crossloadings_outgoing,
-        judgements)
+        crossloadings_outgoing)
 end
 
 """
