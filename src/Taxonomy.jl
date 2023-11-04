@@ -63,4 +63,7 @@ module Taxonomy
     include("database.jl")
 
     include("pretty_printing.jl")
+
+    export Model
+    include("model.jl")
 end

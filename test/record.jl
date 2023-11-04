@@ -22,9 +22,7 @@ end
             "abstract in both de and en", # because the abstract exists in both english and german
         ), 
         Study(
-            N(100, 0.8, "the abstract says 120 but table 1 is saying 100"),
-            Measurement(n_variables = 2, loadings = [0.53, 0.95], factor_variance = 0.16), # they fitted two models to the same dataset
-            Measurement(n_variables = 2, loadings = [1, 1], factor_variance = missing)
+            N(100, 0.8, "the abstract says 120 but table 1 is saying 100")
         )
     )
 

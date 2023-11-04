@@ -135,7 +135,7 @@ db = RecordDatabase()
 # JuliaFormatter.format("file.jl")
 
 ## Now we can produce a new Record and add it to our data base: 
-db += Record(
+db += test_record = Record(
     rater = "AP",
     id = "823ddb98-f880-5691-aecc-d74b67fbe263",
     location = DOI("10.1007/s10869-019-09648-5"),
@@ -146,12 +146,12 @@ db += Record(
     ), 
     Study(
         N(100, 0.8, "the abstract says 120 but table 1 is saying 100"),
-        Measurement(n_variables = 2, loadings = [0.53, 0.95], factor_variance = 0.16), # they fitted two models to the same dataset
-        Measurement(n_variables = 2, loadings = [1, 1], factor_variance = missing),
+        Model(Measurement(n_variables = 2, loadings = [0.53, 0.95], factor_variance = 0.16)), # they fitted two models to the same dataset
+        Model(Measurement(n_variables = 2, loadings = [1, 1], factor_variance = missing))
     ),
     Study( # a second study (i.e. new an different data), much more complex then the first
         N(985),
-        LatentPathmodel(
+        Model(LatentPathmodel(
             Structural(
                 structural_model =  @StenoGraph begin
                     IP → IB * Weight(0.27)
@@ -173,5 +173,5 @@ db += Record(
                 :BC => Measurement(n_variables = 3, factor_variance = 0.95^2, loadings = missing),
                 :IB => Measurement(n_variables = 5, factor_variance = 0.96^2, loadings = missing)
             )
-    )
+    ))
 ))
