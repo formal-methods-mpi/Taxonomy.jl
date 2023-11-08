@@ -11,7 +11,7 @@ function Record(rater, id::String, location, meta, judgements)
     Record(rater, Base.UUID(id), location, meta, judgements)
 end
 
-function Record(j...; rater = missing, id = missing, location = missing, meta = missing, judgements = missing)
+function Record(j...; rater = missing, id = missing, location = missing, meta = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
     end
@@ -47,3 +47,5 @@ MetaData(x::Record) = x.meta
 location(x::Record) = x.location
 
 Base.length(::Record) = 1
+
+ExtractStudy(x::Record) = judgements(x)[:Study]
