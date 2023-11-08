@@ -5,11 +5,10 @@ using Documenter
 using StenoGraphs
 
 @testset "Taxonomy.jl" begin
- #   if VERSION ≥ v"1.7"
- #       DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
- #       doctest(Taxonomy)
- #   end
- ## Don't use Doctests rn
+   if VERSION ≥ v"1.7"
+       DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
+       doctest(Taxonomy)
+   end
     
     include("metadata/doi.jl")
     include("judgements/judgement.jl")

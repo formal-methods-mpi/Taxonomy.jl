@@ -10,51 +10,40 @@ julia> using Taxonomy
 
 julia> Record()
 ┌ Warning: Please provide your rater ID. This should be your initials.
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:15
-┌ Warning: You really should supply an ID. May we suggest: 096b9e07-0a55-488f-9d5f-372a290ea2c2
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:21
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:16
+┌ Warning: You really should supply an ID. May we suggest: e23f1ede-e271-4b4c-b692-7adc02f8d79e
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:22
 ┌ Warning: You really should supply a location.
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:26
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:27
 ┌ Warning: Some of the metadata seem to be incomplete. Check again.
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:32
-┌ Warning: `judgements` is missing. Maybe you mean `NoTaxon()`?
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:36
-┌ Warning: `spec` is missing. Maybe you mean `NoJudgment()`?
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:39
-┌ Warning: `data` is missing. Maybe you mean `NoJudgment()`?
-└ @ Taxonomy /run/media/maximilian/DataVolume/Manjaro/repositories/Taxonomy.jl/src/record.jl:42
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:33
 Record
    rater: Missing
    id: Missing
    location: NoLocation
    meta: IncompleteMeta
-   judgements: Missing
-   spec: Missing
-   data: Missing
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 ```
 
 As you probably notice we warn you to do that.
 This is to encourage you to think twice, however, after having thought twice about it, you may silence every warning with explicitly suppliyng "empty" instances (except ID, really nothing should hinder you to supply a random id).
 
 ```jldoctest missing
-Record(rater = "AP",
-id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
-location = NoLocation(),
-meta = MetaData(missing, missing, missing),
-judgements = Dict("Taxon" => J(NoTaxon())),
-spec = NoJudgement(),
-data = NoJudgement())
+Record(
+   rater = "AP",
+   id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+   location = NoLocation(),
+   meta = MetaData(missing, missing, missing),
+   Study(Model(NoTaxon()))
+)
 
 # output
-
 Record
    rater: String
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   judgements: Dict{String, AbstractJudgement}
-   spec: Judgement{Missing}
-   data: Judgement{Missing}
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 ```
 
 We therefore differenciate between "lazy" missings and intentional missings.
@@ -87,9 +76,7 @@ Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-judgements = Dict("Taxon" => J(NoTaxonEver())),
-spec = NoJudgement(),
-data = NoJudgement())
+Study(Model(NoTaxonEver())))
 
 # output
 
@@ -98,9 +85,7 @@ Record
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   judgements: Dict{String, AbstractJudgement}
-   spec: Judgement{Missing}
-   data: Judgement{Missing}
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 ```
 
 or like this:
@@ -110,22 +95,17 @@ Record(rater = "AP",
 id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
 location = NoLocation(),
 meta = MetaData(missing, missing, missing),
-judgements = Dict("Taxon" => J(NoTaxonYet("2023-06-06"))),
-spec = NoJudgement(),
-data = NoJudgement())
+Study(Model(NoTaxonYet("2023-06-06"))))
 
 # output
-
 ┌ Warning: This model is currently not possible to code? - please come back later.
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/taxons/no_taxon.jl:31
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/taxons/no_taxon.jl:34
 Record
    rater: String
    id: Base.UUID
    location: NoLocation
    meta: IncompleteMeta
-   judgements: Dict{String, AbstractJudgement}
-   spec: Judgement{Missing}
-   data: Judgement{Missing}
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 ```
 
 ```@meta

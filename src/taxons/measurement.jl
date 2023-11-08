@@ -19,14 +19,14 @@ Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
 # output
 
 Measurement
-   n_variables: AbstractJudgement{Int64}
-   loadings: AbstractJudgement{Vector{Float64}}
-   factor_variance: AbstractJudgement{Float64}
-   error_variances: AbstractJudgement{Int64}
-   error_covariances_within: AbstractJudgement{Int64}
-   error_covariances_between: AbstractJudgement{Int64}
-   crossloadings_incoming: AbstractJudgement{Int64}
-   crossloadings_outgoing: AbstractJudgement{Int64}
+   n_variables: JudgementInt{Int64}
+   loadings: JudgementVecNumber{Vector{Float64}}
+   factor_variance: JudgementNumber{Float64}
+   error_variances: JudgementVecNumber{Missing}
+   error_covariances_within: JudgementVecNumber{Missing}
+   error_covariances_between: JudgementVecNumber{Missing}
+   crossloadings_incoming: JudgementVecNumber{Missing}
+   crossloadings_outgoing: JudgementVecNumber{Missing}
 ```
 """
 struct Measurement <: AbstractCFA

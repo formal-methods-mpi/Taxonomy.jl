@@ -16,23 +16,22 @@ using Taxonomy
 first_record = Record(
     rater = "AP",
     location = DOI("10.2307/2095172"),
-    judgements = Dict("Taxon" => J(StandaloneFactor(n_variables = 6, n_sample = 113, loadings = [1, 1.19, 0.53, 0.91, 1, 1], factor_variance = J(missing, 0.5), error_covariances_within = [10.7, 12.9, 19]))),
-    spec = true,
-    data = true
+    Study(Model(StandaloneFactor(
+        n_variables = 6, 
+        loadings = [1, 1.19, 0.53, 0.91, 1, 1], 
+        factor_variance = J(missing, 0.5), 
+        error_covariances_within = [10.7, 12.9, 19])))
 )
 
 # output
-
 ┌ Warning: You really should supply an ID. May we suggest (from DOI): 8f1713c9-482b-58cb-8ed4-128c03e9dafb
-└ @ Taxonomy ~/Documents/remote/github/Taxonomy.jl/src/record.jl:19
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:20
 Record
    rater: String
    id: Missing
    location: UsualDOI{String, Missing}
    meta: ExtensiveMeta{MinimalMeta}
-   judgements: Dict{String, AbstractJudgement}
-   spec: Judgement{Bool}
-   data: Judgement{Bool}
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 
 ```
 
@@ -45,25 +44,25 @@ julia> year(first_record)
 1980
 julia> apa(first_record)
 "Bollen, K. A. (1980). Issues in the Comparative Measurement of Political Democracy. American Sociological Review, 45(3), 370. https://doi.org/10.2307/2095172\n"
-julia> spec(first_record)
-Judgement{Bool}(true, 1.0, missing)
-julia> rating(get(judgements(first_record), "Taxon", 3))
+julia> ExtractStudy(first_record)[1].judgements[:Model][1].judgements[:Taxon][1]
 Measurement
-   n_sample: Judgement{Int64}
-   n_variables: Judgement{Int64}
-   loadings: Judgement{Vector{Float64}}
-   factor_variance: Judgement{Missing}
-   error_variances: Judgement{Int64}
-   error_covariances_within: Judgement{Vector{Float64}}
-   error_covariances_between: Judgement{Int64}
-   crossloadings_incoming: Judgement{Int64}
-   crossloadings_outgoing: Judgement{Int64}
+   n_variables: JudgementInt{Int64}
+   loadings: JudgementVecNumber{Vector{Float64}}
+   factor_variance: JudgementNumber{Missing}
+   error_variances: JudgementVecNumber{Missing}
+   error_covariances_within: JudgementVecNumber{Vector{Float64}}
+   error_covariances_between: JudgementVecNumber{Missing}
+   crossloadings_incoming: JudgementVecNumber{Missing}
+   crossloadings_outgoing: JudgementVecNumber{Missing}
 ```
 
 Generally, DOIs are the best and easiest thing to get metadata, however, sometimes none is availible:
 
-```
+``` jldoctest NoDOI
+using Taxonomy
 Record(
+    rater = "AP", 
+    id = "96ac4220-45d2-43ca-930d-afb67763f56f", # ID gets recommended by the function.
     location = NoDOI(
         url = "https://github.com/StructuralEquationModels/StructuralEquationModels.jl",
         author = "Ernst, Maximilian Stefan and Peikert, Aaron",
@@ -71,8 +70,18 @@ Record(
         year = 2022, # date is omitted
         journal = "No Real Journal"
     ),
-    judgements = Dict("Taxon" => J(Factor(n_variables = 6, loadings = [1, 1.19, 0.53, 0.91, 1, 1], error_covariances_within = [10.7, 12.9, 19]))),
-    spec = true,
-    data = true
+    Study(Model(StandaloneFactor(
+        n_variables = 6, 
+        loadings = [1, 1.19, 0.53, 0.91, 1, 1], 
+        factor_variance = J(missing, 0.5), 
+        error_covariances_within = [10.7, 12.9, 19])))
 )
+
+# output
+Record
+   rater: String
+   id: Base.UUID
+   location: NoDOI
+   meta: MinimalMeta
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
 ```
