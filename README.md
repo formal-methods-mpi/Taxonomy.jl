@@ -44,4 +44,4 @@ Get this here alogside an introduction: https://aaronpeikert.github.io/StenoGrap
 
 # More Details!
 
-For a more detailed documentation of this package look here: https://structuralequationmodels.github.io/Taxonomy.jl/dev/
+For a more detailed documentation of this package look here: https://formal-methods-mpi.github.io/Taxonomy.jl
