@@ -3,8 +3,6 @@ SimpleLGCM AbstractLGCM.
 Taxon for Linear Growth Curve Model.
 
     ## Arguments
-
-- `n_sample`: Number of observed cases.
 - `n_timepoints`: Number of measurement timepoints.
 - `timecoding`: Vector containing the coding of the measurement time points (loadings of the slope onto the timepoints).
 - `intercept`: Intercept constant.
@@ -19,29 +17,27 @@ Taxon for Linear Growth Curve Model.
 - `predictor_paths_slope`: Vector for the predictor-paths to the slope.
 
 ```jldoctest
-SimpleLGCM(n_sample = 500, n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
+SimpleLGCM(n_timepoints = 6, timecoding = [0, 1, 2, 3, 4, 5], intercept = 10.2, 
 slope = 0.96, nonlinear_timecoding = [1, 2, 4, 9, 16, 25], variance_intercept = 1, variance_slope = 1, covariance_intercept_slope = 0.1,
 n_predictors = 2, predictor_paths_intercept = [2, 4], predictor_paths_slope = [3, 5])
 
 # output
 SimpleLGCM
-   n_sample: AbstractJudgement{Int64}
-   n_timepoints: AbstractJudgement{Int64}
-   timecoding: AbstractJudgement{Vector{Int64}}
-   intercept: AbstractJudgement{Float64}
-   slope: AbstractJudgement{Float64}
-   nonlinear_timecoding: AbstractJudgement{Vector{Int64}}
-   variance_intercept: AbstractJudgement{Int64}
-   variance_slope: AbstractJudgement{Int64}
-   covariance_intercept_slope: AbstractJudgement{Float64}
-   variances_timepoints: AbstractJudgement{Missing}
-   n_predictors: AbstractJudgement{Int64}
-   predictor_paths_intercept: AbstractJudgement{Vector{Int64}}
-   predictor_paths_slope: AbstractJudgement{Vector{Int64}}
+   n_timepoints: JudgementInt{Int64}
+   timecoding: JudgementVecNumber{Vector{Int64}}
+   intercept: JudgementNumber{Float64}
+   slope: JudgementNumber{Float64}
+   nonlinear_timecoding: JudgementVecNumber{Vector{Int64}}
+   variance_intercept: JudgementNumber{Int64}
+   variance_slope: JudgementNumber{Int64}
+   covariance_intercept_slope: JudgementNumber{Float64}
+   variances_timepoints: JudgementNumber{Missing}
+   n_predictors: JudgementInt{Int64}
+   predictor_paths_intercept: JudgementVecNumber{Vector{Int64}}
+   predictor_paths_slope: JudgementVecNumber{Vector{Int64}}
 ```
 """
 struct SimpleLGCM <: AbstractLGCM
-    n_sample::JudgementInt
     n_timepoints::JudgementInt
     timecoding::JudgementVecNumber
     intercept::JudgementNumber
@@ -57,7 +53,6 @@ struct SimpleLGCM <: AbstractLGCM
 end
 
 function SimpleLGCM(; 
-    n_sample = missing,
     n_timepoints, 
     timecoding, 
     intercept = missing,
@@ -71,7 +66,7 @@ function SimpleLGCM(;
     predictor_paths_intercept = 0,
     predictor_paths_slope = 0)
    
-    SimpleLGCM(n_sample, n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
+    SimpleLGCM(n_timepoints, timecoding, intercept, slope, nonlinear_timecoding, variance_intercept, variance_slope, covariance_intercept_slope, variances_timepoints, n_predictors, predictor_paths_intercept, predictor_paths_slope)
 end
 
 

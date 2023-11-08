@@ -27,7 +27,7 @@ module Taxonomy
     export Study
     include("study.jl")
 
-    export Record, id, judgements,  location, spec, data
+    export Record, id, judgements,  location, spec, data, ExtractStudy
     include("record.jl")
 
     import HTTP
@@ -55,7 +55,7 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export n_sample, factor_variance, structural_model
+    export factor_variance, structural_model
     include("extractors.jl")
 
     export RecordDatabase
