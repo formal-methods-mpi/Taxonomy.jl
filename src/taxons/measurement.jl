@@ -94,18 +94,6 @@ fixed_loading = Fixed(0.7)
 # output
 
 Fixed{Float64}(0.7)
-
-strip_fixed(fixed_loading)
-
-# output
-
-0.7
-
-strip_fixed(2.5)  # Works with regular numbers as well
-
-# output
-
-2.5
 ```
 """
 struct Fixed{T <: Number} <: Number
