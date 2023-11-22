@@ -20,6 +20,8 @@ module Taxonomy
     
     import Base.convert, Base.==
     export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
+    export JudgementNumber, JudgementBool, JudgementInt, JudgementString
+    export JudgementVecNumber, JudgementVecBool, JudgementVecInt, JudgementVecString
     include("judgements/Judgements.jl")
 
     using Taxonomy.Judgements
