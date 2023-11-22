@@ -82,17 +82,8 @@ Fixed loading or variance.
 To specify which parameter of measurement is Fixed
 """
 
-import Pkg
-using Pkg
-Pkg.add(url = "https://github.com/formal-methods-mpi/Taxonomy.jl")
-
-using Taxonomy
-
 struct Fixed{T <: Number} <: Number
     x::T
 end
 strip_fixed(x::Fixed) = x.x
 strip_fixed(x::Number) = x
-
-
-Measurement(n_variables = 3, factor_variance = missing, loadings = [Fixed(0.84), 0.88, 0.74])
