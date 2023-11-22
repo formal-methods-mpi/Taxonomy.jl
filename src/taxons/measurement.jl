@@ -78,7 +78,7 @@ end
 """
 Fixed{T <: Number}
 
-A wrapper type for fixed parameters in a measurement model. The `Fixed` type is used to indicate that a certain numeric parameter, such as a factor variance or loading in a `Measurement`, is fixed and should not be altered during the model fitting process. 
+A wrapper type for fixed parameters in a measurement model. The `Fixed` type is used to indicate that a certain numeric parameter, such as a factor variance or loading in a `Measurement`, is fixed. 
 
 # Arguments
 - `x::T`: The numeric value being wrapped as fixed.
