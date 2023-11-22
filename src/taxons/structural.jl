@@ -19,17 +19,15 @@ Structural(structural_model = graph)
 ```
 """
 struct Structural <: AbstractPathmodel
-    n_sample::Judgement{<: Union{<: Int, Missing}}
-    structural_model::Judgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
-    Structural(n_sample, structural_model) = new(J(n_sample), J(structural_model))
+    structural_model::AbstractJudgement{ <: Union{<:AbstractArray{<: StenoGraphs.AbstractEdge}, Missing}}
+    Structural(structural_model) = new(J(structural_model))
 end
 
-function Structural(;n_sample = missing,
-    structural_model) # hier basic CFA model festlegen
-    Structural(n_sample, structural_model)
+function Structural(;structural_model) # hier basic CFA model festlegen
+    Structural(structural_model)
 end
 
 
-function ManifestPathmodel(;n_sample, kwargs...)
-    Structural(;n_sample = n_sample, kwargs...)
+function ManifestPathmodel(;kwargs...)
+    Structural(;kwargs...)
 end

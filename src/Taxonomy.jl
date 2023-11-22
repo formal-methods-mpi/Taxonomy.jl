@@ -1,24 +1,35 @@
 module Taxonomy
     export AbstractDOI, AbstractLocation
+    export AbstractJudgement
+    export Taxon, JudgementLevel
     export AbstractPathmodel, AbstractCFA, AbstractLGCM, AbstractCLPM
     export Structural, LatentPathmodel, HierarchicalCFA, BifactorCFA, SimpleCLPM, SimpleLGCM
     export StandaloneFactor, ManifestPathmodel
     include("abstracttypes.jl")
 
+    import Preferences: @set_preferences!, @load_preference
     import Dates
     import Dates: Date
     export Date
     export NoDOI, NoLocation
+    export auto_request_meta
     include("metadata/location.jl")
 
     export DOI, UsualDOI, UnusualDOI
     include("metadata/doi.jl")
     
     import Base.convert, Base.==
-    export J, Judgement, NoJudgement, convert, rating, location, certainty
-    include("judgement.jl")
+    export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
+    export JudgementNumber, JudgementBool, JudgementInt, JudgementString
+    export JudgementVecNumber, JudgementVecBool, JudgementVecInt, JudgementVecString
+    include("judgements/Judgements.jl")
 
-    export Record, id, taxons,  location, spec, data
+    using Taxonomy.Judgements
+
+    export Study
+    include("study.jl")
+
+    export Record, id, judgements,  location, spec, data, ExtractStudy
     include("record.jl")
 
     import HTTP
@@ -46,7 +57,7 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export n_sample, factor_variance, structural_model
+    export factor_variance, structural_model
     include("extractors.jl")
 
     export RecordDatabase
@@ -55,4 +66,6 @@ module Taxonomy
 
     include("pretty_printing.jl")
 
+    export Model
+    include("model.jl")
 end

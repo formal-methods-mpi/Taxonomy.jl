@@ -1,17 +1,17 @@
-struct Record
+using Taxonomy
+struct Record <: JudgementLevel
     rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
     location::AbstractLocation
     meta::AbstractMeta
-    taxons::Union{Vector{<: Taxon}, Missing}
-    spec::Union{Judgement, Missing}
-    data::Union{Judgement, Missing}
-end
-function Record(rater, id::String, location, meta, taxons, spec, data)
-    Record(rater, Base.UUID(id), location, meta, taxons, spec, data)
+    judgements::Union{Dict{Symbol, Vector{Union{AbstractJudgement, Study}}}, Missing}
 end
 
-function Record(; rater = missing, id = missing, location = missing, meta = missing, taxons = missing, spec = missing, data = missing)
+function Record(rater, id::String, location, meta, judgements)
+    Record(rater, Base.UUID(id), location, meta, judgements)
+end
+
+function Record(j...; rater = missing, id = missing, location = missing, meta = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
     end
@@ -33,24 +33,19 @@ function Record(; rater = missing, id = missing, location = missing, meta = miss
             @warn "Some of the metadata seem to be incomplete. Check again."
         end
     end
-    if ismissing(taxons)
-        @warn "`taxons` is missing. Maybe you mean `NoTaxon()`?"
-    end
-    if ismissing(spec)
-        @warn "`spec` is missing. Maybe you mean `NoJudgment()`?"
-    end
-    if ismissing(data)
-        @warn "`data` is missing. Maybe you mean `NoJudgment()`?"
-    end
-    Record(rater, id, location, meta, taxons, spec, data)
+
+    check_judgement_level.(j, (RecordJudgement(), ))
+    
+    judgements = judgement_dict(j...)
+    Record(rater, id, location, meta, judgements)
 end
+
 
 id(x::Record) = x.id        
 rater(x::Record) = x.rater
-taxons(x::Record) = x.taxons
 MetaData(x::Record) = x.meta
 location(x::Record) = x.location
-spec(x::Record) = x.spec
-data(x::Record) = x.data
 
 Base.length(::Record) = 1
+
+ExtractStudy(x::Record) = judgements(x)[:Study]

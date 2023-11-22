@@ -13,7 +13,7 @@ graph = @StenoGraph begin
 end
 
 my_model = LatentPathmodel(
-    Structural(n_sample = 12, structural_model = graph),
+    Structural(structural_model = graph),
     Dict(
         :fac1 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6),
         :fac2 => Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)

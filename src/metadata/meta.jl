@@ -247,12 +247,30 @@ function MetaData(author, year, journal)
     end
 end
 
+"""
+    auto_request_meta(x::Bool)
+
+Should the metadata be automatically filled in for DOIs? Requires internet connection and quite a bit of time.
+"""
+function auto_request_meta(x::Bool)
+    @set_preferences!("auto_request_meta" => x)
+    if x
+        @info("Metadata are requested automatically.")
+    else
+        @info("Metadata are set to missing for DOIs.")
+    end
+end
+
 function MetaData(location::AbstractDOI)
-    json = Taxonomy.json(location)
-    apa_request = request_apa(location)
-    apa = apa_request.status == 200 ? Taxonomy.apa(apa_request) : missing
-    meta = MetaData(author(json), year(json), journal(json))
-    ExtensiveMeta(meta, apa, json)
+    if @load_preference("auto_request_meta", true)
+        json = Taxonomy.json(location)
+        apa_request = request_apa(location)
+        apa = apa_request.status == 200 ? Taxonomy.apa(apa_request) : missing
+        meta = MetaData(author(json), year(json), journal(json))
+        ExtensiveMeta(meta, apa, json)
+    else
+        ExtensiveMeta(IncompleteMeta(missing, missing, missing), missing, Dict())
+    end
 end
 
 function MetaData(location::NoDOI)

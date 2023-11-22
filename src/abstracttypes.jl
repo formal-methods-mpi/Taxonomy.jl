@@ -1,10 +1,27 @@
 abstract type AbstractLocation end
 abstract type AbstractDOI <: AbstractLocation end
 abstract type AbstractMeta end
+abstract type JudgementLevel end
+
+"""
+A judgment about something. All judgments should return:
+
+- `rating`: The rating, e.g. "Structural" or 1.0.
+- `certainty`: If uncertain, a number between 0.0 and 1.0 (0-100%)
+- `location`: optional, where in the Paper PDF was the location retieved, e.g. section, page, table number, figure number or a quote.
+
+```jldoctest
+julia> Judgement(1.0, .99, "Figure 1");
+```
+
+"""
+abstract type AbstractJudgement{T} end
+
 """
 Taxon is the supertype of all taxons.
 """
-abstract type Taxon end
+abstract type Taxon <: JudgementLevel end
+
 """
 NoTaxon is the supertype for when a Taxon cannot be coded (yet).
 
