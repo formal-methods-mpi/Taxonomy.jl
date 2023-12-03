@@ -44,7 +44,7 @@ module Taxonomy
     export Structural
     include("taxons/structural.jl")
     
-    export Standalone_Factor, Measurement
+    export Standalone_Factor, Measurement, Fixed, strip_fixed
     include("taxons/measurement.jl")
 
     export SimpleLGCM
