@@ -86,10 +86,21 @@ Base.:+(x::Record, y::RecordDatabase) = y + x
 
 function check_id(x::RecordDatabase, y::Pair)
     id_record = first(y)
-    # location_record = location(y)
+    record = get(x.records, id_record, nothing)
+    doi_record = y[2].location.doi
+
     if Base.haskey(x, id_record)
         throw(ArgumentError("The ID $id_record is already in the data base."))
     end
-end
 
+    dois = []
+    for i in keys(x)
+        push!(dois, location(get(x.records, i, false)).doi)
+    end
+
+    if doi_record in dois 
+      throw(ArgumentError("The DOI $doi_record is already in the data base."))
+    end
+
+end
 
