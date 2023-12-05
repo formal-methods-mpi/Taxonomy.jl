@@ -30,4 +30,5 @@
     my_database[id(second_record)] = second_record
     @test my_database[id(second_record)] == second_record
     @test_throws ArgumentError my_database[id(first_record)] = second_record
+    @test_throws ArgumentError push!(my_database, first_record)
 end
