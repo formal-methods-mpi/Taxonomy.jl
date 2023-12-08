@@ -6,7 +6,7 @@ module Judgements
     include("level.jl")
 
     export @newjudgement
-    export J, Judgement, NoJudgement, convert, rating, comment, certainty, judgement_key
+    export J, Judgement, NoJudgement, convert, rating, comment, certainty, judgement_key, keyword_func
     include("judgement.jl")
 
     # exports via code gen within the file
