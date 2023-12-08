@@ -63,7 +63,16 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
     unique = :(Judgements.judgement_unique(::$name) = $unique)
     key = :(Judgements.judgement_key(::$name) = Symbol($name))
     level = :(Judgements.judgement_level(::$name) = $level())
-
+   
+    # Create a new function with the same name as the judgement
+    # This function accepts keyword arguments and creates a NamedTuple
+    # The NamedTuple is then passed to the judgement constructor
+    keyword_func = quote
+        function $(esc(name))(;kwargs...)
+            $(esc(name))(NamedTuple{tuple(keys(kwargs)...)}(values(kwargs)...))
+        end
+    end
+    
     return quote
         $(esc(inner))
         $(esc(outer))
@@ -72,8 +81,9 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
         $(esc(level))
         $(esc(key))
         $(esc(doc))
+        $(esc(keyword_func))
     end
-end
+    end
 
 @newjudgement(
     Judgement,
