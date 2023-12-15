@@ -70,7 +70,7 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
     keyword_func = quote
         function $name(;kwargs...)
             kwargs_tuple = NamedTuple{tuple(keys(kwargs)...)}(tuple(values(kwargs)...))
-            $(Symbol(esc(name)))(kwargs_tuple)
+            $name(kwargs_tuple)
         end
     end
         
