@@ -69,7 +69,8 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
     # The NamedTuple is then passed to the judgement constructor
     keyword_func = quote
         function $name(;kwargs...)
-            $(Symbol(esc(name)))(NamedTuple{tuple(keys(kwargs)...)}(values(kwargs)...))
+            kwargs_tuple = NamedTuple{tuple(keys(kwargs)...)}(tuple(values(kwargs)...))
+            $(esc(name))(kwargs_tuple)
         end
     end
         
