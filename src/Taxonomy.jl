@@ -15,7 +15,7 @@ module Taxonomy
     export auto_request_meta
     include("metadata/location.jl")
 
-    export DOI, UsualDOI, UnusualDOI
+    export DOI, UsualDOI, UnusualDOI, doi
     include("metadata/doi.jl")
     
     import Base.convert, Base.==
