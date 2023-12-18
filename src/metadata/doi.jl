@@ -65,6 +65,3 @@ Alias for [`UsualDOI`](@ref).
 const DOI = UsualDOI
 
 url(x::AbstractDOI) = "https://doi.org/" * x.doi
-
-# Extractors
-doi(x::Record) = x.location.doi
