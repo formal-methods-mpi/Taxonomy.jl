@@ -55,8 +55,8 @@ Base.convert(::Type{Pair{UUID,Record}}, r::Record) = invariant_pair(r)
 # builds function to be able to push new records to the database
 # push! as function with two arguments: db of type RecordDatabase and record of type Record, returns an instance of RecordDatabase
 function Base.push!(x::RecordDatabase, new::Pair)
-    #check_uuid(x, new)
-    #check_doi(x, new)
+    check_uuid(x, new)
+    check_doi(x, new)
     push!(x.records, invariant_pair(new))
     x
 end
@@ -74,21 +74,9 @@ function Base.merge(x::RecordDatabase, y::RecordDatabase)
     check_doi(x, y)
     return RecordDatabase(merge(x.records, y.records))
 end
-function Base.:+(x::RecordDatabase, y::RecordDatabase)
-    check_uuid(x, y)
-    check_doi(x, y)
-    return merge(x, y)
-end
-function Base.:+(x::RecordDatabase, y::Record)
-    check_uuid(x, y)
-    check_doi(x, y)
-    return push!(x, y)
-end
-function Base.:+(x::Record, y::RecordDatabase)
-    check_uuid(x, y)
-    check_doi(x, y)
-    return y + x
-end
+Base.:+(x::RecordDatabase, y::RecordDatabase) = merge(x, y)
+Base.:+(x::RecordDatabase, y::Record) = push!(x, y)
+Base.:+(x::Record, y::RecordDatabase) = y + x
 
 
 # Base.setindex!(rd::RecordDatabase{K, V}, value::K, key::V) where {K, V} = push!(rd, key => value)
@@ -100,7 +88,6 @@ end
 #     rd
 # end
 
-
 function check_uuid(x::RecordDatabase, y::Record)
     id_y = id(y)
     if Base.haskey(x, id_y)
@@ -108,9 +95,7 @@ function check_uuid(x::RecordDatabase, y::Record)
         throw(ArgumentError("The ID $id_y_string is already in the data base."))
     end
 end
-function check_uuid(x::Record, y::RecordDatabase)
-    check_uuid(y, x)
-end
+
 function check_uuid(x::RecordDatabase, y::RecordDatabase)
 
     keys_x = Set(keys(x))
@@ -124,15 +109,15 @@ function check_uuid(x::RecordDatabase, y::RecordDatabase)
     end
 
 end
+check_uuid(x::RecordDatabase, y::Pair) = check_uuid(x, y.second)
 
 
-function check_doi(x::Record, y::RecordDatabase)
-    doi_x = doi(x)
-    if doi_x in doi(y)
-        throw(ArgumentError("The DOI $doi_x is already in the data base."))
+function check_doi(x::RecordDatabase, y::Record)
+    doi_y = doi(y)
+    if doi_y in doi(x)
+        throw(ArgumentError("The DOI $doi_y is already in the data base."))
     end
 end
-check_doi(x::RecordDatabase, y::Record) = check_doi(y, x)
 function check_doi(x::RecordDatabase, y::RecordDatabase)
     dois_x = doi(x)
     dois_y = doi(y)
@@ -144,3 +129,4 @@ function check_doi(x::RecordDatabase, y::RecordDatabase)
         throw(ArgumentError("Duplicated DOI(s): $duplicated_dois_str"))
     end
 end
+check_doi(x::RecordDatabase, y::Pair) = check_doi(x,y.second)

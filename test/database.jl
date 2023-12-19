@@ -42,11 +42,8 @@ end
 
 
 @testset "check uuids" begin
-    
-    using Taxonomy
-    using Taxonomy.Judgements
-
-    my_database = RecordDatabase()
+    my_database_1 = RecordDatabase()
+    my_database_2 = RecordDatabase()
 
     # Test:
     first_record = Record(
@@ -57,24 +54,26 @@ end
     )
 
     second_record = Record(
-        id=generate_id(),
+        id="8f1713c9-482b-58cb-8ed4-128c03e9dafb",
         rater="AP",
         location=DOI("10.2307/2095172"),
         Lang("en")
     )
 
-    push!(my_database, first_record)
+    push!(my_database_1, first_record)
+    push!(my_database_2, second_record)
 
-
-    @test_throws ArgumentError check_uuid(my_database, first_record)
-    @test_throws ArgumentError check_uuid(first_record, my_database)
-    @test_throws ArgumentError check_uuid(my_database, my_database)
-
+    @test_throws ArgumentError check_uuid(my_database_1, second_record)
+    @test_throws ArgumentError check_uuid(my_database_1, my_database_2)
+    @test_throws ArgumentError merge(my_database_1, my_database_2)
+    @test_throws ArgumentError push!(my_database_1, second_record)
+    @test_throws ArgumentError my_database_1 + second_record
+    @test_throws ArgumentError second_record + my_database_1
 end
 
 @testset "check dois" begin
-
-    my_database = RecordDatabase()
+    my_database_1 = RecordDatabase()
+    my_database_2 = RecordDatabase()
 
     # Test:
     first_record = Record(
@@ -91,9 +90,15 @@ end
         Lang("en")
     )
 
-    push!(my_database, first_record)
+    push!(my_database_1, first_record)
+    push!(my_database_2, second_record)
 
-    @test_throws ArgumentError check_doi(second_record, my_database)
-    @test_throws ArgumentError check_doi(my_database, second_record)
-    @test_throws ArgumentError check_doi(my_database, my_database)
+    @test_throws ArgumentError check_doi(my_database_1, second_record)
+    @test_throws ArgumentError check_doi(my_database_1, my_database_2)
+    @test_throws ArgumentError merge(my_database_1, my_database_2)
+    @test_throws ArgumentError push!(my_database_1, second_record)
+    @test_throws ArgumentError my_database_1 + second_record
+    @test_throws ArgumentError second_record + my_database_1
+
+
 end
