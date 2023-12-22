@@ -57,12 +57,12 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export factor_variance, structural_model
-    include("extractors.jl")
-
-    export RecordDatabase
+    export RecordDatabase, check_uuid, check_doi
     import Base: UUID
     include("database.jl")
+
+    export factor_variance, structural_model, doi
+    include("extractors.jl")
 
     include("pretty_printing.jl")
 

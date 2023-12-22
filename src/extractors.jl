@@ -79,3 +79,15 @@ structural_model(struct_model)
 ```
 """
 judgements(x::JudgementLevel) = x.judgements
+
+
+
+
+doi(x::Record) = x.location.doi
+function doi(x::RecordDatabase) 
+  dois = []
+     for i in keys(x)
+         push!(dois, location(get(x.records, i, false)).doi)
+     end
+  return dois
+end
