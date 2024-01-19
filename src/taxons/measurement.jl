@@ -12,7 +12,7 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 - `error_covariances_between`: Vector of covariances the factor shares with a different factor. 
 - `crossloadings_incoming`: Vector of crossloadings coming from other factors. They should be lower than the loading coming to the item from this factor.  
 - `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. 
-- `quest_scale`: Scale of the questionnaire, can be either an integer or a float.
+- `quest_scale`: Scale of the questionnaire, can be either an integer,a float, or missing.
 
 ```jldoctest
 Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6, quest_scale = 5)
@@ -28,7 +28,7 @@ Measurement
    error_covariances_between: JudgementVecNumber{Missing}
    crossloadings_incoming: JudgementVecNumber{Missing}
    crossloadings_outgoing: JudgementVecNumber{Missing}
-   quest_scale: Union{JudgementInt{Int64}, JudgementNumber{Float64}}
+   quest_scale: Union{JudgementInt{Int64}, JudgementNumber{Float64}, Missing}
 ```
 """
 struct Measurement <: AbstractCFA
@@ -40,7 +40,7 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
-    quest_scale::Union{JudgementInt{Int64}, JudgementNumber{Float64}}
+    quest_scale::Union{JudgementInt{Int64}, JudgementNumber{Float64}, Missing}
   end
 
     
@@ -56,15 +56,13 @@ function Measurement(j...;
     crossloadings_outgoing=missing,
     quest_scale=missing)
 
-    # Check if quest_scale is missing, Int, or Float64, and convert accordingly
-    quest_scale_converted = if isa(quest_scale, Missing)
-                                quest_scale  # Keep it as missing
-                            elseif isa(quest_scale, Int)
+    # Convert quest_scale to JudgementInt or JudgementNumber if necessary
+    quest_scale_converted = if isa(quest_scale, Int)
                                 JudgementInt(quest_scale)  # Convert Int to JudgementInt
                             elseif isa(quest_scale, Float64)
                                 JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
                             else
-                                quest_scale  # Use as is if already a Judgement type
+                                quest_scale  # Keep as is (including Missing)
                             end
 
     Measurement(n_variables,
