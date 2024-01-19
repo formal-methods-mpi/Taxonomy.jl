@@ -40,7 +40,7 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
-    quest_scale::Union{JudgementInt, JudgementNumber}
+    quest_scale::Union{JudgementInt{Int64}, JudgementNumber{Float64}}
   end
 
     
@@ -56,6 +56,15 @@ function Measurement(j...;
     crossloadings_outgoing=missing,
     quest_scale=missing)
 
+# Automatically convert the quest_scale argument
+quest_scale_converted = if isa(quest_scale, Int)
+                            JudgementInt(quest_scale)  # Convert Int to JudgementInt
+                        elseif isa(quest_scale, Float64)
+                            JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
+                        else
+                            quest_scale  # Use as is if already a Judgement type or missing
+                        end
+
     Measurement(n_variables,
         loadings,
         factor_variance,
@@ -64,7 +73,7 @@ function Measurement(j...;
         error_covariances_between,
         crossloadings_incoming,
         crossloadings_outgoing,
-        quest_scale)
+        quest_scale_converted)
 end
 
 """
@@ -106,3 +115,4 @@ struct Fixed{T <: Number} <: Number
 end
 strip_fixed(x::Fixed) = x.x
 strip_fixed(x::Number) = x
+
