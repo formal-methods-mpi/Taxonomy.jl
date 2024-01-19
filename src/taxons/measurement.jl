@@ -56,14 +56,16 @@ function Measurement(j...;
     crossloadings_outgoing=missing,
     quest_scale=missing)
 
-# Automatically convert the quest_scale argument
-quest_scale_converted = if isa(quest_scale, Int)
-                            JudgementInt(quest_scale)  # Convert Int to JudgementInt
-                        elseif isa(quest_scale, Float64)
-                            JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
-                        else
-                            quest_scale  # Use as is if already a Judgement type or missing
-                        end
+    # Check if quest_scale is missing, Int, or Float64, and convert accordingly
+    quest_scale_converted = if isa(quest_scale, Missing)
+                                quest_scale  # Keep it as missing
+                            elseif isa(quest_scale, Int)
+                                JudgementInt(quest_scale)  # Convert Int to JudgementInt
+                            elseif isa(quest_scale, Float64)
+                                JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
+                            else
+                                quest_scale  # Use as is if already a Judgement type
+                            end
 
     Measurement(n_variables,
         loadings,
