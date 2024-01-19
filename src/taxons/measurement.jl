@@ -28,7 +28,7 @@ Measurement
    error_covariances_between: JudgementVecNumber{Missing}
    crossloadings_incoming: JudgementVecNumber{Missing}
    crossloadings_outgoing: JudgementVecNumber{Missing}
-   quest_scale: Union{JudgementInt{Int64}, JudgementNumber{Float64}, Missing}
+   quest_scale: JudgementInt{Int64}
 ```
 """
 struct Measurement <: AbstractCFA
