@@ -4,7 +4,7 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 
 ## Arguments
 
-- `n_variables`: Number of variables (possibly observed/manifest).
+- `n_variables`: Number of variables (possibly observed/manifest). If items are parceled, this is the number of parcels.
 - `loadings`: Vector of loadings, one for each item. 
 - `factor_variance`: Variance of the factor.
 - `error_variances`: Vector of variances of the respective errors
