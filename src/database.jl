@@ -56,7 +56,7 @@ Base.convert(::Type{Pair{UUID,Record}}, r::Record) = invariant_pair(r)
 # push! as function with two arguments: db of type RecordDatabase and record of type Record, returns an instance of RecordDatabase
 function Base.push!(x::RecordDatabase, new::Pair)
     check_uuid(x, new)
-    check_doi(x, new)
+    check_url(x, new)
     push!(x.records, invariant_pair(new))
     x
 end
@@ -71,7 +71,7 @@ function Base.delete!(rd::RecordDatabase{K,V}, key::K) where {K,V}
 end
 function Base.merge(x::RecordDatabase, y::RecordDatabase)
     check_uuid(x, y)
-    check_doi(x, y)
+    check_url(x, y)
     return RecordDatabase(merge(x.records, y.records))
 end
 Base.:+(x::RecordDatabase, y::RecordDatabase) = merge(x, y)
@@ -112,21 +112,17 @@ end
 check_uuid(x::RecordDatabase, y::Pair) = check_uuid(x, y.second)
 
 
-function check_doi(x::RecordDatabase, y::Record)
-    doi_y = doi(y)
-    if doi_y in doi(x)
-        throw(ArgumentError("The DOI $doi_y is already in the data base."))
+function check_url(x::RecordDatabase, y::Record)
+    url_y = url(y)
+    if url_y in url(x)
+        throw(ArgumentError("The URL $url_y is already in the data base."))
     end
 end
-function check_doi(x::RecordDatabase, y::RecordDatabase)
-    dois_x = doi(x)
-    dois_y = doi(y)
+function check_url(x::RecordDatabase, y::RecordDatabase)
+    duplicated_urls = intersect(url(x), url(y))
 
-    duplicated_dois = intersect(dois_x, dois_y)
-
-    if length(duplicated_dois) > 0
-        duplicated_dois_str = join(duplicated_dois)
-        throw(ArgumentError("Duplicated DOI(s): $duplicated_dois_str"))
+    if length(duplicated_urls) > 0
+        throw(ArgumentError("Duplicated URL(s): $(join(duplicated_urls))"))
     end
 end
-check_doi(x::RecordDatabase, y::Pair) = check_doi(x,y.second)
+check_url(x::RecordDatabase, y::Pair) = check_url(x,y.second)
