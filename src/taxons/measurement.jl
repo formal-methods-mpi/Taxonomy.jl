@@ -8,11 +8,11 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 - `loadings`: Vector of loadings, one for each item. 
 - `factor_variance`: Variance of the factor.
 - `error_variances`: Vector of variances of the respective errors
-- `error_covariances_within`: Vector of covariances within factor.
-- `error_covariances_between`: Vector of covariances the factor shares with a different factor. 
-- `crossloadings_incoming`: Vector of crossloadings coming from other factors. They should be lower than the loading coming to the item from this factor.  
-- `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. 
-- `quest_scale`: Scale of the questionnaire, can be either an integer,a float, or missing.
+- `error_covariances_within`: Vector of covariances within factor. If unknown, set to missing, if there are no covariances, set to Float64[].
+- `error_covariances_between`: Vector of covariances the factor shares with a different factor. If unknown, set to missing, if there are no covariances, set to Float64[].
+- `crossloadings_incoming`: Vector of crossloadings coming from other factors. They should be lower than the loading coming to the item from this factor.  If unknown, set to missing, if there are none, set to Float64[]. 
+- `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. If unknown, set to missing, if there are none, set to Float64[].
+- `quest_scale`: Scale of the questionnaire. Anything more than ten is Inf. E.g: 5 point likert scale -> 5. 
 
 ```jldoctest
 Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6, quest_scale = 5)
