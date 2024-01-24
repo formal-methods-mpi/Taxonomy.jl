@@ -28,7 +28,7 @@ Measurement
    error_covariances_between: JudgementVecNumber{Missing}
    crossloadings_incoming: JudgementVecNumber{Missing}
    crossloadings_outgoing: JudgementVecNumber{Missing}
-   quest_scale: JudgementInt{Int64}
+   quest_scale: AbstractJudgement
 ```
 """
 struct Measurement <: AbstractCFA
@@ -40,7 +40,7 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
-    quest_scale::Union{JudgementInt, JudgementNumber, JudgementInt{Missing}, Missing}
+    quest_scale::Union{AbstractJudgement, Missing}
   end
 
     
@@ -56,17 +56,6 @@ function Measurement(j...;
     crossloadings_outgoing=missing,
     quest_scale=missing)
 
-    # Convert quest_scale to JudgementInt or JudgementNumber if necessary
-    quest_scale_converted = if isa(quest_scale, Missing)
-                                JudgementInt(missing)  # Represent missing as JudgementInt{Missing}
-                            elseif isa(quest_scale, Int)
-                                JudgementInt(quest_scale)  # Convert Int to JudgementInt
-                            elseif isa(quest_scale, Float64)
-                                JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
-                            else
-                                quest_scale  # Use as is if already a Judgement type
-                            end
-
     Measurement(n_variables,
         loadings,
         factor_variance,
@@ -75,7 +64,7 @@ function Measurement(j...;
         error_covariances_between,
         crossloadings_incoming,
         crossloadings_outgoing,
-        quest_scale_converted)
+        quest_scale)
 end
 
 """
