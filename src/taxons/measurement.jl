@@ -4,7 +4,7 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 
 ## Arguments
 
-- `n_variables`: Number of variables (possibly observed/manifest).
+- `n_variables`: Number of variables (possibly observed/manifest). If items are parceled, this is the number of parcels.
 - `loadings`: Vector of loadings, one for each item. 
 - `factor_variance`: Variance of the factor.
 - `error_variances`: Vector of variances of the respective errors
@@ -12,9 +12,10 @@ Building Block for Taxonomy. Multiple Measurements can be combined to a Taxon.
 - `error_covariances_between`: Vector of covariances the factor shares with a different factor. 
 - `crossloadings_incoming`: Vector of crossloadings coming from other factors. They should be lower than the loading coming to the item from this factor.  
 - `crossloadings_outgoing`: Vector of crossloadings going to other items which have higher loadings from other factors. 
+- `quest_scale`: Scale of the questionnaire, can be either an integer,a float, or missing.
 
 ```jldoctest
-Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6)
+Measurement(n_variables = 2, loadings = [1, 0.4], factor_variance = 0.6, quest_scale = 5)
 
 # output
 
@@ -27,6 +28,7 @@ Measurement
    error_covariances_between: JudgementVecNumber{Missing}
    crossloadings_incoming: JudgementVecNumber{Missing}
    crossloadings_outgoing: JudgementVecNumber{Missing}
+   quest_scale: JudgementNumber{Int64}
 ```
 """
 struct Measurement <: AbstractCFA
@@ -38,6 +40,7 @@ struct Measurement <: AbstractCFA
     error_covariances_between::JudgementVecNumber
     crossloadings_incoming::JudgementVecNumber
     crossloadings_outgoing::JudgementVecNumber
+    quest_scale::JudgementNumber
   end
 
     
@@ -50,7 +53,8 @@ function Measurement(j...;
     error_covariances_within=missing,
     error_covariances_between=missing,
     crossloadings_incoming=missing,
-    crossloadings_outgoing=missing)
+    crossloadings_outgoing=missing,
+    quest_scale=missing)
 
     Measurement(n_variables,
         loadings,
@@ -59,7 +63,8 @@ function Measurement(j...;
         error_covariances_within,
         error_covariances_between,
         crossloadings_incoming,
-        crossloadings_outgoing)
+        crossloadings_outgoing,
+        quest_scale)
 end
 
 """
@@ -101,3 +106,4 @@ struct Fixed{T <: Number} <: Number
 end
 strip_fixed(x::Fixed) = x.x
 strip_fixed(x::Number) = x
+
