@@ -54,7 +54,7 @@ Measurement
    error_covariances_between: JudgementVecNumber{Missing}
    crossloadings_incoming: JudgementVecNumber{Missing}
    crossloadings_outgoing: JudgementVecNumber{Missing}
-   quest_scale: AbstractJudgement
+   quest_scale: JudgementNumber{Missing}
 ```
 
 Generally, DOIs are the best and easiest thing to get metadata, however, sometimes none is availible:
