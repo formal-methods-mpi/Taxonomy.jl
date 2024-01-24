@@ -57,12 +57,14 @@ function Measurement(j...;
     quest_scale=missing)
 
     # Convert quest_scale to JudgementInt or JudgementNumber if necessary
-    quest_scale_converted = if isa(quest_scale, Int)
+    quest_scale_converted = if isa(quest_scale, Missing)
+                                JudgementInt(missing)  # Represent missing as JudgementInt{Missing}
+                            elseif isa(quest_scale, Int)
                                 JudgementInt(quest_scale)  # Convert Int to JudgementInt
                             elseif isa(quest_scale, Float64)
                                 JudgementNumber(quest_scale)  # Convert Float64 to JudgementNumber
                             else
-                                quest_scale  # Keep as is (including Missing)
+                                quest_scale  # Use as is if already a Judgement type
                             end
 
     Measurement(n_variables,
