@@ -51,33 +51,5 @@ function structural_model(x::Structural)
     x.structural_model
 end
 
-
-
-"""
-Function to extract a Judgement from either a JudgementLevel or from a Taxon.
-
-## Arguments
-
-- `x`: [`Strucutral`](@ref).
-
-## Return
-
-Returns a [`Judgement`](@ref)
-
-```julia-repl
-using Taxonomy
-using StenoGraphs
-
-graph = @StenoGraph begin
-    # latent regressions
-    fac1 → fac2
-end
-
-struct_model = Structural(structural_model = graph)
-
-structural_model(struct_model)
-```
-"""
-judgements(x::JudgementLevel) = x.judgements
 url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x)) 
