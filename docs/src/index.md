@@ -56,6 +56,7 @@ Taxon
 ```
 
 ```@docs
+Record
 Taxon
 Factor
 CFA
@@ -85,6 +86,7 @@ rating
 location(::Judgement)
 certainty
 ```
+
 ## Metadata
 
 ```@docs
