@@ -1,5 +1,3 @@
-using Taxonomy
-
 struct Record <: JudgementLevel
     rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
