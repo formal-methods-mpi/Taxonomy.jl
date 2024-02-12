@@ -93,8 +93,8 @@ end
     push!(my_database_1, first_record)
     push!(my_database_2, second_record)
 
-    @test_throws ArgumentError check_doi(my_database_1, second_record)
-    @test_throws ArgumentError check_doi(my_database_1, my_database_2)
+    @test_throws ArgumentError check_url(my_database_1, second_record)
+    @test_throws ArgumentError check_url(my_database_1, my_database_2)
     @test_throws ArgumentError merge(my_database_1, my_database_2)
     @test_throws ArgumentError push!(my_database_1, second_record)
     @test_throws ArgumentError my_database_1 + second_record

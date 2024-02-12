@@ -57,7 +57,7 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export RecordDatabase, check_uuid, check_doi
+    export RecordDatabase, check_uuid, check_url
     import Base: UUID
     include("database.jl")
 
@@ -68,4 +68,6 @@ module Taxonomy
 
     export Model
     include("model.jl")
+
+    include("deprecated.jl")
 end
