@@ -1,8 +1,3 @@
-"""
-    Record()
-
-Build a new Record, e.g. a Paper. 
-"""
 struct Record <: JudgementLevel
     rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
@@ -15,6 +10,11 @@ function Record(rater, id::String, location, meta, judgements)
     Record(rater, Base.UUID(id), location, meta, judgements)
 end
 
+"""
+    Record(j...; rater = missing, id = missing, location = missing, meta = missing)
+
+Record represents every paper(like) thing that is coded. It contains who is rating it, what is being rated (uniquely identified by an `id`), where to find it (`location`) and other metadata (usually automatically infered).
+"""
 function Record(j...; rater = missing, id = missing, location = missing, meta = missing)
     if ismissing(rater)
         @warn "Please provide your rater ID. This should be your initials."
