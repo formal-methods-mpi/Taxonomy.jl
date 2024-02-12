@@ -57,15 +57,11 @@ Taxon
 
 ```@docs
 Taxon
-Factor
-CFA
-LGCM
 ```
 
 ## Extractors
 
 ```@docs
-n_sample
 factor_variance
 ```
 
@@ -82,7 +78,6 @@ Judgement
 J
 NoJudgement
 rating
-location(::Judgement)
 certainty
 ```
 ## Metadata
