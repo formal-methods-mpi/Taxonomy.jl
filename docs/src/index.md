@@ -37,6 +37,11 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 ```@index
 ```
 
+## Data Base
+```@docs
+RecordDatabase
+```
+
 ## Taxons
 
 ```julia
@@ -57,16 +62,50 @@ Taxon
 
 ```@docs
 Taxon
-Factor
-CFA
-LGCM
 ```
+### CFA
+```@docs
+Measurement
+BifactorCFA
+HierarchicalCFA
+```
+
+### Pathmodels
+```@docs
+Structural
+LatentPathmodel
+ManifestPathmodel
+```
+
+### Cross Lagged Panel Model
+```@docs
+SimpleCLPM
+```
+
+### Linear Growth Curve Model
+```@docs
+SimpleLGCM
+```
+
+### No Taxon
+```@docs
+NoTaxonEver
+NoTaxonYet
+```
+
 
 ## Extractors
 
 ```@docs
-n_sample
 factor_variance
+structural_model
+```
+
+## Levels
+```@docs
+Record
+Study
+Model
 ```
 
 ## ID
@@ -82,7 +121,6 @@ Judgement
 J
 NoJudgement
 rating
-location(::Judgement)
 certainty
 ```
 ## Metadata
