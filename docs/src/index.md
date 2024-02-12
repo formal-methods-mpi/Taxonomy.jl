@@ -58,6 +58,36 @@ Taxon
 ```@docs
 Taxon
 ```
+### CFA
+```@docs
+Measurement
+BifactorCFA
+HierarchicalCFA
+```
+
+### Pathmodels
+```@docs
+Structural
+LatentPathmodel
+ManifestPathmodel
+```
+
+### Cross Lagged Panel Model
+```@docs
+SimpleCLPM
+```
+
+### Linear Growth Curve Model
+```@docs
+SimpleLGCM
+```
+
+### No Taxon
+```@docs
+NoTaxonEver
+NoTaxonYet
+```
+
 
 ## Extractors
 
