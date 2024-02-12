@@ -37,6 +37,11 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 ```@index
 ```
 
+## Data Base
+```@docs
+RecordDatabase
+```
+
 ## Taxons
 
 ```julia
@@ -93,6 +98,14 @@ NoTaxonYet
 
 ```@docs
 factor_variance
+structural_model
+```
+
+## Levels
+```@docs
+Record
+Study
+Model
 ```
 
 ## ID

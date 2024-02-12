@@ -1,4 +1,8 @@
-using Taxonomy
+"""
+    Record()
+
+Build a new Record, e.g. a Paper. 
+"""
 struct Record <: JudgementLevel
     rater::Union{AbstractString, Missing}
     id::Union{Base.UUID, Missing}
