@@ -39,7 +39,7 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 
 ## Data Base
 ```@docs
-RecordDatabase
+RecordDatabase(records::Record...)
 ```
 
 ## Taxons
@@ -66,20 +66,16 @@ Taxon
 ### CFA
 ```@docs
 Measurement
-BifactorCFA
-HierarchicalCFA
 ```
 
 ### Pathmodels
 ```@docs
 Structural
 LatentPathmodel
-ManifestPathmodel
 ```
 
 ### Cross Lagged Panel Model
 ```@docs
-SimpleCLPM
 ```
 
 ### Linear Growth Curve Model

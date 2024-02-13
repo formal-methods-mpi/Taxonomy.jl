@@ -17,7 +17,7 @@ NoTaxon() = NoTaxonEver()
 
 
 """
-    NoTaxonYet(accessdate, modeltype = missing)
+    NoTaxonYet()
 
 A Taxon to show, that there is in fact a model to be coded, but this is at the current point not possible.
 NoTaxonYet requires a timestamp 'accessdate' to further specify at what point there were no possibility to code the respective model.
