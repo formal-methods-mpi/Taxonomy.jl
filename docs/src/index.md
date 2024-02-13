@@ -66,20 +66,16 @@ Taxon
 ### CFA
 ```@docs
 Measurement
-BifactorCFA
-HierarchicalCFA
 ```
 
 ### Pathmodels
 ```@docs
 Structural
 LatentPathmodel
-ManifestPathmodel
 ```
 
 ### Cross Lagged Panel Model
 ```@docs
-SimpleCLPM
 ```
 
 ### Linear Growth Curve Model
