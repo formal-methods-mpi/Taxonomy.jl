@@ -26,7 +26,7 @@ NoTaxonYet gives you the option to name the 'modeltype', you were not able to co
 julia> NoTaxonYet()
 
 """
-struct NoTaxonYet <: Taxon
+struct NoTaxonYet <: NoTaxon
     accessdate::Date
     modeltype::Union{String, Missing}
     function NoTaxonYet(accessdate, modeltype = missing)
