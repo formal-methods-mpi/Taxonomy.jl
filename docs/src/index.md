@@ -39,7 +39,7 @@ Besides enabling better simulations, knowing how common different types of SEMs 
 
 ## Data Base
 ```@docs
-RecordDatabase(records::Record...)
+RecordDatabase
 ```
 
 ## Taxons
