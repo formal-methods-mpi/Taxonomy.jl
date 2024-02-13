@@ -10,8 +10,11 @@
 
     @test test_dict[:N][1] == N(300, 1)
     @test test_dict[:Taxon][1] isa Measurement
+    # a judgment that may be used more than once
     @test length(test_dict[:Taxon]) == 2
     @test rating(test_dict[:Taxon][1].loadings) == [0.53, 0.95]
     @test test_dict[:Study][1] isa Study
     @test test_dict[:Lang][1] == Lang("de", 1)
+    # a judgement that must be used only once
+    @test_throws ArgumentError judgement_dict(Lang("de"), Lang("end"))
 end

@@ -5,7 +5,10 @@ Base.Pair(j::AbstractJudgement) = Pair(judgement_key(j), [j])
 ## 
 function add_judgement!(dict, j::T, unique) where {T <: AbstractJudgement} 
     if unique
-        push!(dict, Pair(j))
+        p = Pair(j)
+        key = first(p)
+        haskey(dict, key) ? throw(ArgumentError("The judgement `$key` is supposed to be unique. Remove duplicates or set `@newjudgement(unique = false)`.")) : nothing
+        push!(dict, p)
     else
         vec = get(dict, judgement_key(j), T[])
         push!(vec, j)
