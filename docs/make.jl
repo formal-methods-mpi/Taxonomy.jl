@@ -27,4 +27,5 @@ makedocs(;
 deploydocs(;
     repo="github.com/formal-methods-mpi/Taxonomy.jl",
     devbranch="main",
+    push_preview = "push_preview=true" ∈ ARGS
 )
