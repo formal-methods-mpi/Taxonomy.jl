@@ -12,7 +12,7 @@ end
 
 
 """
-RecordDatabase(records::Record...)
+    RecordDatabase()
 
 `Record`s need to be stored somewhere.
 
