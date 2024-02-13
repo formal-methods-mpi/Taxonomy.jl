@@ -6,7 +6,7 @@ on:
 
 env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
-  GHP_URL: 'https://github.com/formal-methods-mpi/Taxonomy.jl/'
+  GHP_URL: 'https://formal-methods-mpi.github.io/Taxonomy.jl/'
 
 jobs:
   build:
