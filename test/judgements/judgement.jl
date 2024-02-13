@@ -45,3 +45,9 @@ end
     @test fit_indices_instance.rating.TLI ≈ 0.952
     @test fit_indices_instance.rating.RMSEA ≈ 0.043
 end
+
+@testset "Judgement Level checks" begin    
+    correct_judgement_level(Taxonomy.Judgements.judgement_level(Observation())) == true
+    isnothing(check_judgement_level(Observation()))
+    @test_throws ArgumentError check_judgement_level(N(100), ( StudyJudgement(), ))  
+end
