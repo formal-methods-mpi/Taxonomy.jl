@@ -14,6 +14,10 @@ end
     Record(j...; rater = missing, id = missing, location = missing, meta = missing)
 
 Record represents every paper(like) thing that is coded. It contains who is rating it, what is being rated (uniquely identified by an `id`), where to find it (`location`) and other metadata (usually automatically infered).
+If `id` is missing, a warning will be generated and an ID will be suggested. 
+This ID is linked to the `location` (either a DOI or URL). 
+If no `location` is provided, the ID will be generated at random. 
+You can use this suggested ID or generate your own using `generate_id(DOI("yourdoi"))` or `generate_id(url("yoururl"))`.
 """
 function Record(j...; rater = missing, id = missing, location = missing, meta = missing)
     if ismissing(rater)
