@@ -12,7 +12,7 @@ end
 
 
 """
-    RecordDatabase()
+    RecordDatabase
 
 `Record`s need to be stored somewhere.
 
@@ -36,7 +36,6 @@ RecordDatabase{Base.UUID, Record} with 3 entries:
   UUID("552ef675-5c7b-4ce1-880b-c45b833fdfcb") => Record…
 ```
 """
-
 struct RecordDatabase{K<:UUID,V<:Record} <: Base.AbstractDict{K,V}
     records::Dict{K,V}
 end
