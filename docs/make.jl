@@ -22,7 +22,7 @@ makedocs(;
                         "Installing, Updating, and Versioning Taxonomy.jl" => "tutorials/software-versions.md",
                         "Adding custom Judgements" => "tutorials/judgement.md"]
     ],
-    doctest = true, # replace true with :fix to fix doctest
+    doctest = :fix, # replace true with :fix to fix doctest
 )
 
 deploydocs(;
