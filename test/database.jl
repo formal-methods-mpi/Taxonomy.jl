@@ -90,8 +90,20 @@ end
         Lang("en")
     )
 
+    my_database_1 = RecordDatabase()
+    my_database_2 = RecordDatabase()
+
+    third_record = Record(
+        id=generate_id(),
+        rater="AP",
+        location=NoLocation(),
+        meta = MetaData(missing, missing, missing),
+        Lang("en")
+    )
+
     push!(my_database_1, first_record)
     push!(my_database_2, second_record)
+    push!(my_database_1, third_record)
 
     @test_throws ArgumentError check_url(my_database_1, second_record)
     @test_throws ArgumentError check_url(my_database_1, my_database_2)

@@ -107,7 +107,7 @@ check_uuid(x::RecordDatabase, y::Pair) = check_uuid(x, y.second)
 
 function check_url(x::RecordDatabase, y::Record)
     url_y = url(y)
-    if url_y in url(x)
+    if !ismissing(url_y) & (url_y in url(x))
         throw(ArgumentError("The URL $url_y is already in the data base."))
     end
 end
