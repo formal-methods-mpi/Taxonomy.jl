@@ -45,3 +45,19 @@ end
     @test fit_indices_instance.rating.TLI ≈ 0.952
     @test fit_indices_instance.rating.RMSEA ≈ 0.043
 end
+
+@testset "Judgement Level checks" begin    
+    
+@newjudgement(
+    Observation,
+    AnyLevelJudgement, # may occur anywhere
+    """
+    An observation without any consequences.
+    """,
+    Any, # any is the default type anyway
+    x -> nothing # this is the default check function anyway
+)
+    correct_judgement_level(Taxonomy.Judgements.judgement_level(Observation())) == true
+    isnothing(check_judgement_level(Observation()))
+    @test_throws ArgumentError check_judgement_level(N(100), ( StudyJudgement(), ))  
+end

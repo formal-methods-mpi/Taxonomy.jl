@@ -20,7 +20,7 @@ For which level this judgement is applicable.
 function judgement_level end
 
 function correct_judgement_level(x, level=AnyLevelJudgement)
-    x in (level, AnyLevelJudgement)
+    x in (level, AnyLevelJudgement())
 end
 
 function check_judgement_level(x::AbstractJudgement, level=AnyLevelJudgement)
