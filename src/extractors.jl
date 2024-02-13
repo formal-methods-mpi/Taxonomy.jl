@@ -54,28 +54,29 @@ end
 
 
 """
-Function to extract a Judgement from either a JudgementLevel or from a Taxon.
-
-## Arguments
-
-- `x`: [`Strucutral`](@ref).
+Function to extract a Judgement from a `JudgementLevel` (e.g. [Model](@ref), [Record](@ref), [Study](@ref)).
 
 ## Return
 
 Returns a [`Judgement`](@ref)
 
-```julia-repl
+```doctest
 using Taxonomy
-using StenoGraphs
 
-graph = @StenoGraph begin
-    # latent regressions
-    fac1 → fac2
-end
+record = Record(
+   rater = "AP",
+   id = "6ca721fe-619e-42cc-ad8b-047c5e0451e5",
+   location = NoLocation(),
+   meta = MetaData(missing, missing, missing),
+   Lang("de")
+)
 
-struct_model = Structural(structural_model = graph)
+judgements(record)
 
-structural_model(struct_model)
+# output
+
+Dict{Symbol, Vector{Union{Study, AbstractJudgement}}} with 1 entry:
+  :Lang => [Lang{String}("de", 1.0, missing)]
 ```
 """
 judgements(x::JudgementLevel) = x.judgements
