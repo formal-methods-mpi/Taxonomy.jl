@@ -1,7 +1,7 @@
 `Judgment`s are an integral part of Taxonomy.
 They represent whatever you want to code about a [`Record`](@ref).
-More specifically, a `Judgement` might be about the [`Record`](@ref), a [`Study`](@ref) within a [`Record`](@ref), or about a [`Model`](@ref) is thought to be composed from Studies, 
-To define a judgment you must supply a name, on which [`JudgementLevel`](@ref) it is (`Study`, `Record`, `Model`), some documentation (i.e., what it is you want to code), and optionally, type constrains, a function to check the validity (e.g., N can not be smaller than zero), and if the judgement can only be made once.
+More specifically, a `Judgement` might be about the [`Record`](@ref), a [`Study`](@ref) within a [`Record`](@ref), or about a [`Model`](@ref). 
+To define a judgment you must supply a name, on which [`JudgementLevel`](@ref) it is (`Study`, `Record`, `Model`), some documentation (i.e., what it is you want to code), and optionally, type constrains, a function to check the validity (e.g., N can not be smaller than zero), and if the judgement can only be made once (`unique`).
 
 ```jldoctest; output = false
 using Taxonomy
