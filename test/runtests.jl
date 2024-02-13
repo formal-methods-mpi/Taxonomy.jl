@@ -5,7 +5,7 @@ using Documenter
 using StenoGraphs
 
 @testset "Taxonomy.jl" begin
-   if VERSION ≥ v"1.7"
+   if (VERSION ≥ v"1.7") & false # dont run doctests, they already run with the documentation CI
        DocMeta.setdocmeta!(Taxonomy, :DocTestSetup, :(using Taxonomy); recursive=true)
        doctest(Taxonomy)
    end
