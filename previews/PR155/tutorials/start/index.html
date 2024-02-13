@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Getting Started · Taxonomy.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link rel="canonical" href="https://formal-methods-mpi.github.io/Taxonomy.jl/tutorials/start/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.044/juliamono.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Taxonomy.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Tutorials</span><ul><li class="is-active"><a class="tocitem" href>Getting Started</a></li><li><a class="tocitem" href="../missing/">Something is missing</a></li><li><a class="tocitem" href="../software-versions/">Installing, Updating, and Versioning Taxonomy.jl</a></li><li><a class="tocitem" href="../judgement/">Adding custom Judgements</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Getting Started</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Getting Started</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/formal-methods-mpi/Taxonomy.jl/blob/devel/docs/src/tutorials/start.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><p>The idea behind doing the coding in Julia is that we can automate two things.</p><ol><li>We can enforce syntactical requirements with a quick feedback loop for the coder, resulting in less errors.</li><li>We can automatically infer much information, resulting in speedier and less error prone coding.</li></ol><p>We implement these automation to detect error/misunderstanding/etc <em>while</em> coding and not long after.</p><p>To get a feeling for how this is supposed to work, we code the famous political democracy paper together:</p><pre><code class="language-julia hljs">using Taxonomy 
+first_record = Record(
+    rater = &quot;AP&quot;,
+    location = DOI(&quot;10.2307/2095172&quot;),
+    Study(Model(StandaloneFactor(
+        n_variables = 6, 
+        loadings = [1, 1.19, 0.53, 0.91, 1, 1], 
+        factor_variance = J(missing, 0.5), 
+        error_covariances_within = [10.7, 12.9, 19])))
+)
+
+# output
+┌ Warning: You really should supply an ID. May we suggest (from DOI): 8f1713c9-482b-58cb-8ed4-128c03e9dafb
+└ @ Taxonomy ~/Dokumente/GitHub/Taxonomy.jl/src/record.jl:20
+Record
+   rater: String
+   id: Missing
+   location: UsualDOI{String, Missing}
+   meta: ExtensiveMeta{MinimalMeta}
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}
+</code></pre><pre><code class="language-julia-repl hljs">julia&gt; year(first_record)
+1980
+julia&gt; apa(first_record)
+&quot;Bollen, K. A. (1980). Issues in the Comparative Measurement of Political Democracy. American Sociological Review, 45(3), 370. https://doi.org/10.2307/2095172\n&quot;
+julia&gt; ExtractStudy(first_record)[1].judgements[:Model][1].judgements[:Taxon][1]
+Measurement
+   n_variables: JudgementInt{Int64}
+   loadings: JudgementVecNumber{Vector{Float64}}
+   factor_variance: JudgementNumber{Missing}
+   error_variances: JudgementVecNumber{Missing}
+   error_covariances_within: JudgementVecNumber{Vector{Float64}}
+   error_covariances_between: JudgementVecNumber{Missing}
+   crossloadings_incoming: JudgementVecNumber{Missing}
+   crossloadings_outgoing: JudgementVecNumber{Missing}
+   quest_scale: JudgementNumber{Missing}</code></pre><p>Generally, DOIs are the best and easiest thing to get metadata, however, sometimes none is availible:</p><pre><code class="language-julia hljs">using Taxonomy
+Record(
+    rater = &quot;AP&quot;, 
+    id = &quot;96ac4220-45d2-43ca-930d-afb67763f56f&quot;, # ID gets recommended by the function.
+    location = NoDOI(
+        url = &quot;https://github.com/StructuralEquationModels/StructuralEquationModels.jl&quot;,
+        author = &quot;Ernst, Maximilian Stefan and Peikert, Aaron&quot;,
+        title = &quot;StructuralEquationModels.jl: A fast and flexible SEM framework&quot;,
+        year = 2022, # date is omitted
+        journal = &quot;No Real Journal&quot;
+    ),
+    Study(Model(StandaloneFactor(
+        n_variables = 6, 
+        loadings = [1, 1.19, 0.53, 0.91, 1, 1], 
+        factor_variance = J(missing, 0.5), 
+        error_covariances_within = [10.7, 12.9, 19])))
+)
+
+# output
+Record
+   rater: String
+   id: Base.UUID
+   location: NoDOI
+   meta: MinimalMeta
+   judgements: Dict{Symbol, Vector{Union{Study, AbstractJudgement}}}</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../">« Home</a><a class="docs-footer-nextpage" href="../missing/">Something is missing »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.19 on <span class="colophon-date" title="Tuesday 13 February 2024 13:17">Tuesday 13 February 2024</span>. Using Julia version 1.9.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
