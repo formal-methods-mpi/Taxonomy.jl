@@ -16,9 +16,8 @@ RecordDatabase
 
 `Record`s need to be stored somewhere.
 
-
-```jldoctest
-julias> RecordDatabase()
+```jldoctest recordDatabase
+julia> RecordDatabase()
 RecordDatabase{Base.UUID, Record}()
 
 julia> first = Record(rater = "AP", id = "552ef675-5c7b-4ce1-880b-c45b833fdfcb", location = NoLocation(), meta = MetaData(missing, missing, missing));
@@ -27,9 +26,9 @@ julia> second = Record(rater = "AP", id = "58c55701-0362-40c7-849c-5d12e5026238"
 
 julia> rd = RecordDatabase(first, second)
 RecordDatabase{Base.UUID, Record} with 2 entries:
-│      UUID("58c55701-0362-40c7… => Record…
-│      UUID("552ef675-5c7b-4ce1… => Record…```
-
+  UUID("58c55701-0362-40c7… => Record…
+  UUID("552ef675-5c7b-4ce1… => Record…
+```
 """
 struct RecordDatabase{K<:UUID,V<:Record} <: Base.AbstractDict{K,V}
     records::Dict{K,V}
