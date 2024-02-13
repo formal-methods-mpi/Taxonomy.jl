@@ -20,7 +20,7 @@ makedocs(;
         "Tutorials" => ["Getting Started" => "tutorials/start.md",
                         "Something is missing" => "tutorials/missing.md",
                         "Installing, Updating, and Versioning Taxonomy.jl" => "tutorials/software-versions.md",
-                        "Adding custom Judgements" => "tutorials/judgements.md"]
+                        "Adding custom Judgements" => "tutorials/judgement.md"]
     ],
     doctest = true, # replace true with :fix to fix doctest
 )
