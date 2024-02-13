@@ -12,29 +12,9 @@ end
 
 
 """
-    RecordDatabase
+RecordDatabase
 
 `Record`s need to be stored somewhere.
-
-```jldoctest
-julias> RecordDatabase()
-RecordDatabase{Base.UUID, Record}()
-
-julia> first = Record(rater = "AP", id = "552ef675-5c7b-4ce1-880b-c45b833fdfcb", location = NoLocation(), meta = MetaData(missing, missing, missing), judgements = Dict("Taxon" => J(NoTaxon())), spec = NoJudgement(), data = NoJudgement());
-
-julias> second = Record(rater = "AP", id = "58c55701-0362-40c7-849c-5d12e5026238", location = NoLocation(), meta = MetaData(missing, missing, missing), judgements = Dict("Taxon" => J(NoTaxon())), spec = NoJudgement(), data = NoJudgement());
-
-julia> rd = RecordDatabase(first, second)
-RecordDatabase{Base.UUID, Record} with 2 entries:
-  UUID("58c55701-0362-40c7-849c-5d12e5026238") => Record…
-  UUID("552ef675-5c7b-4ce1-880b-c45b833fdfcb") => Record…
-
-julias> rd += Record(rater = "AP", id = "2d7ad584-8ec0-47dd-807b-280fba2978f8", location = NoLocation(), meta = MetaData(missing, missing, missing), judgements = Dict("Taxon" => J(NoTaxon())), spec = NoJudgement(), data = NoJudgement())
-RecordDatabase{Base.UUID, Record} with 3 entries:
-  UUID("2d7ad584-8ec0-47dd-807b-280fba2978f8") => Record…
-  UUID("58c55701-0362-40c7-849c-5d12e5026238") => Record…
-  UUID("552ef675-5c7b-4ce1-880b-c45b833fdfcb") => Record…
-```
 """
 struct RecordDatabase{K<:UUID,V<:Record} <: Base.AbstractDict{K,V}
     records::Dict{K,V}
