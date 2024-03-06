@@ -82,3 +82,22 @@ Dict{Symbol, Vector{Union{Study, AbstractJudgement}}} with 1 entry:
 judgements(x::JudgementLevel) = x.judgements
 url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x)) 
+
+
+
+
+"""
+Function to extract all studies from [RecordDatabase](@ref) or [Record](@ref). 
+
+## Returns a vector of type Vector{Study} with all studies in the database or record. 
+"""
+extract_studies(r::Record) = r.judgements[:Study]
+function extract_studies(r::RecordDatabase) 
+    study_vec = []
+    for i in values(r)
+        push!(study_vec, extract_studies(i)...) # what if i contains multiple studies?
+    end
+    return study_vec
+end
+
+
