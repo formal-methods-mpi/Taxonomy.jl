@@ -120,7 +120,7 @@ const langcodes =
 )
 
 # usually metadata are inferred from the DOI but this takes time and an internet connection and can be deactivated
-auto_request_meta(false)
+auto_request_meta(true)
 
 ############################################################################################
 

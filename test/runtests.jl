@@ -20,4 +20,5 @@ using StenoGraphs
     include("extractors.jl")
     include("database.jl")
     include("judgements/dict.jl")
+    include("sampler/sample_study.jl")
 end

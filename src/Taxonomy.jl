@@ -70,4 +70,7 @@ module Taxonomy
     include("model.jl")
 
     include("deprecated.jl")
+
+    export extract_field, extract_values, filter_judgements
+    include("sampler/sample_study.jl")
 end
