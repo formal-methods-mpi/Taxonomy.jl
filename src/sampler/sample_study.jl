@@ -1,21 +1,3 @@
-"""
-    filter_judgements(db, field, comparison_func)
-
-Filter records from a database based on a judgement field. 
-
-
-# Arguments
-"""
-filter_judgements = function(r::RecordDatabase, field::Symbol, comparison_func)
-    filter(record -> haskey(judgements(record.second), field) ? comparison_func(rating(judgements(record.second)[field][1])) : false, r)
-end
-
-
-
-## How to deal with multiple filter conditions?
-
-
-
 extract_studies(r::Record)::Vector{Study} = r.judgements[:Study]
 
 function extract_studies(r::RecordDatabase)::Vector{Study}
@@ -30,10 +12,12 @@ end
 
 
 ## 1) Simple extractor that takes record and returns input field from the judgements. 
-## Rename to get? for multiple dispatch
+## Rename to get? for multiple dispatch?
 extract_field = function(r::Record, field::Symbol)
     if(field in keys(judgements(r)))
-        judgements(r)[field][1]
+        return judgements(r)[field][1]
+    else
+       return nothing
     end
 end
 
