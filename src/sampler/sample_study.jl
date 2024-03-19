@@ -30,9 +30,10 @@ end
 
 
 ## 1) Simple extractor that takes record and returns input field from the judgements. 
+## Rename to get? for multiple dispatch
 extract_field = function(r::Record, field::Symbol)
     if(field in keys(judgements(r)))
-        judgements(r)[field]
+        judgements(r)[field][1]
     end
 end
 
