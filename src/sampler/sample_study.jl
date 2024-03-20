@@ -1,25 +1,21 @@
-extract_studies(r::Record)::Vector{Study} = r.judgements[:Study]
-
-function extract_studies(r::RecordDatabase)::Vector{Study}
-    study_vec = []
-    for i in values(r)
-        push!(study_vec, extract_studies(i)...) # what if i contains multiple studies? How to return Vector{Study}
-    end
-    return study_vec
-end
-
-
-
-
 ## 1) Simple extractor that takes record and returns input field from the judgements. 
 ## Rename to get? for multiple dispatch?
-extract_field = function(r::Record, field::Symbol)
+extract_field = function(r::JudgementLevel, field::Symbol)
     if(field in keys(judgements(r)))
         return judgements(r)[field][1]
     else
        return nothing
     end
 end
+
+extract_field = function(r::Study, field::Symbol)
+    if(field in keys(judgements(r)))
+        return judgements(r)[field][1]
+    else
+       return Study()
+    end
+end
+
 
 
 ## 2) Extractor that goes over data base and extracts values. 

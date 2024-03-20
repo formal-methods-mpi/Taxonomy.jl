@@ -12,6 +12,16 @@ using Taxonomy.Judgements
     Int # Input type. In this case Integer. 
 )
 
+@newjudgement(
+    Empirical,
+    ModelJudgement, # Specify on which level this judgement should be used. Study level in this case.  
+    """
+    The number of observations in the study. Takes integer values or missings. 
+    """,
+    Bool # Input type. In this case Integer. 
+)
+
+
 
     # Example Record db
     db = RecordDatabase()
@@ -46,11 +56,16 @@ using Taxonomy.Judgements
         Lang("en"),
         Lang2(10),
         Study(
-            N(100)
-        ),
+            N(100), 
+            Model(Empirical(true)), 
+            Model(Empirical(false)
+        )),
         Study(
-            N(200)
+            N(200), 
+            Model(Empirical(true)), 
+            Model(Empirical(true))
         )
+        
     )
 
     db += Record(
@@ -65,59 +80,170 @@ using Taxonomy.Judgements
         )
     )
 
-
+my_db = deepcopy(db)
 
 
 #################
 ## Trying multiple filter conditions
 
-Taxonomy.rating(x::Record, field::Symbol) = rating(extract_field(x, field))
+
+# Taxonomy.rating(x::Record, field::Symbol) = rating(extract_field(x, field))
 Taxonomy.rating(x::Pair{Base.UUID, Record}, field::Symbol) = rating(x.second, field)
+Taxonomy.rating(x::JudgementLevel, field::Symbol) = rating(extract_field(x, field))
 
-## Currently enough to filter like I need it righ now: 
-filter(record -> rating(record, :Lang) == "en" || rating(record, :Lang2) == 10, db)
+## Need the same for Judgements, so I can filter all Judgements > 90 e.g.
 
-## Do the same for Study level and Model level:
 
-my_r = Record(
-        rater="VK",
-        id="2a129694-550c-4396-be6f-00507b1dc7bb",
-        Lang("en"),
-        Lang2(10),
-        Study(
-            N(100)
-        ),
-        Study(
-            N(200)
-        )
+## Currently enough to filter like I need it righ now: (commented out because overwritten way down)
+#filter(record -> rating(record, :Lang) == "en" || rating(record, :Lang2) == 10, db)
+
+
+
+
+#################################
+# Implement custom filter methods for our Judgements
+#################################
+## Filter applies a function to each element of a collection and returns a new collection containing only the elements for which the function returns true.
+## The same for a Model collection. Judgements of a Study are a Dict, with one field called Model. 
+## This Model field contains a Vector{Union{JudgementLevel, AbstractJudgement}} containing different Models
+
+my_study = Study(
+    N(100), 
+    Model(
+        Empirical(true)
+    ),
+    Model(
+        Empirical(false)
+    )
 )
 
-## Return dict, extract studies currently returns a vector, probably better with dict?
-filter(record -> rating(my_r, :N) == 100, extract_studies(my_r)))
+models = judgements(my_study)[:Model]
+## Check for every element of this vector if the Empirical judgement is true. Return Vector{Union{JudgementLevel, AbstractJudgement}}
 
-
-
-
-
-
-###################
-comp_func = function(field1, field2)
-    field1 == "en" && field2 == 10
+function Base.filter(f, s::Vector{Union{JudgementLevel, AbstractJudgement}})::Vector{Union{JudgementLevel, AbstractJudgement}}
+res_vec = []
+for i in 1:length(s)
+    if f(s[i]) ### Or, if field is not found, go to next level, meaning extract the model-judgements for s[i]
+        res_vec = push!(res_vec, s[i])
+    end
 end
 
+return res_vec
 
-filter_judgements_2 = function(r::RecordDatabase, comparison_function)
-    filter(record -> comparison_function(rating(record.second, :Lang), rating(record.second, :Lang2)), r)
 end
 
-filter_judgements_2(db, comp_func)
-filter_judgements_2(db, (field1 = :Lang, field2 = :Lang2) -> :Lang == "en" && :Lang2 == 10)
+filter(x -> rating(x, :Empirical) == true, models)
+
+## Or just give different input. 
+
+
+## filter method for Studys
+my_record = Record(
+    rater="VK",
+    id="2a129694-550c-4396-be6f-00507b1dc7bb",
+    Lang("en"),
+    Lang2(10),
+    Study(
+        N(100), 
+        Model(
+            Empirical(true)
+        )
+    ),
+    Study(
+        N(200),
+        Model(
+            Empirical(false)
+    )
+)
+)
+
+studys = judgements(my_record)[:Study]
+
+filter(x -> rating(x, :N) == 200, studys)
+
+
+## Combine both:
+## For now suppose each Judgement can only be on one level
+## Filter all Studys with N = 100
+
+## This works for the RecordLevel. 
+# filter(record -> rating(record, :Lang) == "en" || rating(record, :Lang2) == 10, db)
+
+## However, I want to be able to specify any level:
+# filter(x -> rating(x, :N) == 100, db)
+
+## This might get a bit tricky if e.g. :N can be on multiple levels. 
+## Maybe additional arguement to specify the levels I want to search in, default ist all
 
 
 
+## Use filter on the db, but with a specific function that filters on deeper levels.
+## This function returns true if a record should be kept. 
 
-## Wanted function specification: 
-filter_judgements_3(db, x -> :Lang == "en" && :Lang2 == 10)
+## record is the individual key value pair. 
+## rating returns the field for this key value pair. This can by Study. 
+## So now I've got the study field. 
+
+## Filtering on Study level from database input
+function Base.filter(f, db::RecordDatabase)::RecordDatabase 
+    for i in keys(db)
+    judgements(db[i])[:Study] = filter(f, judgements(db[i])[:Study])
+    end
+    return db
+end
+
+db = filter(study -> rating(study, :N) == 200, db)
+judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[:Study]
 
 
 
+## filtering on Model level from database input
+judgements(judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])[:Study][1])[:Model] = filter(study -> rating(study, :N) == 100, judgements(my_record)[:Study])
+## Return Filtered models and update Study for all elements in the vector
+## Write extractors for getting study and model from RecordDB, record, StudyVec
+
+
+## Do the same like below for study and database, but this time the study vector is the input, and it gets updated according to  model filters. 
+
+function Base.filter(f, db::RecordDatabase)#::RecordDatabase 
+    
+    for record in keys(db)
+    
+    #Study level
+    #judgements(db[record])[:Study] = filter(f, judgements(db[record])[:Study])
+
+    # Model level
+        for study in 1:length(judgements(db[record])[:Study])
+            current_study = judgements(db[record])[:Study][study]
+
+            if :Model in keys(judgements(current_study))
+                judgements(judgements(db[record])[:Study][study])[:Model] = filter(f, judgements(current_study)[:Model]) 
+            else
+                nothing
+            end
+        end
+    # Modelvec for a specific study in db[i]
+
+    end
+    
+    return db
+end
+
+## What should happen in Cases where no :Model is defined? Two Options:
+# - returns nothing: makes sense, if we want all Empirical models, we would otherwise keep all where it wasn't coded. 
+
+Base.filter(f, nothing) = return nothing
+
+
+record = Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")
+study = 1
+
+db = filter(study -> rating(study, :Empirical) == false, db)
+
+judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])[:Study]
+
+
+## so: the filter works for RecordDatabase or vectors of Judgementlevels, so 
+
+## How to filter Taxons?
+## How to deal with with different levels in &/| filters?
