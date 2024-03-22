@@ -1,3 +1,6 @@
+# Do cleanup and tests on a different branch using this file as template. 
+
+
 using Test
 using Taxonomy
 using Taxonomy.Judgements
@@ -107,36 +110,6 @@ Taxonomy.rating(x::JudgementLevel, field::Symbol) = rating(extract_field(x, fiel
 ## The same for a Model collection. Judgements of a Study are a Dict, with one field called Model. 
 ## This Model field contains a Vector{Union{JudgementLevel, AbstractJudgement}} containing different Models
 
-my_study = Study(
-    N(100), 
-    Model(
-        Empirical(true)
-    ),
-    Model(
-        Empirical(false)
-    )
-)
-
-models = judgements(my_study)[:Model]
-## Check for every element of this vector if the Empirical judgement is true. Return Vector{Union{JudgementLevel, AbstractJudgement}}
-
-function Base.filter(f, s::Vector{Union{JudgementLevel, AbstractJudgement}})::Vector{Union{JudgementLevel, AbstractJudgement}}
-res_vec = []
-for i in 1:length(s)
-    if f(s[i]) ### Or, if field is not found, go to next level, meaning extract the model-judgements for s[i]
-        res_vec = push!(res_vec, s[i])
-    end
-end
-
-return res_vec
-
-end
-
-filter(x -> rating(x, :Empirical) == true, models)
-
-## Or just give different input. 
-
-
 ## filter method for Studys
 my_record = Record(
     rater="VK",
@@ -156,6 +129,63 @@ my_record = Record(
     )
 )
 )
+
+my_study = Study(
+    N(100), 
+    Model(
+        Empirical(true)
+    ),
+    Model(
+        Empirical(false)
+    )
+)
+
+function extract_studies(r::Record)::Vector{Union{JudgementLevel, AbstractJudgement}}
+    if :Study in keys(judgements(r))
+        return judgements(r)[:Study]
+    else
+        return nothing
+    end
+end
+
+extract_studies(my_record)
+
+function extract_models(s::Study)::Vector{Union{JudgementLevel, AbstractJudgement}}
+    if :Model in keys(judgements(s))
+        return judgements(s)[:Model]
+    else
+        return nothing
+    end
+end
+
+
+extract_models(my_study)
+
+
+
+function Base.filter(f, s::Vector{Union{JudgementLevel, AbstractJudgement}})::Vector{Union{JudgementLevel, AbstractJudgement}}
+res_vec = []
+for i in 1:length(s)
+    if f(s[i])
+        res_vec = push!(res_vec, s[i])
+    end
+end
+
+return res_vec
+end
+
+Base.filter(f, s::JudgementLevel)::Vector{Union{JudgementLevel, AbstractJudgement}} =  f(s) ? [s] : []
+
+
+## Now: go through all models and check if field is in judgements, and the same for models. 
+
+
+filter(x -> rating(x, :N) != 100, extract_field(my_record, :Study))
+filter(x -> rating(x, :Empirical) == true, models)
+
+## Or just give different input. 
+
+
 
 studys = judgements(my_record)[:Study]
 
@@ -185,15 +215,15 @@ filter(x -> rating(x, :N) == 200, studys)
 ## So now I've got the study field. 
 
 ## Filtering on Study level from database input
-function Base.filter(f, db::RecordDatabase)::RecordDatabase 
-    for i in keys(db)
-    judgements(db[i])[:Study] = filter(f, judgements(db[i])[:Study])
-    end
-    return db
-end
+# function Base.filter(f, db::RecordDatabase)::RecordDatabase 
+#     for i in keys(db)
+#     judgements(db[i])[:Study] = filter(f, judgements(db[i])[:Study])
+#     end
+#     return db
+# end
 
-db = filter(study -> rating(study, :N) == 200, db)
-judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[:Study]
+# db = filter(study -> rating(study, :N) == 200, db)
+# judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[:Study]
 
 
 
@@ -205,6 +235,9 @@ judgements(judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])
 
 ## Do the same like below for study and database, but this time the study vector is the input, and it gets updated according to  model filters. 
 
+check_key(d::RecordDatabase, k::Base.UUID) = k in keys(d)
+check_key(d::Dict, k::Symbol) = k in keys(d)
+
 function Base.filter(f, db::RecordDatabase)#::RecordDatabase 
     
     for record in keys(db)
@@ -212,15 +245,20 @@ function Base.filter(f, db::RecordDatabase)#::RecordDatabase
     #Study level
     #judgements(db[record])[:Study] = filter(f, judgements(db[record])[:Study])
 
-    # Model level
-        for study in 1:length(judgements(db[record])[:Study])
-            current_study = judgements(db[record])[:Study][study]
+    record_studies = extract_studies(db[record])
 
-            if :Model in keys(judgements(current_study))
-                judgements(judgements(db[record])[:Study][study])[:Model] = filter(f, judgements(current_study)[:Model]) 
-            else
-                nothing
+    # Model level
+        for study in eachindex(record_studies)
+            current_study = record_studies[study]
+
+            if check_key(judgements(current_study), :Model)
+                judgements(judgements(db[record])[:Study][study])[:Model] = filter(f, extract_models(current_study)) 
             end
+
+            if check_key(judgements(current_study), :Study) != nothing
+                judgements(judgements(db[record])[:Study][study]) = filter(f, judgements(current_study)) 
+            end
+
         end
     # Modelvec for a specific study in db[i]
 
@@ -229,8 +267,19 @@ function Base.filter(f, db::RecordDatabase)#::RecordDatabase
     return db
 end
 
-## What should happen in Cases where no :Model is defined? Two Options:
-# - returns nothing: makes sense, if we want all Empirical models, we would otherwise keep all where it wasn't coded. 
+## How to deal with stuff we don't want to keep?
+# Go through each judgement level and check if there is the field-name somewhere. If yes, 
+## So for each study extract the model keys, check if the field is in there. Also check if the field name is in the study keys. If it is in either, filter both and keep 
+## all that get returned. It gets complicated though in case the same field name is specified multiple times: should it only be returned if all are true, or is it enough 
+## if it is true on one level?
+
+
+
+
+
+
+
+
 
 Base.filter(f, nothing) = return nothing
 
@@ -243,7 +292,6 @@ db = filter(study -> rating(study, :Empirical) == false, db)
 judgements(db[Taxonomy.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])[:Study]
 
 
-## so: the filter works for RecordDatabase or vectors of Judgementlevels, so 
 
 ## How to filter Taxons?
 ## How to deal with with different levels in &/| filters?
