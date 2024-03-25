@@ -1,3 +1,6 @@
+
+
+
 function Base.filter(f, s::Vector{Union{JudgementLevel,AbstractJudgement}})::Vector{Union{JudgementLevel,AbstractJudgement}}
     res_vec = []
     for i in 1:length(s)
