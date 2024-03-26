@@ -82,3 +82,27 @@ Dict{Symbol, Vector{Union{Study, AbstractJudgement}}} with 1 entry:
 judgements(x::JudgementLevel) = x.judgements
 url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x)) 
+
+
+
+"""
+Extract all studies from a record. 
+"""
+function Study(r::Record)::Vector{Union{JudgementLevel,AbstractJudgement}}
+    if :Study in keys(judgements(r))
+        return judgements(r)[:Study]
+    else
+        return []
+    end
+end
+
+"""
+Extract al models from a Study. 
+"""
+function Model(s::Study)::Vector{Union{JudgementLevel,AbstractJudgement}}
+    if :Model in keys(judgements(s))
+        return judgements(s)[:Model]
+    else
+        return []
+    end
+end

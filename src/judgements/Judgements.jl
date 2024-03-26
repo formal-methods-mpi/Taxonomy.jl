@@ -15,6 +15,6 @@ module Judgements
     export judgement_dict
     include("dict.jl")
 
-    export CFI, Empirical, Lang, N
+    export CFI, Empirical, Lang, N, Standardized
     include("predefined_judgements.jl")
 end

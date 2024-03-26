@@ -61,13 +61,13 @@ module Taxonomy
     import Base: UUID
     include("database.jl")
 
+    export Model
+    include("model.jl")
+
     export factor_variance, structural_model, doi
     include("extractors.jl")
 
     include("pretty_printing.jl")
-
-    export Model
-    include("model.jl")
 
     include("deprecated.jl")
 end

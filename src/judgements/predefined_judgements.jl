@@ -60,4 +60,15 @@ Judgement for N.
     Int # Input type. In this case Integer. 
 )
 
+@newjudgement(
+    Standardized,
+    ModelJudgement,  
+    """
+    Any part of the data or model is standardized
 
+    Procedure:
+    * Search for standard*
+    * If present, give True
+    """,
+    Bool # Input type. In this case boolean.
+)
