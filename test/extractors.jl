@@ -89,3 +89,8 @@ end
     @test typeof(Model(test_study_0)) == Vector{Union{JudgementLevel,AbstractJudgement}}
     @test length(Model(test_study_0)) == 0
 end
+
+@testset "get for JudgementLevel" begin
+    @test get(Study(N(100)), :N)[1] == N(100)
+    @test get(Study(N(100)), :Z) == []
+end

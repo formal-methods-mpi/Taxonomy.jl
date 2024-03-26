@@ -63,19 +63,19 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
     unique = :(Judgements.judgement_unique(::$name) = $unique)
     key = :(Judgements.judgement_key(::$name) = Symbol($name))
     level = :(Judgements.judgement_level(::$name) = $level())
-   
+
     # Create a new function with the same name as the judgement
     # This function accepts keyword arguments and creates a NamedTuple
     # The NamedTuple is then passed to the judgement constructor
     keyword_func = quote
-        function $name(;kwargs...)
+        function $name(; kwargs...)
             kwargs_tuple = NamedTuple{tuple(keys(kwargs)...)}(tuple(values(kwargs)...))
             $name(kwargs_tuple)
         end
     end
-        
 
-    
+
+
     return quote
         $(esc(inner))
         $(esc(outer))
@@ -86,7 +86,7 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
         $(esc(doc))
         $(esc(keyword_func))
     end
-    end
+end
 
 @newjudgement(
     Judgement,
@@ -109,11 +109,27 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
 """
 Extract rating from Judgement.
 
-If `rating` is called on a `Judgement` it returns the rating, on everything it returns identity.
+If `rating` is called on a `Judgement` it returns the rating, on everything it returns identity. 
+If `rating` is called on a `JudgementLevel` together with a field name, it returns the rating of that field. 
 
 """
 rating(x) = x
 rating(x::AbstractJudgement) = x.rating
+rating(x::JudgementLevel, field::Symbol) = rating(get(x, field))
+function rating(x::Union{Vector{Union{Taxon, AbstractJudgement}}, Vector{Union{JudgementLevel, AbstractJudgement}} })
+    if Base.:(==)(length(x), 1)
+        return rating(x[1])
+    elseif Base.:(==)(length(x), 0)
+        return x
+    else
+        error("Currently only ratings of single Judgements are supported.")
+        # res_vec = []
+        # for i in x 
+        #     push!(res_vec, rating(i))
+        # end
+        # return res_vec
+    end
+end
 
 """
 Extract certainty from Judgement.
