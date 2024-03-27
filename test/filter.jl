@@ -5,6 +5,51 @@
 end
 
 
+
+@testset "filter database on Record level" begin
+    test_db = RecordDatabase()
+
+    test_db += Record(
+        rater="VK",
+        id="2a129694-550c-4396-be6f-00507b1dc7ba",
+        Lang("en"),
+        Study(
+            N(100),
+            Model(Standardized(true)),
+            Model(Standardized(false))
+        ),
+        Study(
+            N(200),
+            Model(Standardized(false)),
+            Model(Standardized(false))
+        )
+    )
+
+    test_db += Record(
+        rater="VK",
+        id="7548949d-b2f5-436f-8577-4237fb51d5a7",
+        Lang("de"),
+        Study(
+            N(100),
+            Model(Standardized(true)),
+            Model(Standardized(false))
+        )
+    )
+
+    test_db += Record(
+        rater="VK",
+        id="7548949d-b2f5-436f-8577-4237fb51d5a8",
+        Lang("de")
+    )
+
+    filtered_record = filter(x -> rating(x, :Lang) == "en", test_db, Record())
+
+
+    ## Check if the correct records were filtered
+    @test length(filtered_record) == 1
+    @test rating(filtered_record[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")], :Lang) == "en"
+end
+
 @testset "filter database on Study level" begin
     test_db = RecordDatabase()
 

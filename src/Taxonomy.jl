@@ -17,6 +17,16 @@ module Taxonomy
 
     export DOI, UsualDOI, UnusualDOI
     include("metadata/doi.jl")
+
+    export Study
+    include("study.jl")
+
+    export Record, id, judgements,  location, spec, data, ExtractStudy
+    include("record.jl")
+
+    export RecordDatabase, check_uuid, check_url
+    import Base: UUID
+    include("database.jl")
     
     import Base.convert, Base.==
     export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
@@ -25,12 +35,6 @@ module Taxonomy
     include("judgements/Judgements.jl")
 
     using Taxonomy.Judgements
-
-    export Study
-    include("study.jl")
-
-    export Record, id, judgements,  location, spec, data, ExtractStudy
-    include("record.jl")
 
     import HTTP
     import JSON
@@ -56,10 +60,6 @@ module Taxonomy
     import UUIDs
     export generate_id
     include("uuid.jl")
-
-    export RecordDatabase, check_uuid, check_url
-    import Base: UUID
-    include("database.jl")
 
     export Model
     include("model.jl")
