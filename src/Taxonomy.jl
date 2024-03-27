@@ -67,6 +67,8 @@ module Taxonomy
     export factor_variance, structural_model, doi
     include("extractors.jl")
 
+    include("filter.jl")
+
     include("pretty_printing.jl")
 
     include("deprecated.jl")

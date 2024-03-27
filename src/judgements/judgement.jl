@@ -116,7 +116,7 @@ If `rating` is called on a `JudgementLevel` together with a field name, it retur
 rating(x) = x
 rating(x::AbstractJudgement) = x.rating
 rating(x::JudgementLevel, field::Symbol) = rating(get(x, field))
-function rating(x::Union{Vector{Union{Taxon, AbstractJudgement}}, Vector{Union{JudgementLevel, AbstractJudgement}} })
+function rating(x::Union{Vector{Union{Taxon,AbstractJudgement}},Vector{Union{JudgementLevel,AbstractJudgement}}})
     if Base.:(==)(length(x), 1)
         return rating(x[1])
     elseif Base.:(==)(length(x), 0)

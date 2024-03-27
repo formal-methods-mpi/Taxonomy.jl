@@ -22,6 +22,7 @@ end
 
     @test typeof(Study(test_record_1)) == Vector{Union{JudgementLevel,AbstractJudgement}}
     @test length(Study(test_record_1)) == 1
+    @test rating(Study(judgements(test_record_1))[1], :N) == 100
 
     test_record_2 = Record(
         rater="NH",
@@ -53,6 +54,8 @@ end
 
     @test typeof(Study(test_record_0)) == Vector{Union{JudgementLevel,AbstractJudgement}}
     @test length(Study(test_record_0)) == 0
+    @test length(Study(judgements(test_record_0))) == 0
+
 end
 
 
@@ -66,7 +69,6 @@ end
 
     @test typeof(Model(test_study_1)) == Vector{Union{JudgementLevel,AbstractJudgement}}
     @test length(Model(test_study_1)) == 1
-
 
     test_study_2 = Study(
         N(100),
