@@ -11,7 +11,6 @@ end
 
 Base.filter(f, s::JudgementLevel)::Vector{Union{JudgementLevel, AbstractJudgement}} = f(s) ? [s] : []
 
-
 function Base.filter(f, db::RecordDatabase, level::JudgementLevel)::RecordDatabase
 
     if typeof(level) == Record       

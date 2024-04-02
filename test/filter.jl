@@ -15,7 +15,8 @@ end
         Lang("en"),
         Study(
             N(100),
-            Model(Standardized(true)),
+            Model(Standardized(true)
+                  ),
             Model(Standardized(false))
         ),
         Study(

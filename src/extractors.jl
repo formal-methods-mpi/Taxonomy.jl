@@ -84,10 +84,10 @@ url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x))
 
 
-## Judgements of a specific type are always a vector, so we have to take elements of the vector
 function Base.get(r::JudgementLevel, field::Symbol, default=[])
     return get(judgements(r), field, default)
 end
+
 
 
 """
@@ -107,4 +107,25 @@ Extract all models from a Study.
 """
 function Model(s::Study)::Vector{Union{JudgementLevel,AbstractJudgement}}
     return get(judgements(s), :Model, [])
+end
+
+"""
+Extract all Taxons from a Model.
+"""
+function Taxon(m::Model)::Vector{Union{JudgementLevel,AbstractJudgement}}
+    return get(judgements(m), :Taxon, [])
+end
+
+"""
+Extract Measurement part from a Taxon. 
+"""
+function measurement_model(t::Taxon)
+    return t.measurement_model
+end
+
+"""
+Extract Structural part from a Taxon. 
+"""
+function structural_model(t::Taxon)
+    return t.structural_model
 end

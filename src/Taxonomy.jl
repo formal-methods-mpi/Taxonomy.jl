@@ -64,7 +64,7 @@ module Taxonomy
     export Model
     include("model.jl")
 
-    export factor_variance, structural_model, doi
+    export factor_variance, structural_model, doi, measurement_model
     include("extractors.jl")
 
     include("filter.jl")
