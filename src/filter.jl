@@ -1,6 +1,17 @@
-function Base.filter(f, s::Vector{Union{JudgementLevel,AbstractJudgement}})::Vector{Union{JudgementLevel,AbstractJudgement}}
+# function Base.filter(f, s::Vector{Union{JudgementLevel,AbstractJudgement}})::Vector{Union{JudgementLevel,AbstractJudgement}}
+#     res_vec = []
+#     for i in eachindex(s)
+#         if f(s[i])
+#             res_vec = push!(res_vec, s[i])
+#         end
+#     end
+
+#     return res_vec
+# end
+
+function Base.filter(f, s::Vector{Union{T,AbstractJudgement}} where T <: JudgementLevel)
     res_vec = []
-    for i in 1:length(s)
+    for i in eachindex(s)
         if f(s[i])
             res_vec = push!(res_vec, s[i])
         end
@@ -8,6 +19,7 @@ function Base.filter(f, s::Vector{Union{JudgementLevel,AbstractJudgement}})::Vec
 
     return res_vec
 end
+
 
 Base.filter(f, s::JudgementLevel)::Vector{Union{JudgementLevel, AbstractJudgement}} = f(s) ? [s] : []
 

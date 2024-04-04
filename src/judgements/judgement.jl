@@ -117,18 +117,18 @@ rating(x) = x
 rating(x::AbstractJudgement) = x.rating
 rating(x::JudgementLevel, field::Symbol) = rating(get(x, field))
 rating(x::Pair{Base.UUID, Record}, field::Symbol) = rating(x.second, field)
-function rating(x::Union{Vector{Union{T,AbstractJudgement}}}) where T <: JudgementLevel
+function rating(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
     if Base.:(==)(length(x), 1)
         return rating(x[1])
     elseif Base.:(==)(length(x), 0)
         return x
     else
-        error("Currently only ratings of single Judgements are supported.")
-        # res_vec = []
-        # for i in x 
-        #     push!(res_vec, rating(i))
-        # end
-        # return res_vec
+#        error("Currently only ratings of single Judgements are supported.")
+        res_vec = []
+        for i in x 
+            push!(res_vec, rating(i))
+        end
+        return res_vec
     end
 end
 

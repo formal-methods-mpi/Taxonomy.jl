@@ -93,19 +93,19 @@ end
 """
 Extract all studies from a record. 
 """
-function Study(r::Record)::Vector{Union{JudgementLevel,AbstractJudgement}}
+function Study(r::Record)::Vector{Union{Study,AbstractJudgement}}
     return get(judgements(r), :Study, [])
 
 end
 
-function Study(r::Dict{Symbol, Vector{Union{Study, AbstractJudgement}}})::Vector{Union{JudgementLevel,AbstractJudgement}}
+function Study(r::Dict{Symbol, Vector{Union{Study, AbstractJudgement}}})::Vector{Union{Study,AbstractJudgement}}
     return get(r, :Study, [])
 end
 
 """
 Extract all models from a Study. 
 """
-function Model(s::Study)::Vector{Union{JudgementLevel,AbstractJudgement}}
+function Model(s::Study)::Vector{Union{Model,AbstractJudgement}}
     return get(judgements(s), :Model, [])
 end
 
