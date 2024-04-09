@@ -22,11 +22,6 @@ end
 
 Base.filter(f, s::JudgementLevel)::Vector{Union{JudgementLevel,AbstractJudgement}} = f(s) ? [s] : []
 
-struct filter_levels 
-end
-
-
-
 function Base.filter(f, db::RecordDatabase, level::AbstractString)::RecordDatabase
 
     @assert level in ["Record", "Study", "Model", "Taxon"] "Invalid level. Choose from 'Record', 'Study', 'Model', 'Taxon'"
@@ -40,21 +35,27 @@ function Base.filter(f, db::RecordDatabase, level::AbstractString)::RecordDataba
         studies = Study(db[current_record])
 
 
-        if typeof(level) == "Study"
+        if level == "Study"
             judgements(db[current_record])[:Study] = filter(f, studies)
 
         else
 
             for current_study in eachindex(studies)
                 models = Model(studies[current_study])
-                if typeof(level) == "Model"
+                if level == "Model"
                     judgements(judgements(db[current_record])[:Study][current_study])[:Model] = filter(f, models)
 
                 else
                     for current_model in eachindex(models)
                         taxons = Taxon(models[current_model])
-                        if typeof(level) == "Taxon"
-                            judgements(Models(Study(db[current_record])[current_study])[current_model])[:Taxon] = filter(f, taxons)
+                        if level == "Taxon"
+                            filtered_taxons = filter(f, taxons)
+
+                            if length(filtered_taxons) > 0
+                                judgements(Model(Study(db[current_record])[current_study])[current_model])[:Taxon] = filtered_taxons
+                            else
+                                delete!(judgements(Model(Study(db[current_record])[current_study])[current_model]), :Taxon)
+                            end
                         end
                     end
                 end
