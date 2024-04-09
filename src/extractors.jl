@@ -84,7 +84,7 @@ url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x))
 
 
-function Base.get(r::JudgementLevel, field::Symbol, default=[])
+function Base.get(r::JudgementLevel, field::Symbol, default=Vector{Union{JudgementLevel, AbstractJudgement}}[])
     return get(judgements(r), field, default)
 end
 
@@ -112,7 +112,7 @@ end
 """
 Extract all Taxons from a Model.
 """
-function Taxon(m::Model)::Vector{Union{JudgementLevel,AbstractJudgement}}
+function Taxon(m::Model)::Vector{Union{Taxon,AbstractJudgement}}
     return get(judgements(m), :Taxon, [])
 end
 
