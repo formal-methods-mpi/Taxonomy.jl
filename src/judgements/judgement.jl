@@ -136,6 +136,7 @@ end
 Extract certainty from Judgement.
 """
 certainty(x::AbstractJudgement) = x.certainty
+certainty(x::Pair{Base.UUID, Record}, field::Symbol) = certainty(x.second, field)
 certainty(x::JudgementLevel, field::Symbol) = certainty(get(x, field))
 function certainty(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
     if Base.:(==)(length(x), 1)
