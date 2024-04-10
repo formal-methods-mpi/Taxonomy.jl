@@ -136,6 +136,21 @@ end
 Extract certainty from Judgement.
 """
 certainty(x::AbstractJudgement) = x.certainty
+certainty(x::JudgementLevel, field::Symbol) = certainty(get(x, field))
+function certainty(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
+    if Base.:(==)(length(x), 1)
+        return certainty(x[1])
+    elseif Base.:(==)(length(x), 0)
+        return x
+    else
+#        error("Currently only certainty of single Judgements is supported.")
+        res_vec = []
+        for i in x 
+            push!(res_vec, certainty(i))
+        end
+        return res_vec
+    end
+end
 
 """
 Extract comment from Judgement.
