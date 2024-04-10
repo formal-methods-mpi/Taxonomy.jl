@@ -126,8 +126,4 @@ end
     @test length(Taxon(test_model)) == 2
 end
 
-@testset "extract measurement_model" begin
-
-
-
 
