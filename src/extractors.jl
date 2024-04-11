@@ -17,10 +17,7 @@ rating(factor_variance(f))
 1.0
 ```
 """
-function factor_variance(x::Measurement)
-    x.factor_variance
-end
-
+factor_variance(x::Measurement) = x.factor_variance
 
 """
 Function to extract the `StenoGraphs` structural model from [`Structural`].
@@ -47,11 +44,7 @@ struct_model = Structural(structural_model = graph)
 structural_model(struct_model)
 ```
 """
-function structural_model(x::Structural)
-    x.structural_model
-end
-
-
+structural_model(x::Structural) = x.structural_model
 
 """
 Function to extract a Judgement from a `JudgementLevel` (e.g. [Model](@ref), [Record](@ref), [Study](@ref)).
@@ -83,49 +76,30 @@ judgements(x::JudgementLevel) = x.judgements
 url(x::Record) = url(location(x))
 url(x::RecordDatabase) = map(x -> url(x.second), collect(x))
 
-
-function Base.get(r::JudgementLevel, field::Symbol, default=Vector{Union{JudgementLevel, AbstractJudgement}}[])
-    return get(judgements(r), field, default)
-end
-
-
+Base.get(r::JudgementLevel, field::Symbol, default=Vector{Union{JudgementLevel,AbstractJudgement}}[]) = get(judgements(r), field, default)
 
 """
-Extract all studies from a record. 
+Extract all `Studies` from a `Record`. 
 """
-function Study(r::Record)::Vector{Union{Study,AbstractJudgement}}
-    return get(judgements(r), :Study, [])
-
-end
-
-function Study(r::Dict{Symbol, Vector{Union{Study, AbstractJudgement}}})::Vector{Union{Study,AbstractJudgement}}
-    return get(r, :Study, [])
-end
+Study(r::Record)::Vector{Union{Study,AbstractJudgement}} = get(judgements(r), :Study, [])
+Study(r::Dict{Symbol,Vector{Union{Study,AbstractJudgement}}})::Vector{Union{Study,AbstractJudgement}} = get(r, :Study, [])
 
 """
-Extract all models from a Study. 
+Extract all `Models` from a `Study`. 
 """
-function Model(s::Study)::Vector{Union{Model,AbstractJudgement}}
-    return get(judgements(s), :Model, [])
-end
+Model(s::Study)::Vector{Union{Model,AbstractJudgement}} = get(judgements(s), :Model, [])
 
 """
 Extract all Taxons from a Model.
 """
-function Taxon(m::Model)::Vector{Union{Taxon,AbstractJudgement}}
-    return get(judgements(m), :Taxon, [])
-end
+Taxon(m::Model)::Vector{Union{Taxon,AbstractJudgement}} = get(judgements(m), :Taxon, [])
 
 """
 Extract Measurement part from a Taxon. 
 """
-function measurement_model(t::Taxon)
-    return t.measurement_model
-end
+measurement_model(t::Taxon) = t.measurement_model
 
 """
 Extract Structural part from a Taxon. 
 """
-function structural_model(t::Taxon)
-    return t.structural_model
-end
+structural_model(t::Taxon) = t.structural_model
