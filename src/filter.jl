@@ -23,7 +23,7 @@ Filter the database at a given nesting level.
 - `level`: The character string of the level at which to filter the database. Possible values are `"Record"`, `"Study"`, `"Model"`, `"Taxon"`.
 
 # Examples
-```jldoctest
+```jldoctest filter-examples
 
 ## Example just for demonstration, coding is not actually derived from the paper!
 
@@ -67,9 +67,25 @@ test_db += Record(
 filter_Pathmodel = filter(x -> typeof(x) == NoTaxonEver, test_db, "Taxon")
 Model(Study(filter_Pathmodel[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[1])[2]
 
+# output
+Model(Dict{Symbol, Vector{Union{Taxon, AbstractJudgement}}}(:Taxon => [NoTaxonEver
+], :Standardized => [Standardized{Bool}(true, 1.0, missing)]))
+```
+
+```jldoctest filter-examples
+
 ## Filtering on Model level
 filter_Standardized = filter(x -> rating(x, :Standardized) == true, test_db, "Model")
 Model(Study(filter_Standardized[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[1])
+
+# output
+1-element Vector{Union{Model, AbstractJudgement}}:
+ Model(Dict{Symbol, Vector{Union{Taxon, AbstractJudgement}}}(:Taxon => [NoTaxonEver
+], :Standardized => [Standardized{Bool}(true, 1.0, missing)]))
+
+```
+
+```jldoctest filter-examples
 
 ## Filtering on Study level
 filter_N = filter(x -> certainty(x, :N) > 0.9, test_db, "Study")
