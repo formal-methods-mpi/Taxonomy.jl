@@ -4,6 +4,9 @@
     @test length(filter(x -> rating(x, :Empirical) == false, Study(Empirical(true)))) == 0
 end
 
+
+
+
 @testset "filter database on Record level" begin
     test_db = RecordDatabase()
 
@@ -23,7 +26,6 @@ end
             Model(Standardized(false))
         )
     )
-
     test_db += Record(
         rater="NH",
         id="7548949d-b2f5-436f-8577-4237fb51d5a7",
@@ -34,7 +36,6 @@ end
             Model(Standardized(false))
         )
     )
-
     test_db += Record(
         rater="NH",
         id="7548949d-b2f5-436f-8577-4237fb51d5a8",
@@ -47,18 +48,16 @@ end
     ## Check if the correct records were filtered
     @test length(filtered_db_en) == 1
     @test rating(filtered_db_en[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")], :Lang) == "en"
-
     @test length(filtered_db_de) == 2
     @test rating(filtered_db_de[Base.UUID("7548949d-b2f5-436f-8577-4237fb51d5a7")], :Lang) == "de"
-
-
     ## Edge case: No record fits the filter function
     filtered_db_fr = filter(x -> rating(x, :Lang) == "fr", test_db, "Record")
-
     @test length(filtered_db_fr) == 0
     @test typeof(filtered_db_fr) == RecordDatabase{Base.UUID,Record}
-
 end
+
+
+
 
 @testset "filter database on Study level" begin
     test_db = RecordDatabase()
@@ -96,7 +95,6 @@ end
         Lang("de")
     )
 
-
     ########################
     ## filtered_study_fit ##
     ########################
@@ -121,17 +119,17 @@ end
     ## filtered_study_nofield ##
     ############################
     filtered_study_nofield = filter(x -> rating(x, :NoField) == 2000, test_db, "Study")
-
     # There shouldn't be any study field left     
     for i in keys(filtered_study_nofield)
         @test :Study ∉ keys(judgements(filtered_study_nofield[i]))
     end
-
 end
+
+
+
 
 @testset "filter database on Model level" begin
     test_db = RecordDatabase()
-
     test_db += Record(
         rater="NH",
         id="2a129694-550c-4396-be6f-00507b1dc7ba",
@@ -148,7 +146,6 @@ end
             Model(Quest("What is the role of artificial intelligence in shaping our understanding of consciousness and self-awareness?"))
         )
     )
-
     test_db += Record(
         rater="NH",
         id="7548949d-b2f5-436f-8577-4237fb51d5a7",
@@ -159,7 +156,6 @@ end
             Model(Standardized(false))
         )
     )
-
     test_db += Record(
         rater="NH",
         id="7548949d-b2f5-436f-8577-4237fb51d5a8",
@@ -171,13 +167,11 @@ end
 
     filtered_db_fit = filter(x -> rating(x, :Standardized) == true, test_db, "Model")
 
-
     ## Check if the correct studies were filtered
     @test rating(Model(Study(filtered_db_fit[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[1])[1], :Standardized) == true
     @test length(Model(Study(filtered_db_fit[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[1])) == 1
     @test length(Model(Study(filtered_db_fit[Base.UUID("7548949d-b2f5-436f-8577-4237fb51d5a7")])[1])) == 1
     @test rating(Model(Study(filtered_db_fit[Base.UUID("7548949d-b2f5-436f-8577-4237fb51d5a7")])[1])[1], :Standardized) == true
-
     ## Dealing with cases where no case fits the filter function or where there is no Model in a Study:
     @test :Model ∉ keys(judgements(Study(filtered_db_fit[Base.UUID("7548949d-b2f5-436f-8577-4237fb51d5a8")])[1]))
     @test :Model ∉ keys(judgements(Study(filtered_db_fit[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])[2]))
@@ -187,8 +181,6 @@ end
     ## filtered_model_nofit ##
     ##########################
     filtered_db_nofit = filter(x -> certainty(x, :Standardized) < 1, test_db, "Model")
-
-
     # There shouldn't be any Model field left     
     for i in keys(filtered_db_nofit)
         record_studies = Study(filtered_db_nofit[i])
@@ -199,10 +191,10 @@ end
 end
 
 
+
+
 @testset "Test Filter on Taxon level" begin
-
     test_db = RecordDatabase()
-
     test_db += Record(
         rater="NH",
         id="2a129694-550c-4396-be6f-00507b1dc7ba",
@@ -232,7 +224,6 @@ end
             Model(Standardized(false))
         )
     )
-
     test_db += Record(
         rater="NH",
         id="2a129694-550c-4396-be6f-00507b1dc7bb",
@@ -282,8 +273,10 @@ end
     @test length(Taxon(Model(Study(filtered_db_fit[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])[2])[2])) == 1
     @test typeof(Taxon(Model(Study(filtered_db_fit[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7bb")])[2])[2])[1]) == LatentPathmodel
 
+    ##########################
+    ## filtered_taxon_nofit ##
+    ##########################
     filtered_db_nofit = filter(x -> typeof(x) == NoTaxonYet, test_db, "Taxon")
-
     # There shouldn't be any Taxon field left     
     for i in keys(filtered_db_nofit)
         record_studies = Study(filtered_db_nofit[i])

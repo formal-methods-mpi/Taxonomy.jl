@@ -19,10 +19,10 @@ end
             )
         )
     )
-
     @test typeof(Study(test_record_1)) == Vector{Union{Study,AbstractJudgement}}
     @test length(Study(test_record_1)) == 1
     @test rating(Study(judgements(test_record_1))[1], :N) == 100
+
 
     test_record_2 = Record(
         rater="NH",
@@ -41,7 +41,6 @@ end
             )
         )
     )
-
     @test typeof(Study(test_record_2)) == Vector{Union{Study,AbstractJudgement}}
     @test length(Study(test_record_2)) == 2
 
@@ -51,7 +50,6 @@ end
         id="2a129694-550c-4396-be6f-00507b1dc7bb",
         Lang("en")
     )
-
     @test typeof(Study(test_record_0)) == Vector{Union{Study,AbstractJudgement}}
     @test length(Study(test_record_0)) == 0
     @test length(Study(judgements(test_record_0))) == 0
@@ -66,9 +64,9 @@ end
             Standardized(true)
         )
     )
-
     @test typeof(Model(test_study_1)) == Vector{Union{Model,AbstractJudgement}}
     @test length(Model(test_study_1)) == 1
+
 
     test_study_2 = Study(
         N(100),
@@ -79,26 +77,25 @@ end
             Standardized(false)
         )
     )
-
-
     @test typeof(Model(test_study_2)) == Vector{Union{Model,AbstractJudgement}}
     @test length(Model(test_study_2)) == 2
+
 
     test_study_0 = Study(
         N(100)
     )
-
     @test typeof(Model(test_study_0)) == Vector{Union{Model,AbstractJudgement}}
     @test length(Model(test_study_0)) == 0
 end
 
 @testset "get for JudgementLevel" begin
     @test get(Study(N(100)), :N)[1] == N(100)
-    @test get(Study(N(100)), :Z) == Vector{Union{JudgementLevel, AbstractJudgement}}[]
+    @test get(Study(N(100)), :Z) == Vector{Union{JudgementLevel,AbstractJudgement}}[]
 end
 
 
 @testset "extract Taxons" begin
+
     test_model = Model(Standardized(true),
         LatentPathmodel(
             Structural(structural_model=missing),
@@ -121,7 +118,6 @@ end
             )
         )
     )
-
     @test typeof(Taxon(test_model)[1]) == LatentPathmodel
     @test length(Taxon(test_model)) == 2
 end
