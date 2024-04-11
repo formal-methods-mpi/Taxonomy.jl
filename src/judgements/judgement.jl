@@ -129,6 +129,10 @@ end
 
 """
 Extract certainty from Judgement.
+
+If `certainty` is called on a `Judgement` it returns the certainty, on everything it returns identity. 
+If `certainty` is called on a `JudgementLevel` together with a field name, it returns the certainty of that field. 
+
 """
 certainty(x::AbstractJudgement) = x.certainty
 certainty(x::Pair{Base.UUID, Record}, field::Symbol) = certainty(x.second, field)
