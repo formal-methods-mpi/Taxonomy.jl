@@ -118,17 +118,12 @@ rating(x::AbstractJudgement) = x.rating
 rating(x::JudgementLevel, field::Symbol) = rating(get(x, field))
 rating(x::Pair{Base.UUID, Record}, field::Symbol) = rating(x.second, field)
 function rating(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
-    if Base.:(==)(length(x), 1)
+    if length(x) == 1
         return rating(x[1])
-    elseif Base.:(==)(length(x), 0)
+    elseif length(x) == 0
         return x
     else
-#        error("Currently only ratings of single Judgements are supported.")
-        res_vec = []
-        for i in x 
-            push!(res_vec, rating(i))
-        end
-        return res_vec
+        error("It seems like you have provided a vector that contains multiple judgements. Only the rating of single judgement can be extracted.")
     end
 end
 
@@ -139,17 +134,12 @@ certainty(x::AbstractJudgement) = x.certainty
 certainty(x::Pair{Base.UUID, Record}, field::Symbol) = certainty(x.second, field)
 certainty(x::JudgementLevel, field::Symbol) = certainty(get(x, field))
 function certainty(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
-    if Base.:(==)(length(x), 1)
+    if length(x) == 1
         return certainty(x[1])
-    elseif Base.:(==)(length(x), 0)
+    elseif length(x) == 0
         return x
     else
-#        error("Currently only certainty of single Judgements is supported.")
-        res_vec = []
-        for i in x 
-            push!(res_vec, certainty(i))
-        end
-        return res_vec
+        error("It seems like you have provided a vector that contains multiple judgements. Only the certainty of single judgement can be extracted.")
     end
 end
 

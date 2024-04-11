@@ -1,5 +1,5 @@
 module Judgements
-    import Taxonomy: AbstractJudgement, Taxon, JudgementLevel, Record
+    import Taxonomy: AbstractJudgement, Taxon, JudgementLevel, Record, Base.==
     check_certainty(c) = ((c < 0.0) || (c > 1.0)) ? throw(ArgumentError("Certainty must be between 0 and 1.")) : nothing
     export AnyLevelJudgement, RecordJudgement, StudyJudgement, ModelJudgement
     export check_judgement_level, correct_judgement_level, judgements

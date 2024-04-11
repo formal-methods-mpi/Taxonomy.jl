@@ -8,9 +8,7 @@ function Base.filter(f, s::Vector{Union{T,AbstractJudgement}} where {T<:Judgemen
 
     return res_vec
 end
-
 Base.filter(f, s::JudgementLevel)::Vector{Union{JudgementLevel,AbstractJudgement}} = f(s) ? [s] : []
-
 
 """
     filter(f, db::RecordDatabase, level::AbstractString)::RecordDatabase
@@ -90,7 +88,6 @@ Model(Study(filter_Standardized[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba"
 ## Filtering on Study level
 filter_N = filter(x -> certainty(x, :N) > 0.9, test_db, "Study")
 Study(filter_N[Base.UUID("2a129694-550c-4396-be6f-00507b1dc7ba")])
-
 
 # output
 1-element Vector{Union{Study, AbstractJudgement}}:
