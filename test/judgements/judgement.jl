@@ -61,3 +61,10 @@ end
     isnothing(check_judgement_level(Observation()))
     @test_throws ArgumentError check_judgement_level(N(100), ( StudyJudgement(), ))  
 end
+
+
+@testset "JudgementLevel rating" begin
+    @test rating(get(Model(Standardized(true)), :Standardized)) == true
+    @test rating(Model(Standardized(true)), :Standardized)
+    @test rating(Study(N(100)), :N) == 100
+end

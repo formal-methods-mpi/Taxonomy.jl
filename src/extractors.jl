@@ -17,10 +17,7 @@ rating(factor_variance(f))
 1.0
 ```
 """
-function factor_variance(x::Measurement)
-    x.factor_variance
-end
-
+factor_variance(x::Measurement) = x.factor_variance
 
 """
 Function to extract the `StenoGraphs` structural model from [`Structural`].
@@ -47,11 +44,7 @@ struct_model = Structural(structural_model = graph)
 structural_model(struct_model)
 ```
 """
-function structural_model(x::Structural)
-    x.structural_model
-end
-
-
+structural_model(x::Structural) = x.structural_model
 
 """
 Function to extract a Judgement from a `JudgementLevel` (e.g. [Model](@ref), [Record](@ref), [Study](@ref)).
@@ -81,4 +74,32 @@ Dict{Symbol, Vector{Union{Study, AbstractJudgement}}} with 1 entry:
 """
 judgements(x::JudgementLevel) = x.judgements
 url(x::Record) = url(location(x))
-url(x::RecordDatabase) = map(x -> url(x.second), collect(x)) 
+url(x::RecordDatabase) = map(x -> url(x.second), collect(x))
+
+Base.get(r::JudgementLevel, field::Symbol, default=Vector{Union{JudgementLevel,AbstractJudgement}}[]) = get(judgements(r), field, default)
+
+"""
+Extract all `Studies` from a `Record`. 
+"""
+Study(r::Record)::Vector{Union{Study,AbstractJudgement}} = get(judgements(r), :Study, [])
+Study(r::Dict{Symbol,Vector{Union{Study,AbstractJudgement}}})::Vector{Union{Study,AbstractJudgement}} = get(r, :Study, [])
+
+"""
+Extract all `Models` from a `Study`. 
+"""
+Model(s::Study)::Vector{Union{Model,AbstractJudgement}} = get(judgements(s), :Model, [])
+
+"""
+Extract all Taxons from a Model.
+"""
+Taxon(m::Model)::Vector{Union{Taxon,AbstractJudgement}} = get(judgements(m), :Taxon, [])
+
+"""
+Extract Measurement part from a Taxon. 
+"""
+measurement_model(t::Taxon) = t.measurement_model
+
+"""
+Extract Structural part from a Taxon. 
+"""
+structural_model(t::Taxon) = t.structural_model

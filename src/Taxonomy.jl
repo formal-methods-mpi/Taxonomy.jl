@@ -17,20 +17,25 @@ module Taxonomy
 
     export DOI, UsualDOI, UnusualDOI
     include("metadata/doi.jl")
-    
-    import Base.convert, Base.==
-    export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
-    export JudgementNumber, JudgementBool, JudgementInt, JudgementString
-    export JudgementVecNumber, JudgementVecBool, JudgementVecInt, JudgementVecString
-    include("judgements/Judgements.jl")
-
-    using Taxonomy.Judgements
 
     export Study
     include("study.jl")
 
     export Record, id, judgements,  location, spec, data, ExtractStudy
     include("record.jl")
+
+    export RecordDatabase, check_uuid, check_url
+    import Base: UUID
+    include("database.jl")
+    
+    import Base.convert, Base.==
+    export Judgements, J, Judgement, NoJudgement, convert, rating, comment, certainty
+    export Empirical, Lang, N, Standardized, Quest
+    export JudgementNumber, JudgementBool, JudgementInt, JudgementString
+    export JudgementVecNumber, JudgementVecBool, JudgementVecInt, JudgementVecString
+    include("judgements/Judgements.jl")
+
+    using Taxonomy.Judgements
 
     import HTTP
     import JSON
@@ -57,17 +62,15 @@ module Taxonomy
     export generate_id
     include("uuid.jl")
 
-    export RecordDatabase, check_uuid, check_url
-    import Base: UUID
-    include("database.jl")
-
-    export factor_variance, structural_model, doi
-    include("extractors.jl")
-
-    include("pretty_printing.jl")
-
     export Model
     include("model.jl")
+
+    export factor_variance, structural_model, doi, measurement_model
+    include("extractors.jl")
+
+    include("filter.jl")
+
+    include("pretty_printing.jl")
 
     include("deprecated.jl")
 end

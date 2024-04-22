@@ -63,19 +63,19 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
     unique = :(Judgements.judgement_unique(::$name) = $unique)
     key = :(Judgements.judgement_key(::$name) = Symbol($name))
     level = :(Judgements.judgement_level(::$name) = $level())
-   
+
     # Create a new function with the same name as the judgement
     # This function accepts keyword arguments and creates a NamedTuple
     # The NamedTuple is then passed to the judgement constructor
     keyword_func = quote
-        function $name(;kwargs...)
+        function $name(; kwargs...)
             kwargs_tuple = NamedTuple{tuple(keys(kwargs)...)}(tuple(values(kwargs)...))
             $name(kwargs_tuple)
         end
     end
-        
 
-    
+
+
     return quote
         $(esc(inner))
         $(esc(outer))
@@ -86,7 +86,7 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
         $(esc(doc))
         $(esc(keyword_func))
     end
-    end
+end
 
 @newjudgement(
     Judgement,
@@ -109,16 +109,43 @@ macro newjudgement(name, level, doc, type=Any, check=x -> nothing, unique=true)
 """
 Extract rating from Judgement.
 
-If `rating` is called on a `Judgement` it returns the rating, on everything it returns identity.
+If `rating` is called on a `Judgement` it returns the rating, on everything it returns identity. 
+If `rating` is called on a `JudgementLevel` together with a field name, it returns the rating of that field. 
 
 """
 rating(x) = x
 rating(x::AbstractJudgement) = x.rating
+rating(x::JudgementLevel, field::Symbol) = rating(get(x, field))
+rating(x::Pair{Base.UUID, Record}, field::Symbol) = rating(x.second, field)
+function rating(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
+    if length(x) == 1
+        return rating(x[1])
+    elseif length(x) == 0
+        return x
+    else
+        error("It seems like you have provided a vector that contains multiple judgements. Only the rating of single judgement can be extracted.")
+    end
+end
 
 """
 Extract certainty from Judgement.
+
+If `certainty` is called on a `Judgement` it returns the certainty, on everything it returns identity. 
+If `certainty` is called on a `JudgementLevel` together with a field name, it returns the certainty of that field. 
+
 """
 certainty(x::AbstractJudgement) = x.certainty
+certainty(x::Pair{Base.UUID, Record}, field::Symbol) = certainty(x.second, field)
+certainty(x::JudgementLevel, field::Symbol) = certainty(get(x, field))
+function certainty(x::Vector{Union{T,AbstractJudgement}}) where T <: JudgementLevel
+    if length(x) == 1
+        return certainty(x[1])
+    elseif length(x) == 0
+        return x
+    else
+        error("It seems like you have provided a vector that contains multiple judgements. Only the certainty of single judgement can be extracted.")
+    end
+end
 
 """
 Extract comment from Judgement.

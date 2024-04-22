@@ -60,4 +60,34 @@ Judgement for N.
     Int # Input type. In this case Integer. 
 )
 
+@newjudgement(
+    Standardized,
+    ModelJudgement,  
+    """
+    Any part of the data or model is standardized
 
+    Procedure:
+    * Search for standard*
+    * If present, give True
+    """,
+    Bool # Input type. In this case boolean.
+)
+
+@newjudgement(
+    Quest,
+    ModelJudgement,
+    """
+    What questionnaire was used to measure the latent variable.
+    
+    Procedure:
+    * Look for first instance of questionnaire, 
+    * acronym or name is fine, copy and paste citation if availible
+    * Do not bother whether the scale is translated, modified or shortened.
+    * spend little time (<30s) on searching for it
+    * should be given multiple times for all quests present in a model.
+
+    """,
+    AbstractString,
+    x -> nothing,
+    unique = false
+)
